@@ -289,8 +289,8 @@ for regNum =  1 : data_c.regs.num_regs
                     modRegions = [modRegions;col(modids_tmp)];
                 end
                 resetRegions = or(reset_tmp,resetRegions);
-            elseif ~isempty(data_f) && (someMatchToSame)
-            %elseif  sum(strcmp(fieldnames(data_c), 'segs')) == 1 && ~isempty(data_f) && (someMatchToSame) %%%%%%%%%%
+%             elseif ~isempty(data_f) && (someMatchToSame)
+            elseif  sum(strcmp(fieldnames(data_c), 'segs')) == 1 && ~isempty(data_f) && (someMatchToSame) %%%%%%%%%%
                 indFwMap = find(occur>1);
                 valueFw = forwardMap(indFwMap);
                 cellsToMerge = [];

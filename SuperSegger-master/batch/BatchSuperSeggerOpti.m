@@ -212,8 +212,8 @@ else
         cleanup = onCleanup( @()( delete( h ) ) );
     end
     
-    parfor(j = 1:num_xy,workers)
-        %for j = 1:num_xy
+%     parfor(j = 1:num_xy,workers)
+    for j = 1:num_xy
         
         dirname_xy = dirname_list{j};
         intProcessXY( dirname_xy, skip, nc, num_c, clean_flag, ...
@@ -313,9 +313,10 @@ end
 
 
 % does the segmentations for all the frames in parallel
-if startEnd(1) <= 2 && startEnd(2) >=2 && ~exist( stamp_name, 'file' )
-    parfor(i=1:num_t,workers) % through all frames
-        %for i = 1:num_t
+% Edit: not sure why this was at 2... 3 is segmentation 
+if startEnd(1) <= 3 && startEnd(2) >=3 && ~exist( stamp_name, 'file' )
+%     parfor(i=1:num_t,workers) % through all frames
+    for i = 1:num_t
         
         if isempty( crop_box )
             crop_box_tmp = [];

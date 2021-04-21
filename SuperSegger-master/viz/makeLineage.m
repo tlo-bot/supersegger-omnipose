@@ -3,7 +3,8 @@ function data = makeLineage( clist, ID_, min_width )
 %
 % INPUT :
 %   clist : list of cells and characteristics
-%   ID_ : vector of cell ID to include. If empty all the cells are used
+%   ID_ : vector of cell ID to include. If empty all the cells are used (I
+%   don't think that is true.... - Kevin 
 %   min_width : min number of cells in a tree
 %
 % Copyright (C) 2016 Wiggins Lab
@@ -182,64 +183,64 @@ height1 = max(clist.data(:,5));
 ylim( [-.1,1.1]*height1 );
 
 
-figure(2);
-ylabel( 'Number of cells' );
-xlabel( 'time (frames)' );
-legend( hh, legend_text, 'Location' , 'NorthWest' );
-set( gca, 'YScale', 'log'  );
-title( 'Cummulative  Number of Cells' );
-
-try
-    ylim_ = data.n1_max;
-    ylim( [0.5,2*ylim_]);
-    xlim( [-.1,1.1]*height1 );
-end
-
-figure(3);
-ylabel( 'Log_2 Number of cells' );
-xlabel( 'Time (frames)' );
-legend( hh, legend_text, 'Location' , 'NorthWest' );
-%set( gca, 'YScale', 'log'  );
-title( 'Number of Cells' );
-
-legend( hh2, legend_text, 'Location' , 'NorthWest' );
-
-try
-    ylim_ = data.n2_max;
-    ylim( ceil(log([0.5,2*ylim_(end)])/log(2)) );
-    xlim( [-.1,1.1]*height1 );
-end
-
-set( gca, 'YGrid', 'on')
-
-
-list = unique([mother,daughter1, daughter2]);
-list = list(~isnan(list));
-list = list(list>0);
-
-intDoLengthAn( clist, list );
-
-
-figure(4);
-ylabel( 'Length' );
-xlabel( 'Time (frames)' );
-legend( hh, legend_text, 'Location' , 'NorthWest' );
-set( gca, 'YScale', 'log'  );
-
-
-figure(5);
-ylabel( 'Length' );
-xlabel( 'Time (frames)' );
-legend( hh, legend_text, 'Location' , 'NorthWest' );
-set( gca, 'YScale', 'log'  );
-
-figure(6);
-ylabel( 'Length' );
-xlabel( 'Time (frames)' );
-legend( hh, legend_text, 'Location' , 'NorthWest' );
-set( gca, 'YScale', 'log'  );
-
-data = makePed( data );
+% figure(2);
+% ylabel( 'Number of cells' );
+% xlabel( 'time (frames)' );
+% legend( hh, legend_text, 'Location' , 'NorthWest' );
+% set( gca, 'YScale', 'log'  );
+% title( 'Cummulative  Number of Cells' );
+% 
+% try
+%     ylim_ = data.n1_max;
+%     ylim( [0.5,2*ylim_]);
+%     xlim( [-.1,1.1]*height1 );
+% end
+% 
+% figure(3);
+% ylabel( 'Log_2 Number of cells' );
+% xlabel( 'Time (frames)' );
+% legend( hh, legend_text, 'Location' , 'NorthWest' );
+% %set( gca, 'YScale', 'log'  );
+% title( 'Number of Cells' );
+% 
+% legend( hh2, legend_text, 'Location' , 'NorthWest' );
+% 
+% try
+%     ylim_ = data.n2_max;
+%     ylim( ceil(log([0.5,2*ylim_(end)])/log(2)) );
+%     xlim( [-.1,1.1]*height1 );
+% end
+% 
+% set( gca, 'YGrid', 'on')
+% 
+% 
+% list = unique([mother,daughter1, daughter2]);
+% list = list(~isnan(list));
+% list = list(list>0);
+% 
+% intDoLengthAn( clist, list );
+% 
+% 
+% figure(4);
+% ylabel( 'Length' );
+% xlabel( 'Time (frames)' );
+% legend( hh, legend_text, 'Location' , 'NorthWest' );
+% set( gca, 'YScale', 'log'  );
+% 
+% 
+% figure(5);
+% ylabel( 'Length' );
+% xlabel( 'Time (frames)' );
+% legend( hh, legend_text, 'Location' , 'NorthWest' );
+% set( gca, 'YScale', 'log'  );
+% 
+% figure(6);
+% ylabel( 'Length' );
+% xlabel( 'Time (frames)' );
+% legend( hh, legend_text, 'Location' , 'NorthWest' );
+% set( gca, 'YScale', 'log'  );
+% 
+% data = makePed( data );
 
 end
 
