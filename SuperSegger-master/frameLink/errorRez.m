@@ -118,10 +118,10 @@ for regNum =  1 : data_c.regs.num_regs
             % Cell (regNum) and another cell in current frame map to one
             % in reverse but one cell in reverse, but reverse cell only
             % maps to one of them forward.
-            sister1 = regNum;
+            sister1 = regNum; %cell of interest
             sister2 = cCellsTransp (cCellsTransp~=regNum);
             mapRC = cCellsTransp;
-            mother = rCellsFromC;
+            mother = rCellsFromC; %cell from previous frame
             
             if debug_flag
                 % red in c maps to blue in r, blue in r maps to green in c
@@ -129,14 +129,14 @@ for regNum =  1 : data_c.regs.num_regs
                     ag(data_r.regs.regs_label == mother),ag(data_c.regs.regs_label==sister2)));
             end
             
-            totAreaC = data_c.regs.props(sister1).Area + data_c.regs.props(sister2).Area;
-            totAreaR =  data_r.regs.props(mother).Area;
-            AreaChange = (totAreaC-totAreaR)/totAreaC;
-            goodAreaChange = (AreaChange > DA_MIN && AreaChange < DA_MAX);
-            haveNoMatch = (isempty(data_c.regs.map.f{sister1}) || isempty(data_c.regs.map.f{sister2}));
-            matchToTheSame = ~haveNoMatch && all(ismember(data_c.regs.map.f{sister1}, data_c.regs.map.f{sister2}));
-            oneIsSmall = (cArea(sister1) < minAreaToMerge) || (cArea(sister2) < minAreaToMerge);
-            doNotAllowMerge =  ignoreError || manual_link;
+            totAreaC = data_c.regs.props(sister1).Area + data_c.regs.props(sister2).Area; %total current area
+            totAreaR =  data_r.regs.props(mother).Area; %total area in reverse frame
+            AreaChange = (totAreaC-totAreaR)/totAreaC; %normalized area change from previous
+            goodAreaChange = (AreaChange > DA_MIN && AreaChange < DA_MAX);  %bound area change by acceptable ratio
+            haveNoMatch = (isempty(data_c.regs.map.f{sister1}) || isempty(data_c.regs.map.f{sister2})); %if map.f are 0 for both sisterzzeu
+            matchToTheSame = ~haveNoMatch && all(ismember(data_c.regs.map.f{sister1}, data_c.regs.map.f{sister2})); %if they map to the same one forward
+            oneIsSmall = (cArea(sister1) < minAreaToMerge) || (cArea(sister2) < minAreaToMerge); %at least one cell is smaller than minimum area to merge
+            doNotAllowMerge =  ignoreError || manual_link; %if errors ignored and/or manually linked
             %if goodAreaChange && ~doNotAllowMerge && ...
                     %~isempty(data_f) && (haveNoMatch || matchToTheSame || oneIsSmall)
             if  sum(strcmp(fieldnames(data_c), 'segs')) == 1 && goodAreaChange && ~doNotAllowMerge && ...
@@ -289,8 +289,8 @@ for regNum =  1 : data_c.regs.num_regs
                     modRegions = [modRegions;col(modids_tmp)];
                 end
                 resetRegions = or(reset_tmp,resetRegions);
-            elseif ~isempty(data_f) && (someMatchToSame)
-            %elseif  sum(strcmp(fieldnames(data_c), 'segs')) == 1 && ~isempty(data_f) && (someMatchToSame) %%%%%%%%%%
+            %elseif ~isempty(data_f) && (someMatchToSame)
+            elseif  sum(strcmp(fieldnames(data_c), 'segs')) == 1 && ~isempty(data_f) && (someMatchToSame) %%%%%%%%%%
                 indFwMap = find(occur>1);
                 valueFw = forwardMap(indFwMap);
                 cellsToMerge = [];

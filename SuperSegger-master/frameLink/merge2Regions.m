@@ -29,24 +29,24 @@ function [data_c,resetRegions] = merge2Regions (data_c, list_merge, CONST)
 % GNU General Public License for more details.
 
 resetRegions = 0;
-masksum = 0*data_c.regs.regs_label;
+masksum = 0*data_c.regs.regs_label; %zero matrix with same size as regs_label
 
 for i = 1 : numel(list_merge)
-    mask1 = (data_c.regs.regs_label == list_merge(i));
-    masksum = (masksum+mask1);
+    mask1 = (data_c.regs.regs_label == list_merge(i)); %focus on the sister1, sister2 part of regs_label
+    masksum = (masksum+mask1); %add the focused area to the zero matrix
 end
 
-masksum_  = imdilate(masksum,strel('square',3));
-masksum__  = imerode(masksum_,strel('square',3));
+masksum_  = imdilate(masksum,strel('square',3)); %dilate the regions
+masksum__  = imerode(masksum_,strel('square',3)); %erode the dilated regions for merged mask
 
-labels =  bwlabel(masksum__);
-if max(labels(:)) == 1
-    segsInMask = data_c.segs.segs_label;
-    segsInMask(~masksum__) = 0;
-    segsInMask = logical(segsInMask);
-    data_c.segs.segs_good(segsInMask) = 0;
-    data_c.segs.segs_bad(segsInMask) = 1;
-    data_c.mask_cell = double((data_c.mask_cell + masksum__)>0);
+labels =  bwlabel(masksum__); %make labeled mask from new mask
+if max(labels(:)) == 1 %if only one labeled area in new mask
+    segsInMask = data_c.segs.segs_label; %all the segs
+    segsInMask(~masksum__) = 0; %ignore segs not in region of focus
+    segsInMask = logical(segsInMask); %set all segs in region to 1
+    data_c.segs.segs_good(segsInMask) = 0; %turn off the segs that were good in that region
+    data_c.segs.segs_bad(segsInMask) = 1; %turn the segs that were bad back on (?)
+    data_c.mask_cell = double((data_c.mask_cell + masksum__)>0); %add the merged mask to the original mask
     resetRegions = true;
 end
 
