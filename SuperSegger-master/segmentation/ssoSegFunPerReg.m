@@ -69,9 +69,11 @@ end
 % else
     data = [];
     data.phase = phase;
-    maskdir = extractBefore(dataname,'xy1');
-    filename = char(extractBetween(dataname,'seg\','_seg.mat'));
-    maskpath = strcat(maskdir,filename,'c1_cp_masks.png'); %get path of cellpose mask
+    % masks now stored adjacent to 'phase' directory 
+    maskdir = [extractBefore(dataname,'seg') 'cp_masks' filesep];
+%     maskdir = [extractBefore(dataname,'seg') 'phase' filesep];
+    filename = char(extractBetween(dataname,['seg' filesep],'_seg.mat')); %generalized to filesep 
+    maskpath = strcat(maskdir,filename,'c1_cp_masks.png'); %get path of cellpose mask    
     data = intMakeRegs( maskpath, data, CONST ); %input cellpose mask 
     err_flag = false; %shh no errors here...
 % end
