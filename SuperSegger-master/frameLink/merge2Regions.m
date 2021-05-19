@@ -37,16 +37,24 @@ for i = 1 : numel(list_merge)
 end
 
 masksum_  = imdilate(masksum,strel('square',3)); %dilate the regions
-masksum__  = imerode(masksum_,strel('square',3)); %erode the dilated regions for merged mask
+masksum__  = imerode(masksum_,strel('square',3)); %erode the dilated regions to remove holes/separations
 
 labels =  bwlabel(masksum__); %make labeled mask from new mask
 if max(labels(:)) == 1 %if only one labeled area in new mask
-    segsInMask = data_c.segs.segs_label; %all the segs
-    segsInMask(~masksum__) = 0; %ignore segs not in region of focus
-    segsInMask = logical(segsInMask); %set all segs in region to 1
-    data_c.segs.segs_good(segsInMask) = 0; %turn off the segs that were good in that region
-    data_c.segs.segs_bad(segsInMask) = 1; %turn the segs that were bad back on (?)
-    data_c.mask_cell = double((data_c.mask_cell + masksum__)>0); %add the merged mask to the original mask
+    lowerid = min(list_merge); %find lower region ID (or could do higher)
+    rl = data_c.regs.regs_label;
+    rl(rl==list_merge(1)) = 0; %clear the erroneous masks 
+    rl(rl==list_merge(2)) = 0;
+    labels(labels==1) = lowerid; %set the merged mask to have the lower ID
+    rl = rl + labels; %add the merged mask to the overall mask
+    data_c.regs.regs_label = rl; %save new overall mask into data_c
+    
+%     segsInMask = data_c.segs.segs_label; %all the segs
+%     segsInMask(~masksum__) = 0; %ignore segs not in region of focus
+%     segsInMask = logical(segsInMask); %set all segs in region to 1
+%     data_c.segs.segs_good(segsInMask) = 0; %turn off the segs that were good in that region
+%     data_c.segs.segs_bad(segsInMask) = 1; %turn the segs that were bad back on (?)
+%     data_c.mask_cell = double((data_c.mask_cell + masksum__)>0); %add the merged mask to the original mask
     resetRegions = true;
 end
 

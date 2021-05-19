@@ -1,4 +1,4 @@
-function [data_new,success] = missingSeg2to1 (data_c,regC,data_r,regR,data_f,regF,CONST)
+function [data_new,success] = missingSeg2to1 (data_c,regC,data_r,regR,CONST)
 % missingSeg2to1 : finds missing segment in regC.
 % Segments in regC are used that are close to the segment
 % between the two regions regR(1) and regR(2) in data_r.
@@ -11,8 +11,6 @@ function [data_new,success] = missingSeg2to1 (data_c,regC,data_r,regR,data_f,reg
 %      regC : numbers of region in current data that needs to be separated
 %      data_r : reverse data (seg/err) file.
 %      regR : numbers of regions in reverse data file
-%      data_f : forward data (seg/err) file.
-%      regF : numbers of regions in forward data file
 %      CONST : segmentation parameters
 %
 % OUTPUT :
@@ -48,94 +46,56 @@ shortAxis = data_c.regs.info(regC,2);
 mask = (data_c.regs.regs_label(yy,xx) == regC);
 
 %%%%%%%%%%
-% regC = regNum;
-% regR = rCellsFromC;
+I = data_c.phase(yy,xx);
+smallerdim = min(length(xx),length(yy));
+Ic = imcomplement(I);
+mcIc = magicContrast(Ic,smallerdim-2);
+nmcIc = ag(mcIc);
+se = strel('diamond',3);
+imr = imreconstruct(imerode(nmcIc,se),nmcIc);
+imrd = imdilate(imr,se);
+imrdp = imcomplement(imreconstruct(imcomplement(imrd), imcomplement(imr)));
+%fgm = imregionalmax(imrdp); %find all regional max
+fgm1 = imextendedmax(imrdp,2); %find regional max that are greater than
+%neighbors by at least 2 units
+%imshowpair(fgm,fgm1,'montage')
+%imshowpair(watershed(-(fgm&mask)),watershed(-(fgm1&mask)),'montage')
+%wlfgm = watershed(-(fgm&mask))==0;
+wlfgm1 = watershed(-(fgm1&mask))==0;
+mask1 = mask;
+mask1(wlfgm1==1) = 0;
+mask1label = bwlabel(mask1);
+mask1label(mask1label==1) = regR(1);
+mask1label(mask1label==2) = regR(2);
 
 rl = data_c.regs.regs_label;
-rlr = data_r.regs.regs_label;
-mask = double(rl == regC); %pick out region causing error
-maskr = double(rlr==regR(1)); %get mask of 2 cells from previous frame 
-maskr = maskr + 2*double(rlr==regR(2)); %label as 1 and 2
+[x,y] = find(rl==regC);
+[roix,roiy] = find(mask>0);
+%replaceArea = data_c.regs.props(regC).BoundingBox;
 
-% maskr = regR(1)*double(data_r.regs.regs_label==regR(1)); 
-% maskr = maskr + regR(2)*double(data_r.regs.regs_label==regR(2)); %label
-% with regions from frame r
-%imshowpair(mask,maskr,'montage')
-
-%registrationEstimator(maskr,mask) %gui to determine registration function
-regisr = registerMasks_monointensity(maskr,mask); %register mask from r frame to current mask
-regisr_mask = regisr.RegisteredImage; %registered mask, normalized to one
-
-%% below here only uses reverse frame info
-%applying same registration to watershed makes ws line discontinuous :/
-% Lw = imwarp_same(L, regisr.SpatialRefObj, regisr.Transformation); %affine
-% Lw = imwarp(Lw,regisr.DisplacementField); %nonrigid
-%imshowpair(regisr_mask,Lw)
-
-reg_list = unique( regisr_mask(regisr_mask>0) ); %different labels 0.5, 1 for each region
-%expand image and erode masks slightly to make create a gap for
-%watershedding
-cell_mask = 0*imresize(regisr_mask,8); %blank template
-se = strel('square',15); %not sure if 15 is general enough or do a fraction of cell width?
-for ii = reg_list'
-  cell_mask = cell_mask + imerode( imresize(regisr_mask == ii,8), se );
-end
-% fs = fspecial( 'gaussian', 14,2 );
-% cell_smooth = -imfilter( double(cell_mask), fs, 'replicate' );
-cell_smooth = imgaussfilt(-cell_mask,4); %apply gaussian filter to smooth out gap between
-L = watershed(cell_smooth); %splits and assigns labels 1,2 
-masknewlabel = double(imresize(L,1/8)).*mask; %shrink down, which collapses watershed line to negligible, then pick overlap with current frame mask
-
-%% uncomment below section (& comment above section) to also use forward frame info (haven't tested) 
-% rlf = data_f.regs.regs_label;
-% maskf = double(rlf==regF(1));
-% maskf = maskf + 2*double(rlf==regF(2));
-%regisf = registerMasks_monointensity(maskf,mask);
-%regisf_mask = 4*regisf.RegisteredImage; %multiply by 4 to have labels 2,4
-%rather than 0.5, 1 so that adding does not create overlap
-%regisrf_mask = regisr_mask + regisf_mask;
-%reg_list = [2.5; 5]; % overlap r1r + r1f = 0.5+2 = 2.5, r2r + r2f = 5
-%cell_mask = 0*imresize(regisrf_mask,8); %blank template
-%se = strel('square',15); %not sure if 15 is general enough or do a fraction of cell width?
-% for ii = reg_list'
-%   cell_mask = cell_mask + imerode( imresize(regisrf_mask == ii,8), se );
-% end
-% cell_smooth = imgaussfilt(-cell_mask,4); %apply gaussian filter to smooth out gap between
-% L = watershed(cell_smooth);
-% masknewlabel = double(imresize(L,1/8)).*mask; %shrink down, which collapses watershed line to negligible, then pick overlap with current frame mask
-
-%% this method is faster, but leaves a segmentation line rather than just 2 cells
-%next to each other from the resize method
-% r1 =  (regisr_mask==0.5); %one cell will be roughly labeled by 0.5 but can't use range since edges fade to 0
-% r2 = (1>=regisr_mask) & (regisr_mask>0.85); %other cell labeled by 1
-% %r1 = imdilate(r1, strel('square',2)); %dilate the 0.5 region since the
-% %selection isn't precise, but this dilation is too much (overlaps r2)
-% sr1 = bwdist(~r1);
-% sr2 = bwdist(~r2);
-% sr12 = -(sr1 + sr2);
-% mark = imextendedmin(sr12,2);
-% dsr12 = imimposemin(sr12,mark); %impose labeled cells as markers
-% L = watershed(dsr12); %watershed the registered mask
-% masknew = mask; %use the (current) erroneous mask as the current mask
-% masknew(L==0) = 0; %apply watershed to split merged mask
-% masknewlabel = bwlabel(masknew);
-
-%% apply new mask to output data_new
-
-if max(masknewlabel(:))==2 %only add if 2 new regions found
-    maxreg = data_c.regs.num_regs; %get the max region in the current frame
-    masknewlabel(masknewlabel==1) = maxreg+1; %relabel regions to be greater than max region
-    masknewlabel(masknewlabel==2) = maxreg+2; %hopefully no overlap/double labeled regions
-    
-    rl(rl==regC)=0; %set erroneous merged mask to zero
-    rl = rl + masknewlabel; %add fixed mask
-    
-    data_new.regs.regs_label = rl;
-end
+rl(rl==regC)=0;
+iddiff = abs(regR(2)-regR(1));
+rl(rl>regC) = rl(rl>min(regR))+iddiff;
+rl(x,y) = rl(x,y) + mask1label(roix,roiy);
+data_new.regs.regs_label = rl;
 
 if ~isequal(rl,data_c.regs.regs_label) %if the regs_label mask has been changed
     success = true;
 end
+
+% mask2 = mask;
+% mask2(wlfgm==1) = 0; %what if they are directly touching? ie set to 0, bwlabel, then add back the ws line==mask but to which cell
+% mask2label = bwlabel(mask2);
+% mask2label(mask2label==1) = regR(1);
+% mask2label(mask2label==2) = regR(2); %could accidentally switch them up if vertical
+
+
+% level = graythresh(I);
+% BW = imbinarize(I,level);
+% BWerode = imerode(~BW, strel('diamond',1));
+% BWerode = BWerode & mask;
+% dist = -bwdist(~BWerode);
+%wBW = watershed(dist);
 
 %%%%%%%%%%%%%%%%%%%%%%
 %mask = (mask - data_c.segs.segs_3n(yy,xx))>0;

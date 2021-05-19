@@ -77,6 +77,8 @@ for regNum =  1 : data_c.regs.num_regs
     else
 
         rCellsFromC = data_c.regs.map.r{regNum}; % where regNum maps in reverse
+        fCellsFromC = data_c.regs.map.f{regNum};
+        
         if ~isempty(rCellsFromC)
             cCellsFromR = data_r.regs.map.f{rCellsFromC};
             cCellsTransp = data_c.regs.revmap.r{rCellsFromC};
@@ -137,10 +139,10 @@ for regNum =  1 : data_c.regs.num_regs
             matchToTheSame = ~haveNoMatch && all(ismember(data_c.regs.map.f{sister1}, data_c.regs.map.f{sister2})); %if they map to the same one forward
             oneIsSmall = (cArea(sister1) < minAreaToMerge) || (cArea(sister2) < minAreaToMerge); %at least one cell is smaller than minimum area to merge
             doNotAllowMerge =  ignoreError || manual_link; %if errors ignored and/or manually linked
-            %if goodAreaChange && ~doNotAllowMerge && ...
-                    %~isempty(data_f) && (haveNoMatch || matchToTheSame || oneIsSmall)
-            if  sum(strcmp(fieldnames(data_c), 'segs')) == 1 && goodAreaChange && ~doNotAllowMerge && ...
+            if goodAreaChange && ~doNotAllowMerge && ...
                     ~isempty(data_f) && (haveNoMatch || matchToTheSame || oneIsSmall)
+            %if  sum(strcmp(fieldnames(data_c), 'segs')) == 1 && goodAreaChange && ~doNotAllowMerge && ...
+                    %~isempty(data_f) && (haveNoMatch || matchToTheSame || oneIsSmall)
                 % r: one has no forward mapping, or both map to the same in fw, or one small
                 % wrong division merge cells
 
@@ -179,10 +181,10 @@ for regNum =  1 : data_c.regs.num_regs
                 if goodAreaChange && ~doNotAllowMerge && (haveNoMatch || matchToTheSame || oneIsSmall)
                     % wrong division merge cells
                     if ~ignoreError
-                        %[data_c,reset_tmp] = merge2Regions (data_c, [sister1, sister2], CONST);
-                        %modRegions = [modRegions;col(mapRC) ];
-                        [data_c,data_r,cell_count,reset_tmp,modids_tmp] = mapBestOfTwo (data_c, mapRC, data_r, rCellsFromC, time, verbose, cell_count,header,data_f);
-                        modRegions = [modRegions;col(modids_tmp)];
+                        [data_c,reset_tmp] = merge2Regions (data_c, [sister1, sister2], CONST);
+                        modRegions = [modRegions;col(mapRC) ];
+                        %[data_c,data_r,cell_count,reset_tmp,modids_tmp] = mapBestOfTwo (data_c, mapRC, data_r, rCellsFromC, time, verbose, cell_count,header,data_f);
+                        %modRegions = [modRegions;col(modids_tmp)];
                     else
                         [data_c,data_r,cell_count,reset_tmp,modids_tmp] = mapBestOfTwo (data_c, mapRC, data_r, rCellsFromC, time, verbose, cell_count,header,data_f);
                         modRegions = [modRegions;col(modids_tmp)];
@@ -245,8 +247,8 @@ for regNum =  1 : data_c.regs.num_regs
             end
 
             if ~ignoreError
-                %[data_c,success] = missingSeg2to1 (data_c,regNum,data_r,rCellsFromC,CONST);
-                success = false;
+                
+                [data_c,success] = missingSeg2to1 (data_c,regNum,data_r,rCellsFromC,data_f,fCellsFromC,CONST);
             else
                 success = false;
             end
@@ -280,17 +282,17 @@ for regNum =  1 : data_c.regs.num_regs
             if  ~isempty(data_f) && (haveNoMatch || matchToTheSame)
                 if ~ignoreError
                     % wrong division merge cells
-                    %[data_c,reset_tmp] = merge2Regions (data_c, cCellsFromR, CONST);
-                    %modRegions = [modRegions;col(cCellsFromR)];
-                    [data_c,data_r,cell_count,reset_tmp,modids_tmp] = mapBestOfTwo (data_c, cCellsTransp, data_r, rCellsFromC, time, verbose, cell_count,header,data_f);
-                    modRegions = [modRegions;col(modids_tmp)];
+                    [data_c,reset_tmp] = merge2Regions (data_c, cCellsFromR, CONST);
+                    modRegions = [modRegions;col(cCellsFromR)];
+                    %[data_c,data_r,cell_count,reset_tmp,modids_tmp] = mapBestOfTwo (data_c, cCellsTransp, data_r, rCellsFromC, time, verbose, cell_count,header,data_f);
+                    %modRegions = [modRegions;col(modids_tmp)];
                 else
                     [data_c,data_r,cell_count,reset_tmp,modids_tmp] = mapBestOfTwo (data_c, cCellsTransp, data_r, rCellsFromC, time, verbose, cell_count,header,data_f);
                     modRegions = [modRegions;col(modids_tmp)];
                 end
                 resetRegions = or(reset_tmp,resetRegions);
-            %elseif ~isempty(data_f) && (someMatchToSame)
-            elseif  sum(strcmp(fieldnames(data_c), 'segs')) == 1 && ~isempty(data_f) && (someMatchToSame) %%%%%%%%%%
+            elseif ~isempty(data_f) && (someMatchToSame)
+            %elseif  sum(strcmp(fieldnames(data_c), 'segs')) == 1 && ~isempty(data_f) && (someMatchToSame) %%%%%%%%%%
                 indFwMap = find(occur>1);
                 valueFw = forwardMap(indFwMap);
                 cellsToMerge = [];
