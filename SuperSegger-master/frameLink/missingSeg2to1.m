@@ -67,25 +67,25 @@ regisr = registerMasks_monointensity(maskr,mask); %register mask from r frame to
 regisr_mask = regisr.RegisteredImage; %registered mask, normalized to one
 
 %% below here only uses reverse frame info
-% next to each other from the resize method
-%applying same registration to watershed makes ws line discontinuous :/
-% Lw = imwarp_same(L, regisr.SpatialRefObj, regisr.Transformation); %affine
-% Lw = imwarp(Lw,regisr.DisplacementField); %nonrigid
-%imshowpair(regisr_mask,Lw)
-
-reg_list = unique( regisr_mask(regisr_mask>0) ); %different labels 0.5, 1 for each region
-%expand image and erode masks slightly to make create a gap for
-%watershedding
-cell_mask = 0*imresize(regisr_mask,8); %blank template
-se = strel('square',15); %not sure if 15 is general enough or do a fraction of cell width?
-for ii = reg_list'
-  cell_mask = cell_mask + imerode( imresize(regisr_mask == ii,8), se );
-end
-% fs = fspecial( 'gaussian', 14,2 );
-% cell_smooth = -imfilter( double(cell_mask), fs, 'replicate' );
-cell_smooth = imgaussfilt(-cell_mask,4); %apply gaussian filter to smooth out gap between
-L = watershed(cell_smooth); %splits and assigns labels 1,2 
-masknewlabel = double(imresize(L,1/8)).*mask; %shrink down, which collapses watershed line to negligible, then pick overlap with current frame mask
+% % next to each other from the resize method
+% %applying same registration to watershed makes ws line discontinuous :/
+% % Lw = imwarp_same(L, regisr.SpatialRefObj, regisr.Transformation); %affine
+% % Lw = imwarp(Lw,regisr.DisplacementField); %nonrigid
+% %imshowpair(regisr_mask,Lw)
+% 
+% reg_list = unique( regisr_mask(regisr_mask>0) ); %different labels 0.5, 1 for each region
+% %expand image and erode masks slightly to make create a gap for
+% %watershedding
+% cell_mask = 0*imresize(regisr_mask,8); %blank template
+% se = strel('square',15); %not sure if 15 is general enough or do a fraction of cell width?
+% for ii = reg_list'
+%   cell_mask = cell_mask + imerode( imresize(regisr_mask == ii,8), se );
+% end
+% % fs = fspecial( 'gaussian', 14,2 );
+% % cell_smooth = -imfilter( double(cell_mask), fs, 'replicate' );
+% cell_smooth = imgaussfilt(-cell_mask,4); %apply gaussian filter to smooth out gap between
+% L = watershed(cell_smooth); %splits and assigns labels 1,2 
+% masknewlabel = double(imresize(L,1/8)).*mask; %shrink down, which collapses watershed line to negligible, then pick overlap with current frame mask
 
 %% uncomment below section (& comment above section) to also use forward frame info (haven't tested) 
 % rlf = data_f.regs.regs_label;
@@ -123,7 +123,7 @@ masknewlabel = double(imresize(L,1/8)).*mask; %shrink down, which collapses wate
 % masknew(L==0) = 0; %apply watershed to split merged mask
 % masknewlabel = bwlabel(masknew);
 
-%% modified bwdist and watershed to not have a segmentation line
+%% modified watershed to not have a segmentation line
 r1 = (regisr_mask==0.5); %one cell labeled by 0.5 
 r2 = (regisr_mask==1); %other cell labeled by 1
 sr1 = bwdist(~r1);
