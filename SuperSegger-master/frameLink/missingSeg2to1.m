@@ -67,6 +67,7 @@ regisr = registerMasks_monointensity(maskr,mask); %register mask from r frame to
 regisr_mask = regisr.RegisteredImage; %registered mask, normalized to one
 
 %% below here only uses reverse frame info
+% next to each other from the resize method
 %applying same registration to watershed makes ws line discontinuous :/
 % Lw = imwarp_same(L, regisr.SpatialRefObj, regisr.Transformation); %affine
 % Lw = imwarp(Lw,regisr.DisplacementField); %nonrigid
@@ -105,7 +106,9 @@ masknewlabel = double(imresize(L,1/8)).*mask; %shrink down, which collapses wate
 % masknewlabel = double(imresize(L,1/8)).*mask; %shrink down, which collapses watershed line to negligible, then pick overlap with current frame mask
 
 %% this method is faster, but leaves a segmentation line rather than just 2 cells
-%next to each other from the resize method
+%with regisr_mask as the more precise registration with both affine and
+%nonrigid transformations (rather than just affine)
+
 % r1 =  (regisr_mask==0.5); %one cell will be roughly labeled by 0.5 but can't use range since edges fade to 0
 % r2 = (1>=regisr_mask) & (regisr_mask>0.85); %other cell labeled by 1
 % %r1 = imdilate(r1, strel('square',2)); %dilate the 0.5 region since the
@@ -119,6 +122,24 @@ masknewlabel = double(imresize(L,1/8)).*mask; %shrink down, which collapses wate
 % masknew = mask; %use the (current) erroneous mask as the current mask
 % masknew(L==0) = 0; %apply watershed to split merged mask
 % masknewlabel = bwlabel(masknew);
+
+%% modified bwdist and watershed to not have a segmentation line
+r1 = (regisr_mask==0.5); %one cell labeled by 0.5 
+r2 = (regisr_mask==1); %other cell labeled by 1
+sr1 = bwdist(~r1);
+sr2 = bwdist(~r2);
+sr12 = -(sr1 + sr2);
+mark = imextendedmin(sr12,2); %find the mimima of the registered mask
+dsr12 = imimposemin(sr12,mark); %impose labeled cells as markers
+L = watershedpaw(dsr12); %watershed the registered mask, paw function modified to not leave a dividing segment
+
+% dist1 = bwdistpaw(regisr_mask); %alternative bwdist with cells outlined by 0, negative bwdist on inside and positive on outside
+% %mark = -(dist1.*double(dist1<0));
+% mark = dist1<0;
+% ddist1 = imimposemin(dist1,mark);
+% L = watershedpaw(ddist1); %seems to give similar watershed as above
+
+masknewlabel = double(L).*mask;
 
 %% apply new mask to output data_new
 
