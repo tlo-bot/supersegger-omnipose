@@ -284,8 +284,6 @@ for regNum =  1 : data_c.regs.num_regs
                     % wrong division merge cells
                     [data_c,reset_tmp] = merge2Regions (data_c, cCellsFromR, CONST);
                     modRegions = [modRegions;col(cCellsFromR)];
-                    %[data_c,data_r,cell_count,reset_tmp,modids_tmp] = mapBestOfTwo (data_c, cCellsTransp, data_r, rCellsFromC, time, verbose, cell_count,header,data_f);
-                    %modRegions = [modRegions;col(modids_tmp)];
                 else
                     [data_c,data_r,cell_count,reset_tmp,modids_tmp] = mapBestOfTwo (data_c, cCellsTransp, data_r, rCellsFromC, time, verbose, cell_count,header,data_f);
                     modRegions = [modRegions;col(modids_tmp)];
@@ -303,7 +301,6 @@ for regNum =  1 : data_c.regs.num_regs
                     end
 
                 end
-                %%% potential error
                 [data_c,reset_tmp] = merge2Regions (data_c, cellsToMerge, CONST);
                 modRegions = [modRegions;col(cellsToMerge)];
                 resetRegions = or(reset_tmp,resetRegions);

@@ -107,13 +107,13 @@ end
 
 function masknewlabel = createMask(maskc, registeredmask, numr1, numr2)
     
-    r1 = (registeredmask==numr1); %one cell labeled by 0.5 
-    r2 = (registeredmask==numr2); %other cell labeled by 1
+    r1 = (registeredmask==numr1); %one cell labeled by numr1
+    r2 = (registeredmask==numr2); %other cell labeled by numr2
     sr1 = bwdist(~r1);
     sr2 = bwdist(~r2);
     sr12 = -(sr1 + sr2);
     mark = imextendedmin(sr12,2); %find the mimima of the registered mask
-    dsr12 = imimposemin(sr12,mark); %impose labeled cells as markers
+    dsr12 = imimposemin(sr12,mark); %impose labeled cells as markers of where minima are
     L = watershedpaw(dsr12); %watershed the registered mask, paw function modified to not leave a dividing segment
     masknewlabel = double(L).*maskc;
 
