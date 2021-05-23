@@ -311,6 +311,8 @@ if clean_flag
     cleanSuperSegger (dirname_xy, startEnd, skip)
 end
 
+reply = input('Images aligned. Get masks of aligned images from cellpose ("cp_masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+%call cellpose here: check out          
 
 % does the segmentations for all the frames in parallel
 % Edit: not sure why this was at 2... 3 is segmentation 

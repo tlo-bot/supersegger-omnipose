@@ -100,9 +100,6 @@ if ~exist(dataname,'file')
         
         
                % do the segmentation here
-        %%% fix the threshold if it messes/screws up the first time
-        %phase(phase<2500)= 2500;
-        %phase = phase-2500;
         %%%
 
         [data, ~] = CONST.seg.segFun( phase, CONST, header, dataname, crop_box);
