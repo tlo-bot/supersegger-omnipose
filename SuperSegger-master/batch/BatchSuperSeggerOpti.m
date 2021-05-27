@@ -339,7 +339,7 @@ if ~exist([dirname_xy 'cp_masks'],'dir') %if folder doesn't exist
     end
 else %folder exists
     cpmasksdir = dir([dirname_xy 'cp_masks']); %get contents of folder
-    dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %ignore hidden .,.. files
+    dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %return 1 if file exists that's not a . hidden file
     if dirnotempty==0 % no masks inside; folder is empty
         if cpinstalled
             disp('Generating cellpose masks.');
