@@ -45,14 +45,16 @@ function [data_new,success] = missingSeg2to1 (data_c,regC,data_r,regR,data_f,reg
 
     rl = data_c.regs.regs_label;
     rlr = data_r.regs.regs_label;
-    rlf = data_f.regs.regs_label;
+    if ~isempty(data_f) %last frame doesn't have data_f
+        rlf = data_f.regs.regs_label;
+    end
     maskc = double(rl == regC); %pick out region causing error
     maskr = double(rlr==regR(1)); %get mask of 2 cells from previous frame 
     maskr = maskr + 2*double(rlr==regR(2)); %label as 1 and 2
     regisr = registerMasks_monointensity(maskr,maskc); %register mask from r frame to current mask
     regisr_mask = regisr.RegisteredImage; %registered mask, normalized to one
 
-    if numel(regR)==2 && numel(regF)==2 %if 2:1:2, also use f info
+    if numel(regR)==2 && numel(regF)==2 %if 2:1:2, also use f info; last frame will skip since regF=[]
 
         maskf = double(rlf==regF(1));
         maskf = maskf + 2*double(rlf==regF(2));
