@@ -321,7 +321,7 @@ if ~exist([dirname_xy 'cp_masks'],'dir') %if folder doesn't exist
     if cpinstalled %if cellpose installed and in right matlab path
         mkdir(dirname_xy,'cp_masks') %make cp_masks folder in xy# folder    
         disp('Generating cellpose masks.');
-        genCellposeMasks(dirname_xy);
+        genCellposeMasks(dirname_xy); %call cellpose
     else %cellpose not installed or in wrong path
         reply = input('Do you have cellpose installed? (y/n)');
         if isempty(reply)
@@ -338,7 +338,9 @@ if ~exist([dirname_xy 'cp_masks'],'dir') %if folder doesn't exist
         end
     end
 else %folder exists
-    if isempty(dir([dirname_xy 'cp_masks'])) % no masks inside
+    cpmasksdir = dir([dirname_xy 'cp_masks']); %get contents of folder
+    dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %ignore hidden .,.. files
+    if dirnotempty==0 % no masks inside; folder is empty
         if cpinstalled
             disp('Generating cellpose masks.');
             genCellposeMasks(dirname_xy);
@@ -356,7 +358,7 @@ else %folder exists
             [~] = input('Images aligned. Get masks of aligned images from cellpose ("cp_masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
             end
         end
-    else %folder and masks exist
+    elseif dirnotempty==1 %folder and masks exist
     disp('Cellpose masks already generated.');
     end
 end
