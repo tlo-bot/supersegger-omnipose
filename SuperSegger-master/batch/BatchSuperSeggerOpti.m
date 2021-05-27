@@ -314,18 +314,52 @@ end
 %[~] = input('Images aligned. Get masks of aligned images from cellpose ("cp_masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
 %call cellpose here and have it save the masks in the xy folder  
 %[~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');
-diralign = [dirname_xy 'phase\'];
-%get the path to model here
-modeldirpath = extractBefore(which('cpmodellocate'),'cpmodellocate');
-modeldir = dir(modeldirpath);
-cpmodel = modeldir(~endsWith({modeldir.name},'.m')); %remove the cpmodellocate file
-cpmodel = cpmodel(~startsWith({cpmodel.name},'.')); %remove the hidden . files
-%cpmodel = dir([modeldir '*cell*']); %assumes modelname includes 'cell'
-cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --save_png --no_npy']; 
-system(cpstr); %call python to run cellpose
-mkdir(dirname_xy,'cp_masks') %make cp_masks folder in xy# folder
-movefile([diralign '**.png'], [dirname_xy 'cp_masks\']) %move the masks from the phase to the cp_masks folder
 
+cpinstalled = contains(pwd,'envs');
+if ~exist([dirname_xy 'cp_masks'],'dir') %if folder doesn't exist
+    %check if cellpose is installed
+    if cpinstalled %if cellpose installed and in right matlab path
+        mkdir(dirname_xy,'cp_masks') %make cp_masks folder in xy# folder    
+        disp('Generating cellpose masks.');
+        genCellposeMasks(dirname_xy);
+    else %cellpose not installed or in wrong path
+        reply = input('Do you have cellpose installed? (y/n)');
+        if isempty(reply)
+            reply = 'n';
+        end
+        if (reply=='y' || reply=='Y') %cellpose installed but path wrong
+            disp('<strong>Check that your MATLAB path is in C:\Users\Name\miniconda3\envs\cellpose</strong>')
+            [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');
+            mkdir(dirname_xy,'cp_masks') %make cp_masks folder in xy# folder    
+            disp('Generating cellpose masks.');
+            genCellposeMasks(dirname_xy);
+        else %cellpose not installed
+            [~] = input('Images aligned. Get masks of aligned images from cellpose ("cp_masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+        end
+    end
+else %folder exists
+    if isempty(dir([dirname_xy 'cp_masks'])) % no masks inside
+        if cpinstalled
+            disp('Generating cellpose masks.');
+            genCellposeMasks(dirname_xy);
+        else
+            reply = input('Do you have cellpose installed? (y/n)');
+            if isempty(reply)
+                reply = 'n';
+            end
+            if (reply=='y' || reply=='Y') %cellpose installed but path wrong
+                disp('<strong>Check that your MATLAB path is in C:\Users\Name\miniconda3\envs\cellpose</strong>')
+                [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');   
+                disp('Generating cellpose masks.');
+                genCellposeMasks(dirname_xy);
+            else %cellpose not installed
+            [~] = input('Images aligned. Get masks of aligned images from cellpose ("cp_masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+            end
+        end
+    else %folder and masks exist
+    disp('Cellpose masks already generated.');
+    end
+end
 
 % does the segmentations for all the frames in parallel
 % Edit: not sure why this was at 2... 3 is segmentation 
@@ -367,3 +401,16 @@ if startEnd(2) >2
 end
 end
 
+function genCellposeMasks(dirname_xy)
+    diralign = [dirname_xy 'phase\'];
+    %get the path to model here
+    modeldirpath = extractBefore(which('cpmodellocate'),'cpmodellocate');
+    modeldir = dir(modeldirpath);
+    cpmodel = modeldir(~endsWith({modeldir.name},'.m')); %ignore the cpmodellocate file
+    cpmodel = cpmodel(~startsWith({cpmodel.name},'.')); %ignore the hidden . files
+    %cpmodel = dir([modeldir '*cell*']); %assumes modelname includes 'cell'
+    cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --flow_threshold 0 --save_png --no_npy']; 
+    system(cpstr); %call python to run cellpose
+
+    movefile([diralign '**.png'], [dirname_xy 'cp_masks\']) %move the masks from the phase to the cp_masks folder
+end

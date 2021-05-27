@@ -41,13 +41,16 @@ masksum__  = imerode(masksum_,strel('square',3)); %erode the dilated regions to 
 
 labels =  bwlabel(masksum__); %make labeled mask from new mask
 if max(labels(:)) == 1 %if only one labeled area in new mask
-    lowerid = min(list_merge); %find lower region ID (or could do higher)
+    %lowerid = min(list_merge); %find lower region ID (or could do higher)
+    maxreg = data_c.regs.num_regs;
     rl = data_c.regs.regs_label;
     rl(rl==list_merge(1)) = 0; %clear the erroneous masks 
     rl(rl==list_merge(2)) = 0;
-    labels(labels==1) = lowerid; %set the merged mask to have the lower ID
+    %labels(labels==1) = lowerid; %set the merged mask to have the lower ID
+    labels(labels==1) = maxreg+1; %set the merged mask to have highest ID in frame
     rl = rl + labels; %add the merged mask to the overall mask
     data_c.regs.regs_label = rl; %save new overall mask into data_c
+    
     
 %     segsInMask = data_c.segs.segs_label; %all the segs
 %     segsInMask(~masksum__) = 0; %ignore segs not in region of focus

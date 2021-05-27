@@ -150,6 +150,9 @@ for regNum =  1 : data_c.regs.num_regs
                 [data_c,mergeReset] = merge2Regions (data_c, [sister1, sister2], CONST);
                 modRegions = [modRegions;col(cCellsTransp)];
                 resetRegions = (resetRegions || mergeReset);
+                if mergeReset
+                    disp([header, 'ErRes: merged 2 regions', ]); %not sure this disp works
+                end
             elseif goodAreaChange || manual_link
                 % Divide if
                 [data_c, data_r, cell_count] = createDivision (data_c, data_r, mother, sister1, sister2, cell_count, time, header, verbose);
@@ -183,6 +186,9 @@ for regNum =  1 : data_c.regs.num_regs
                     if ~ignoreError
                         [data_c,reset_tmp] = merge2Regions (data_c, [sister1, sister2], CONST);
                         modRegions = [modRegions;col(mapRC) ];
+                        if reset_tmp
+                            disp([header, 'ErRes: merged 2 regions', ]); %not sure this disp works
+                        end
                         %[data_c,data_r,cell_count,reset_tmp,modids_tmp] = mapBestOfTwo (data_c, mapRC, data_r, rCellsFromC, time, verbose, cell_count,header,data_f);
                         %modRegions = [modRegions;col(modids_tmp)];
                     else

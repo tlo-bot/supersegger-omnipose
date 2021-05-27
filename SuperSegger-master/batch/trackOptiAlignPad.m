@@ -283,7 +283,7 @@ for it = nt;
             nameInfo.npos(:,1) = [it; ic; nnxy; iz];
             in_name =  [dirname, MakeFileName(nameInfo)];
             if verbose
-                disp(['Image name: ',in_name]);
+                %disp(['Image name: ',in_name]); % commented, reduce output
             end
             im_ = intImRead( in_name );
 
