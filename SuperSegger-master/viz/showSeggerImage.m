@@ -286,7 +286,7 @@ elseif FLAGS.P_flag  % if P_flag is true, it shows the regions with color.
         cells_In_Frame   = ismember( data.regs.ID, ID_LIST);
         cellBorn = or(and(data.regs.birthF,data.regs.stat0),data.regs.divide);
         
-        if 0
+        if 0 %automatically skips this if loop
             % cells with ehist & error current->reverse or ignoreError
             map_error_ind = find(and(cells_In_Frame,or(and(data.regs.ehist,...
                 data.regs.error.r),ignoreErrorV)));
@@ -407,7 +407,10 @@ elseif FLAGS.P_flag  % if P_flag is true, it shows the regions with color.
                 
                 reg_color = uint8( 255*cat(3, redChannel,greenChannel,blueChannel));
                 
-                im = reg_color + im;
+                im = reg_color + im; %add the outline here
+                if FLAGS.cell_flag && isfield(data,'cell_outline')
+                    im = comp( im, {double(data.cell_outline), [1,1,0]} );
+                end
             end
             %toc
         end
