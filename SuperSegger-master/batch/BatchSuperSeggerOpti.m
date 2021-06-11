@@ -404,7 +404,7 @@ end
 end
 
 function genCellposeMasks(dirname_xy)
-    diralign = [dirname_xy 'phase\'];
+    diralign = [dirname_xy 'phase' filesep];
     %get the path to model here
     modeldirpath = extractBefore(which('cpmodellocate'),'cpmodellocate');
     modeldir = dir(modeldirpath);
@@ -414,5 +414,5 @@ function genCellposeMasks(dirname_xy)
     cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --flow_threshold 0 --save_png --no_npy']; 
     system(cpstr); %call python to run cellpose
 
-    movefile([diralign '**.png'], [dirname_xy 'cp_masks\']) %move the masks from the phase to the cp_masks folder
+    movefile([diralign '**.png'], [dirname_xy 'cp_masks' filesep]) %move the masks from the phase to the cp_masks folder
 end
