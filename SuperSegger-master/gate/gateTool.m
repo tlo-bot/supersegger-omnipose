@@ -1405,7 +1405,7 @@ try
     
     cc = colormap;
     cc(1,:) = [0.5,0.5,0.5];
-    colormap(cc);
+    %colormap(cc); %evil function
     
     tmp = im;
     tmp(tmp==0) = nan;
