@@ -315,14 +315,14 @@ end
 %call cellpose here and have it save the masks in the xy folder  
 %[~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');
 
-cpinstalled = contains(pwd,'envs');
+cpinstalled = contains(pwd,'cellpose');
 if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
     %check if cellpose is installed
     if cpinstalled %if cellpose installed and in right matlab path  
         disp('Generating cellpose masks.');
         genCellposeMasks(dirname_xy); %call cellpose
     else %cellpose not installed or in wrong path
-        reply = input('Do you have cellpose installed? (y/n)');
+        reply = input('Do you have cellpose installed? (y/n)','s');
         if isempty(reply)
             reply = 'n';
         end
@@ -331,8 +331,9 @@ if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  
             [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');   
             disp('Generating cellpose masks.');
             genCellposeMasks(dirname_xy);
-        else %cellpose not installed
-            [~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+        elseif reply=='n' %cellpose not installed
+            %[~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+            [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
         end
     end
 else %folder exists
@@ -347,7 +348,7 @@ else %folder exists
             disp('Generating cellpose masks.');
             genCellposeMasks(dirname_xy);
         else
-            reply = input('Do you have cellpose installed? (y/n)');
+            reply = input('Do you have cellpose installed? (y/n)','s');
             if isempty(reply)
                 reply = 'n';
             end
@@ -357,7 +358,8 @@ else %folder exists
                 disp('Generating cellpose masks.');
                 genCellposeMasks(dirname_xy);
             else %cellpose not installed
-            [~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+            %[~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+            [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
             end
         end
     elseif dirnotempty==1 %folder and masks exist
