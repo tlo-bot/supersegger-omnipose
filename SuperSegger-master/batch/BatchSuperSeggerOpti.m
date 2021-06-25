@@ -388,6 +388,7 @@ if startEnd(1) <= 3 && startEnd(2) >=3 && ~exist( stamp_name, 'file' )
                     ' of ', num2str(num_t),'.']);
             end
         else
+            disp('Continuing segmentation.');
             waitbar( i/num_t, h,...
                 ['Data segmentation t: ',num2str(i),'/',num2str(num_t)]);
         end
