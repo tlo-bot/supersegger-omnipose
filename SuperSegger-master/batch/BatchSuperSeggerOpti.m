@@ -315,7 +315,7 @@ end
 %call cellpose here and have it save the masks in the xy folder  
 %[~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');
 
-cpinstalled = contains(pwd,'envs');
+cpinstalled = contains(pwd,['envs' filesep 'cellpose']);
 if ~exist([dirname_xy 'cp_masks'],'dir') %if folder doesn't exist
     %check if cellpose is installed
     if cpinstalled %if cellpose installed and in right matlab path
@@ -323,7 +323,7 @@ if ~exist([dirname_xy 'cp_masks'],'dir') %if folder doesn't exist
         disp('Generating cellpose masks.');
         genCellposeMasks(dirname_xy); %call cellpose
     else %cellpose not installed or in wrong path
-        reply = input('Do you have cellpose installed? (y/n)');
+        reply = input('Do you have cellpose installed? (y/n)','s');
         if isempty(reply)
             reply = 'n';
         end
@@ -345,7 +345,7 @@ else %folder exists
             disp('Generating cellpose masks.');
             genCellposeMasks(dirname_xy);
         else
-            reply = input('Do you have cellpose installed? (y/n)');
+            reply = input('Do you have cellpose installed? (y/n)','s');
             if isempty(reply)
                 reply = 'n';
             end
