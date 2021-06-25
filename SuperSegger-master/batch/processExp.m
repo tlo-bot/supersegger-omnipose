@@ -70,7 +70,7 @@ convertImageNames(dirname, basename, timeFilterBefore, ...
 %[~, list] = getConstantsList;
 % list'
 
-res = '100XEc';
+res = '60XEc';
 
 %% Paralell Processing Mode
 % to run code in parallel mode must have the parallel processing toolbox,

@@ -316,10 +316,10 @@ end
 %[~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');
 
 cpinstalled = contains(pwd,'envs');
-if ~exist([dirname_xy 'cp_masks'],'dir') %if folder doesn't exist
+if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
     %check if cellpose is installed
     if cpinstalled %if cellpose installed and in right matlab path
-        mkdir(dirname_xy,'cp_masks') %make cp_masks folder in xy# folder    
+        mkdir(dirname_xy,'masks') %make masks folder in xy# folder    
         disp('Generating cellpose masks.');
         genCellposeMasks(dirname_xy); %call cellpose
     else %cellpose not installed or in wrong path
@@ -330,15 +330,19 @@ if ~exist([dirname_xy 'cp_masks'],'dir') %if folder doesn't exist
         if (reply=='y' || reply=='Y') %cellpose installed but path wrong
             disp('<strong>Check that your MATLAB path is in C:\Users\Name\miniconda3\envs\cellpose</strong>')
             [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');
-            mkdir(dirname_xy,'cp_masks') %make cp_masks folder in xy# folder    
+            mkdir(dirname_xy,'masks') %make cp_masks folder in xy# folder    
             disp('Generating cellpose masks.');
             genCellposeMasks(dirname_xy);
         else %cellpose not installed
-            [~] = input('Images aligned. Get masks of aligned images from cellpose ("cp_masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+            [~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
         end
     end
 else %folder exists
-    cpmasksdir = dir([dirname_xy 'cp_masks']); %get contents of folder
+    if exist([dirname_xy 'cp_masks'],'dir')
+        cpmasksdir = dir([dirname_xy 'cp_masks']); %get contents of folder
+    elseif exist([dirname_xy 'masks'],'dir')
+        cpmasksdir = dir([dirname_xy 'masks']);
+    end
     dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %return 1 if file exists that's not a . hidden file
     if dirnotempty==0 % no masks inside; folder is empty
         if cpinstalled
@@ -355,7 +359,7 @@ else %folder exists
                 disp('Generating cellpose masks.');
                 genCellposeMasks(dirname_xy);
             else %cellpose not installed
-            [~] = input('Images aligned. Get masks of aligned images from cellpose ("cp_masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+            [~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
             end
         end
     elseif dirnotempty==1 %folder and masks exist
@@ -406,13 +410,16 @@ end
 function genCellposeMasks(dirname_xy)
     diralign = [dirname_xy 'phase' filesep];
     %get the path to model here
+    %model should be only file w/ cpmodellocate.m in trainedmodel folder
     modeldirpath = extractBefore(which('cpmodellocate'),'cpmodellocate');
     modeldir = dir(modeldirpath);
     cpmodel = modeldir(~endsWith({modeldir.name},'.m')); %ignore the cpmodellocate file
     cpmodel = cpmodel(~startsWith({cpmodel.name},'.')); %ignore the hidden . files
     %cpmodel = dir([modeldir '*cell*']); %assumes modelname includes 'cell'
-    cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --flow_threshold 0 --save_png --no_npy']; 
+    %cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --flow_threshold 0 --save_png --no_npy']; %mouseland
+    %kevin's version should output masks folder in xy dir
+    cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --save_png --save_above']; %kevin's cellpose
     system(cpstr); %call python to run cellpose
 
-    movefile([diralign '**.png'], [dirname_xy 'cp_masks' filesep]) %move the masks from the phase to the cp_masks folder
+    %movefile([diralign '**.png'], [dirname_xy 'cp_masks' filesep]) %move the masks from the phase to the cp_masks folder %mouseland
 end

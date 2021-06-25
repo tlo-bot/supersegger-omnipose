@@ -70,7 +70,11 @@ end
     data = [];
     data.phase = phase;
     % masks now stored adjacent to 'phase' directory 
-    maskdir = [extractBefore(dataname,'seg') 'cp_masks' filesep];
+    if exist([extractBefore(dataname,'seg') 'cp_masks' filesep],'dir')
+        maskdir = [extractBefore(dataname,'seg') 'cp_masks' filesep];
+    elseif exist([extractBefore(dataname,'seg') 'masks' filesep],'dir')
+        maskdir = [extractBefore(dataname,'seg') 'masks' filesep];
+    end
 %     maskdir = [extractBefore(dataname,'seg') 'phase' filesep];
     filename = char(extractBetween(dataname,['seg' filesep],'_seg.mat')); %generalized to filesep 
     maskpath = strcat(maskdir,filename,'c1_cp_masks.png'); %get path of cellpose mask  
