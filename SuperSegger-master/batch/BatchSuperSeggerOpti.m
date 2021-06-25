@@ -318,8 +318,7 @@ end
 cpinstalled = contains(pwd,'envs');
 if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
     %check if cellpose is installed
-    if cpinstalled %if cellpose installed and in right matlab path
-        mkdir(dirname_xy,'masks') %make masks folder in xy# folder    
+    if cpinstalled %if cellpose installed and in right matlab path  
         disp('Generating cellpose masks.');
         genCellposeMasks(dirname_xy); %call cellpose
     else %cellpose not installed or in wrong path
@@ -329,8 +328,7 @@ if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  
         end
         if (reply=='y' || reply=='Y') %cellpose installed but path wrong
             disp('<strong>Check that your MATLAB path is in C:\Users\Name\miniconda3\envs\cellpose</strong>')
-            [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');
-            mkdir(dirname_xy,'masks') %make cp_masks folder in xy# folder    
+            [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');   
             disp('Generating cellpose masks.');
             genCellposeMasks(dirname_xy);
         else %cellpose not installed
