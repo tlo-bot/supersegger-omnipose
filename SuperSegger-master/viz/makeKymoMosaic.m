@@ -166,7 +166,7 @@ T_ = (1:ss(2))*TimeStep;
 X_ = (1:ss(1))*PixelSize;
 
 inv_flag = 0;
-figure;
+%figure; %seems to make 3 figure windows rather than just 1 %you could make 5 or 6 figures... or just 1
 clf;
 if inv_flag
     imagesc(T_,X_,255-im);
