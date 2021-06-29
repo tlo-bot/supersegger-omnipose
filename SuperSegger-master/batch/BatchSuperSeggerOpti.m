@@ -367,6 +367,8 @@ else %folder exists
     end
 end
 
+disp('Continuing segmentation.'); 
+
 % does the segmentations for all the frames in parallel
 % Edit: not sure why this was at 2... 3 is segmentation 
 if startEnd(1) <= 3 && startEnd(2) >=3 && ~exist( stamp_name, 'file' )
@@ -388,7 +390,6 @@ if startEnd(1) <= 3 && startEnd(2) >=3 && ~exist( stamp_name, 'file' )
                     ' of ', num2str(num_t),'.']);
             end
         else
-            disp('Continuing segmentation.');
             waitbar( i/num_t, h,...
                 ['Data segmentation t: ',num2str(i),'/',num2str(num_t)]);
         end
