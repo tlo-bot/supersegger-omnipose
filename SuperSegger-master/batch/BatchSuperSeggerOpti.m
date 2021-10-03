@@ -317,10 +317,11 @@ end
 
 cpinstalled = contains(pwd,['envs' filesep 'cellpose']);
 if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
+    cpstr = genCellposeCommand(dirname_xy); %get cellpose command
     %check if cellpose is installed
     if cpinstalled %if cellpose installed and in right matlab path  
         disp('Generating cellpose masks.');
-        genCellposeMasks(dirname_xy); %call cellpose
+        system(cpstr); %call python to run cellpose
     else %cellpose not installed or in wrong path
 %         reply = input('Do you have cellpose installed? (y/n)','s');
 %         if isempty(reply)
@@ -335,8 +336,11 @@ if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  
 %             %[~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
 %             [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
 %         end
-        clipboard("copy",str())
-        [~] = input('Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder to folder to generate masks. \n Cellpose command copied to clipboard. \n Press Enter when ready to continue.');
+        clipboard('copy',cpstr);
+        disp(['Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder to folder to generate masks.']);
+        disp(['Cellpose command copied to clipboard:']);
+        disp(cpstr);
+        [~] = input(['Press Enter when ready to continue.']);
     end
 else %folder exists
     if exist([dirname_xy 'cp_masks'],'dir')
@@ -346,23 +350,29 @@ else %folder exists
     end
     dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %return 1 if file exists that's not a . hidden file
     if dirnotempty==0 % no masks inside; folder is empty
+        cpstr = genCellposeCommand(dirname_xy); %get cellpose command
         if cpinstalled
             disp('Generating cellpose masks.');
-            genCellposeMasks(dirname_xy);
+            system(cpstr);
         else
-            reply = input('Do you have cellpose installed? (y/n)','s');
-            if isempty(reply)
-                reply = 'n';
-            end
-            if (reply=='y' || reply=='Y') %cellpose installed but path wrong
-                disp('<strong>Check that your MATLAB path is in C:\Users\Name\miniconda3\envs\cellpose</strong>')
-                [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');   
-                disp('Generating cellpose masks.');
-                genCellposeMasks(dirname_xy);
-            else %cellpose not installed
-            %[~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
-            [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
-            end
+%             reply = input('Do you have cellpose installed? (y/n)','s');
+%             if isempty(reply)
+%                 reply = 'n';
+%             end
+%             if (reply=='y' || reply=='Y') %cellpose installed but path wrong
+%                 disp('<strong>Check that your MATLAB path is in C:\Users\Name\miniconda3\envs\cellpose</strong>')
+%                 [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');   
+%                 disp('Generating cellpose masks.');
+%                 genCellposeMasks(dirname_xy);
+%             else %cellpose not installed
+%             %[~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
+%             [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
+%             end
+            clipboard('copy',cpstr);
+            disp(['Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder to folder to generate masks.']);
+            disp(['Cellpose command copied to clipboard:']);
+            disp(cpstr);
+            [~] = input(['Press Enter when ready to continue.']);
         end
     elseif dirnotempty==1 %folder and masks exist
     disp('Cellpose masks already generated.');
@@ -411,7 +421,7 @@ if startEnd(2) >2
 end
 end
 
-function genCellposeMasks(dirname_xy)
+function cpstr = genCellposeCommand(dirname_xy)
     diralign = [dirname_xy 'phase' filesep];
     %get the path to model here
     %model should be only file w/ cpmodellocate.m in trainedmodel folder
@@ -423,8 +433,8 @@ function genCellposeMasks(dirname_xy)
     %cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --flow_threshold 0 --save_png --no_npy']; %mouseland
     %kevin's version should output masks folder in xy dir
     %cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --save_png --save_above']; %kevin's cellpose
-    cpstr = ['python -m cellpose --dir ' diralign  '--pretrained_model ' [modeldirpath cpmodel.name] ' --skel --save_png --dir_above --in_folders --cluster --dist_thresh 1 --nclasses 4'];
-    system(cpstr); %call python to run cellpose
+    cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model ' [modeldirpath cpmodel.name] ' --skel --save_png --dir_above --in_folders --cluster --dist_thresh 1 --nclasses 4'];
+    %system(cpstr); %call python to run cellpose
 
     %movefile([diralign '**.png'], [dirname_xy 'cp_masks' filesep]) %move the masks from the phase to the cp_masks folder %mouseland
 end
