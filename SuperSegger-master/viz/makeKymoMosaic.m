@@ -80,6 +80,9 @@ ii = 0;
 h = waitbar(0, 'Computation' );
 cleanup = onCleanup( @()( delete( h ) ) );
 
+clist = load([extractBefore(dirname,'cell') 'clist.mat']); %load clist
+[~,~,timeframes] = size(clist.data3D);
+
 for jj = 1:num_list_
     
     if ~isempty(dir_list(jj).name)
@@ -87,7 +90,30 @@ for jj = 1:num_list_
         ii = ii + 1;
         filename = [dirname,filesep,dir_list(jj).name];
         data = load(filename);
-        data_A{ii} = makeKymographC(data, 0, CONST, FLAGS);
+        %
+        cellid = extractBetween(dir_list(jj).name,'0','.mat');
+        cellid = cellid{1};
+        cellid = cellid(find(cellid ~= '0', 1, 'first') : end);
+        cellid = str2double(cellid);
+        fscs = [];
+        age = [];
+        
+        cperiodFLAG = 0; %1 to plot the start/end pts of clist
+        if cperiodFLAG == 1 %set to 0 above to not plot C period          
+            fscs = zeros(timeframes,6); %3chan * first2foci
+            %if chan doesn't exist, will be NaN
+            age = squeeze(clist.data3D(cellid,82,:));
+            fscs(:,1) = squeeze(clist.data3D(cellid,11,:)); %f11
+            fscs(:,2) = squeeze(clist.data3D(cellid,15,:)); %f12
+            fscs(:,3) = squeeze(clist.data3D(cellid,32,:)); %f21
+            fscs(:,4) = squeeze(clist.data3D(cellid,36,:)); %f22
+            fscs(:,5) = squeeze(clist.data3D(cellid,52,:)); %f31
+            fscs(:,6) = squeeze(clist.data3D(cellid,56,:)); %f32
+        end
+
+        data_A{ii} = makeKymographC(data, 0, CONST, FLAGS, fscs, age, cperiodFLAG);
+        %
+        %data_A{ii} = makeKymographC(data, 0, CONST, FLAGS);
         
         name(jj) = data.ID;
         pole(jj) = getPoleSign( data );
@@ -154,11 +180,11 @@ else
         ss = size(data_A{ii});
         dx = floor((max_x-ss(1))/2);
         
-        im(1+yy*max_x+(1:ss(1))+dx, 1+xx*max_t+(1:ss(2)),:) =  data_A{ii};
+        im(1+yy*max_x+(1:ss(1))+dx, 1+xx*max_t+(1:ss(2)),:) =  data_A{ii}; 
     end
 end
 
-im = uint8( im );
+im = uint8( im );  %maybe change here
 
 ss = size(im);
 
@@ -171,7 +197,7 @@ clf;
 if inv_flag
     imagesc(T_,X_,255-im);
 else
-    imagesc(T_,X_,im);
+    imagesc(T_,X_,im); 
 end
 hold on;
 

@@ -1,4 +1,4 @@
-function [imm] = makeKymographC( data, disp_flag, CONST, FLAGS )
+function [imm] = makeKymographC( data, disp_flag, CONST, FLAGS, fscs, age, cperiodFLAG)
 % makeKymographC : creates a kymograph for given cell data file..
 % A kymograph shows the fluorescence of the cell along the long axis
 % of the cell, with time.
@@ -208,10 +208,85 @@ for jj = 1:nc
     end
 end
 
+%%
+
+if cperiodFLAG
+    fscs = nanstozeros(fscs);
+    scgate = 5;
+    flife = fscs>scgate;
+
+    flifefill = flife;
+    for bb = 1:6
+        %get rid of 1 frame gaps and ignore 1 frame appearances
+        flifefill(:,bb) = imopen(imclose(flife(:,bb),strel('square',2)),strel('square',2));
+    end
+
+    padflife = padarray(flifefill,1,0,'pre'); %pad in case first frame starts with 1
+    df = diff(padflife); %1 = a; ind(-1)-1 = b
+
+    startC = df==1; %focus appears
+    [aa,chana] = find(startC); %find index and channel
+
+    endC = df==-1; %focus disappears
+    [bb,chanb] = find(endC); 
+    if ~isempty(bb)
+        bb = bb-1; %last frame foci is still appearing is 1 before disappears
+    end
+
+    %just use f11... 
+    if ~isempty(aa) && ~isempty(bb) %at least 1 Cper
+        a = aa(chana==1); %ori; index with more chans here if wanted
+        b = bb(chanb==1); %ter
+        %ab should be pairs with each other, I think (ie same dim)
+
+        nper = length(a); %number of Cperiods
+        if nper>1 %more than 1 Cper found
+            persc = zeros(nper,1);
+            for gg = 1:nper
+                aori = a(gg);
+                bter = b(gg);
+                persc(gg) = sum(fscs(aori:bter,1)); %sum scores for each Cper
+            end
+
+            [~,bestper] = max(persc); %find index
+            afin = a(bestper); %pick ab with highest scores
+            bfin = b(bestper);
+        else %1 Cper
+            afin = a(1);
+            bfin = b(1);
+        end
+
+
+        tmpkymo = kymo_cell{1,1};
+        tmpkymo(:,age(afin)) = max(tmpkymo(:)); %set column at a to max value
+        tmpkymo(:,age(bfin)) = max(tmpkymo(:)); %set column at b to max value
+        kymo_cell{1,1} = tmpkymo;
+
+            %tmpkymo_allchan = kymo_cell;
+    %     for uu = 1 %:nc if more than 1 chan
+    %         tmpkymo = tmpkymo_allchan{1,uu};
+    %         tmpkymo(:,afin(uu)) = max(tmpkymo(:));
+    %         tmpkymo(:,bfin(uu)) = max(tmpkymo(:));
+    %         tmpkymo_allchan{1,uu} = tmpkymo;
+    %     end
+        %kymo_cell = tmpkymo_allchan;
+
+    end
+end
+
+%could also add something here to only allow up to 2 appearances per cell
+%if focus1 only has 1 appearance, allow 1 appearance from focus2 if late in cell cycle
+
+% a=[5 7];  %start and end of C period
+% b=[20 15]; %length depends on number channels
+% 
+
+%%
+
 
 if CONST.view.falseColorFlag && FLAGS.f_flag > 0
     imm = comp( {kymo_cell{FLAGS.f_flag},imRange(:,FLAGS.f_flag),...
-        colormap_,'mask',kymo_back,'back', CONST.view.background} );
+        colormap_,'mask',kymo_back,'back', CONST.view.background} ); %add here
 else
 
     imm = [];
@@ -220,7 +295,7 @@ else
         if ~isempty( kymo_cell{jj} ) && (FLAGS.composite || FLAGS.f_flag==jj )
             if FLAGS.include( jj+1)
                 imm = comp( {imm}, {kymo_cell{jj}, imRange(:,jj),...
-                    CONST.view.fluorColor{jj}, FLAGS.level(jj+1)} );
+                    CONST.view.fluorColor{jj}, FLAGS.level(jj+1)} ); %also add here
             end
         end
     end

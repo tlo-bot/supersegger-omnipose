@@ -70,13 +70,15 @@ end
     data = [];
     data.phase = phase;
     % masks now stored adjacent to 'phase' directory 
-    if exist([extractBefore(dataname,'seg') 'cp_masks' filesep],'dir')
-        maskdir = [extractBefore(dataname,'seg') 'cp_masks' filesep];
-    elseif exist([extractBefore(dataname,'seg') 'masks' filesep],'dir')
-        maskdir = [extractBefore(dataname,'seg') 'masks' filesep];
+    if exist([extractBefore(dataname,[filesep 'seg' filesep]) filesep 'cp_masks' filesep],'dir')
+        maskdir = [extractBefore(dataname, [filesep 'seg' filesep]) filesep 'cp_masks' filesep];
+    elseif exist([extractBefore(dataname,[filesep 'seg' filesep]) filesep 'masks' filesep],'dir')
+        maskdir = [extractBefore(dataname, [filesep 'seg' filesep]) filesep 'masks' filesep];
+    else
+        
     end
 %     maskdir = [extractBefore(dataname,'seg') 'phase' filesep];
-    filename = char(extractBetween(dataname,['seg' filesep],'_seg.mat')); %generalized to filesep 
+    filename = char(extractBetween(dataname,[filesep 'seg' filesep],'_seg.mat')); %generalized to filesep 
     maskpath = strcat(maskdir,filename,'c1_cp_masks.png'); %get path of cellpose mask  
     data = intMakeRegs( maskpath, data, CONST ); %input cellpose mask 
     err_flag = false; %shh no errors here...
