@@ -433,7 +433,7 @@ function cpstr = genCellposeCommand(dirname_xy)
     %cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --flow_threshold 0 --save_png --no_npy']; %mouseland
     %kevin's version should output masks folder in xy dir
     %cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --save_png --save_above']; %kevin's cellpose
-    cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model ' [modeldirpath cpmodel.name] ' --skel --save_png --dir_above --in_folders --cluster --dist_thresh 1 --nclasses 4'];
+    cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model ' [modeldirpath cpmodel.name] ' --omni --save_png --dir_above --in_folders --cluster --dist_thresh 1 --nclasses 4'];
     %system(cpstr); %call python to run cellpose
 
     %movefile([diralign '**.png'], [dirname_xy 'cp_masks' filesep]) %move the masks from the phase to the cp_masks folder %mouseland
