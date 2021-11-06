@@ -337,7 +337,7 @@ if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  
 %             [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
 %         end
         clipboard('copy',cpstr);
-        disp(['Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder in Terminal to generate masks.']);
+        disp(['<strong>Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
         disp(['<strong>Cellpose command copied to clipboard:</strong>']);
         disp(cpstr);
         [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
@@ -369,7 +369,7 @@ else %folder exists
 %             [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
 %             end
             clipboard('copy',cpstr);
-            disp(['Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder in Terminal to generate masks.']);
+            disp(['<strong>Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
             disp(['<strong>Cellpose command copied to clipboard:</strong>']);
             disp(cpstr);
             [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
@@ -433,9 +433,9 @@ function cpstr = genCellposeCommand(dirname_xy)
     %cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --flow_threshold 0 --save_png --no_npy']; %mouseland
     %kevin's version should output masks folder in xy dir
     %cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --save_png --save_above']; %kevin's cellpose
-    if isempty(modeldirpath) || isempty(cpmodel.name)
-        disp('Caution! Training model not properly found on path. Please manually input path of file after --pretrained_model option into Terminal.');
-        disp('Training model located in folder: ~/SuperSegger-master/cellpose_files/trainedmodel/')
+    if isempty(modeldirpath) || isempty(cpmodel)
+        disp('>><strong>Caution!</strong> Training model not properly found on path. Please manually input path of file after --pretrained_model option into Terminal.');
+        disp('Training model located in folder: ~\SuperSegger-master\cellpose_files\trainedmodel\')
     end 
     cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model ' [modeldirpath cpmodel.name] ' --omni --save_png --dir_above --in_folders --cluster --dist_thresh 1 --nclasses 4'];
     %system(cpstr); %call python to run cellpose
