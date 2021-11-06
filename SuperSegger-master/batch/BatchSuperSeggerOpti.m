@@ -337,7 +337,7 @@ if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  
 %             [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
 %         end
         clipboard('copy',cpstr);
-        disp(['Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder manually in Terminal to generate masks.']);
+        disp(['Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder in Terminal to generate masks.']);
         disp(['<strong>Cellpose command copied to clipboard:</strong>']);
         disp(cpstr);
         [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
@@ -369,7 +369,7 @@ else %folder exists
 %             [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
 %             end
             clipboard('copy',cpstr);
-            disp(['Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder manually in Terminal to generate masks.']);
+            disp(['Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder in Terminal to generate masks.']);
             disp(['<strong>Cellpose command copied to clipboard:</strong>']);
             disp(cpstr);
             [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
