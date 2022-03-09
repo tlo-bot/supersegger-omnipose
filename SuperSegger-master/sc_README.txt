@@ -1,0 +1,62 @@
+# <p> <b>SUPERSEGGER-OMNIPOSE</b> </p>
+
+Supersegger-Omnipose is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running Supersegger-Omnipose.
+
+Omnipose can be found [here](https://github.com/kevinjohncutler/omnipose/), with installation instructions [here](https://pypi.org/project/cellpose/).
+
+
+
+### Setting the Path
+
+In order for Matlab to be able to find the different pieces of the code the SuperSegger folder needs to be in your path. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click add folder with subfolders and add the SuperSegger folder. 
+
+
+
+### Software Requirements
+
+Supersegger-Omnipose has the same software requirements as the original Supersegger:
+
+Curve Fitting Toolbox
+Deep Learning Toolbox
+Global Optimization Toolbox
+Image Processing Toolbox
+Parallel Computing Toolbox (not necessary)
+Statistics and Machine Learning Toolbox
+
+
+
+### Software Documentation
+
+The website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/SuperSegger.php). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
+
+Omnipose commands have been preselected to work directly with Supersegger, but if needed, further documentation can be found [here](https://cellpose.readthedocs.io/en/latest/command.html).
+
+
+
+### Further Installation Instructions
+
+1. Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [miniconda](https://docs.conda.io/en/latest/miniconda.html).
+2. Install Supersegger-Omnipose and Omnipose from github.
+3. Add supersegger-omnipose to MATLAB path, with its subfolders.
+
+
+
+### Instructions to Run Supersegger-Omnipose
+
+1. Put images into a folder.
+2. Convert file names to Supersegger convention (with superSeggerGui, convertImageNames, or manually with command line).
+3. Run processExp('folder') to align the images. After aligning, Supersegger-Omnipose will pause for segmentation through Omnipose. The Omnipose command should be output onto the MATLAB Command Window and also automatically copied to your clipboard.
+4. Open a terminal and start Omnipose (ie conda activate cellpose)
+5. Paste in the Omnipose command that was generated. Wait for Omnipose to segment the images and generate masks.
+6. Once Omnipose has completed, continue running Supersegger by simply pressing the return/Enter key in the MATLAB Command Window.
+
+
+
+
+
+
+
+
+
+
+
