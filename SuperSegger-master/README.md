@@ -10,7 +10,7 @@ Omnipose can be found [here](https://github.com/kevinjohncutler/omnipose/).
 
 In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omnipose folder needs to be in your path*. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click 'add folder with subfolders' and add the SuperSegger-Omnipose folder. 
 
-*note that if the original Supersegger is already installed, you can should replace the Supersegger folders & subfolders with the paths to the Supersegger-Omnipose folders and subfolders.
+_*note that if the original Supersegger is already installed, you can should replace the Supersegger folders & subfolders with the paths to the Supersegger-Omnipose folders & subfolders._
 
 
 
@@ -38,8 +38,9 @@ Omnipose commands have been preselected to work directly with Supersegger, but i
 ### Installation Instructions
 
 1. Install [MATLAB](https://www.mathworks.com/help/install/install-products.html), [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), and [miniconda](https://docs.conda.io/en/latest/miniconda.html).
-2. Install [Supersegger-Omnipose](https://github.com/tlo-bot/supersegger-cellpose) and [Omnipose](https://github.com/kevinjohncutler/omnipose/) from github.
-   - Installation instructions for Omnipose can be found [here](https://pypi.org/project/cellpose/).
+2. Install/clone [Supersegger-Omnipose](https://github.com/tlo-bot/supersegger-cellpose) and [Omnipose](https://github.com/kevinjohncutler/omnipose/) from github.
+   - Omnipose can also be installed through pip: `pip install omnipose`
+   - Further installation instructions for Omnipose can be found [here](https://pypi.org/project/cellpose/).
 3. Add supersegger-omnipose to MATLAB path, with its subfolders.
 
 
