@@ -8,7 +8,9 @@ Omnipose can be found [here](https://github.com/kevinjohncutler/omnipose/).
 
 ### Setting the Path
 
-In order for Matlab to be able to find the different pieces of the code the SuperSegger folder needs to be in your path. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click add folder with subfolders and add the SuperSegger folder. 
+In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omnipose folder needs to be in your path*. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click 'add folder with subfolders' and add the SuperSegger-Omnipose folder. 
+
+*note that if the original Supersegger is already installed, you can should replace the Supersegger folders & subfolders with the paths to the Supersegger-Omnipose folders and subfolders.
 
 
 
