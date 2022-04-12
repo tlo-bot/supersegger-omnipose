@@ -24,6 +24,7 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 The website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/SuperSegger.php). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
 
 Omnipose options have been preselected to work directly with Supersegger, but if needed, further documentation can be found [here](https://cellpose.readthedocs.io/en/latest/command.html).
+
 The following default Omnipose options can be modified depending on the desired usage: --cluster --dist_thresh 1
 In addition, other Omnipose options can be added to possibly improve segmentation. 
 However, Supersegger-Omnipose requires the following options following --omni: --save_png --dir_above --in_folders
