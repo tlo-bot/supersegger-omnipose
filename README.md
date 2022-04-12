@@ -6,17 +6,9 @@ Omnipose can be found [here](https://github.com/kevinjohncutler/omnipose/).
 
 
 
-### Setting the Path
-
-In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omnipose folder needs to be in your path*. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click 'add folder with subfolders' and add the SuperSegger-Omnipose folder. 
-
-_*note that if the original Supersegger is already installed and on the MATLAB path, you should replace the paths of the original Supersegger folders & subfolders with the paths to the new Supersegger-Omnipose folders & subfolders._
-
-
-
 ### Software Requirements
 
-upersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
+Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 
 - Curve Fitting Toolbox
 - Deep Learning Toolbox (fka Neural Network Toolbox)
@@ -42,6 +34,13 @@ Omnipose commands have been preselected to work directly with Supersegger, but i
    - Omnipose can also be installed through pip: `pip install omnipose`
    - Further installation instructions for Omnipose can be found [here](https://pypi.org/project/cellpose/).
 3. Add supersegger-omnipose to MATLAB path, with its subfolders.
+
+
+### Setting the Path
+
+In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omnipose folder needs to be in your path*. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click 'add folder with subfolders' and add the SuperSegger-Omnipose folder. 
+
+_*note that if the original Supersegger is already installed and on the MATLAB path, you should replace the paths of the original Supersegger folders & subfolders with the paths to the new Supersegger-Omnipose folders & subfolders._
 
 
 
