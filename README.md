@@ -16,7 +16,7 @@ _*note that if the original Supersegger is already installed and on the MATLAB p
 
 ### Software Requirements
 
-Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
+upersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 
 - Curve Fitting Toolbox
 - Deep Learning Toolbox (fka Neural Network Toolbox)
@@ -57,8 +57,8 @@ Omnipose commands have been preselected to work directly with Supersegger, but i
 
 ### Troubleshooting & Known Issues
 Coming soon: 
--Omnipose installation instructions (Windows & Linux)
--Possible Supersegger-Omnipose errors
+- Omnipose installation instructions (Windows & Linux)
+- Possible Supersegger-Omnipose errors
 
 
 
