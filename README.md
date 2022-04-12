@@ -56,8 +56,9 @@ Omnipose commands have been preselected to work directly with Supersegger, but i
 6. Once Omnipose has completed, continue running Supersegger by simply pressing the return/Enter key in the MATLAB Command Window.
 
 ### Troubleshooting & Known Issues
-
-
+Coming soon: 
+-Omnipose installation instructions (Windows & Linux)
+-Possible Supersegger-Omnipose errors
 
 
 
