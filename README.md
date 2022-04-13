@@ -2,7 +2,7 @@
 
 Supersegger-Omnipose is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running Supersegger-Omnipose.
 
-Omnipose can be found [here](https://github.com/kevinjohncutler/omnipose/).
+More information about Omnipose can be found [here](https://github.com/kevinjohncutler/omnipose/).
 
 
 
