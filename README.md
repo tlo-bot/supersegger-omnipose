@@ -66,7 +66,8 @@ _*note that if the original Supersegger is already installed and on the MATLAB p
 
 ### Troubleshooting & Known Issues
 - [Omnipose installation instructions (Windows, Linux & MacOS)](../main/install_omnipose.md)
-- Possible Supersegger-Omnipose errors
+- [Possible Supersegger-Omnipose errors](../main/so_errors.md)
+
 
 
 
