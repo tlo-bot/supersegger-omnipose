@@ -23,11 +23,11 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 
 The Github for Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/SuperSegger.php). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
 
-Omnipose options have been preselected to work directly with Supersegger, but if needed, further documentation can be found [here](https://cellpose.readthedocs.io/en/latest/command.html).
+Omnipose options have been preselected to work directly with Supersegger*, but if needed, further documentation can be found [here](https://cellpose.readthedocs.io/en/latest/command.html).
 
-When running in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --dist_thresh 1".
+_*When running in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --dist_thresh 1".
 In addition, other Omnipose options can be added to possibly improve segmentation. 
-However, the options before "--omni" should not be changed.
+However, the options before "--omni" should not be changed._
 
 
 
@@ -39,7 +39,7 @@ However, the options before "--omni" should not be changed.
 git clone https://github.com/tlo-bot/supersegger-omnipose.git
 ```
 3. Install/clone [Omnipose](https://github.com/kevinjohncutler/omnipose/) from github.
-   - Find step-by-step instructions [here](https://github.com/tlo-bot/supersegger-omnipose/blob/main/install_omnipose.md).
+   - Find step-by-step instructions [here](../blob/main/install_omnipose.md).
    - Omnipose can also be installed through pip: `pip install omnipose`
    - Further installation instructions for Omnipose can be found [here](https://pypi.org/project/cellpose/).
 3. Add supersegger-omnipose to MATLAB path, with its subfolders.
@@ -64,7 +64,7 @@ _*note that if the original Supersegger is already installed and on the MATLAB p
 6. Once Omnipose has completed, continue running Supersegger by simply pressing the return/Enter key in the MATLAB Command Window.
 
 ### Troubleshooting & Known Issues
-- [Omnipose installation instructions (Windows, Linux & MacOS)](https://github.com/tlo-bot/supersegger-omnipose/blob/main/install_omnipose.md)
+- [Omnipose installation instructions (Windows, Linux & MacOS)](../blob/main/install_omnipose.md)
 - Possible Supersegger-Omnipose errors
 
 
