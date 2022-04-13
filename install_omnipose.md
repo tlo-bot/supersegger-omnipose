@@ -8,7 +8,7 @@ Warning: If added to PATH, can run miniconda directly from Command Window, but c
 
 2. Install git (https://git-scm.com/download/win)
 
-3. In Command Window, navigate to desired folder and install Omnipose.
+3. In Command Window, navigate to desired folder and install Omnipose (ie C:\Users\Name\omnipose\).
 ```
 git clone https://github.com/kevinjohncutler/cellpose.git
 ```
@@ -23,8 +23,8 @@ pip install git+https://github.com/kevinjohncutler/cellpose.git
 May need: 
 ```
 pip install sklearn
+pip install -e C:\Users\Name\omnipose\cellpose
 ```
-
 
 
 ### Linux (Debian/Ubuntu)
