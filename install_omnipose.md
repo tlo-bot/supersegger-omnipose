@@ -20,7 +20,7 @@ conda activate cellpose
 pip install git+https://github.com/kevinjohncutler/cellpose.git
 ```
 
-May need: 
+   May need: 
 ```
 pip install sklearn
 pip install -e C:\Users\Name\omnipose\cellpose
@@ -41,21 +41,21 @@ sudo apt-get install wget
 sudo apt install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
 ```
 
-Tested: Anaconda3-2021.05-Linux-x86_64
+   Tested: Anaconda3-2021.05-Linux-x86_64
 ```
 (sudo) wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh 
 bash Anaconda3-2021.05-Linux-x86_64.sh 
 rm -rf Anaconda3-2021.05-Linux-x86_64.sh 
 ```
 
-Latest Anaconda: (as of April 2022; find the full availability here https://repo.anaconda.com/archive/)
+   Latest Anaconda: (as of April 2022; find the full availability here https://repo.anaconda.com/archive/)
 ```
 (sudo) wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
 bash Anaconda3-2021.11-Linux-x86_64.sh 
 rm -rf Anaconda3-2021.11-Linux-x86_64.sh 
 ```
 
-Latest miniconda:
+   Latest miniconda:
 ```
 (sudo) wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
@@ -69,11 +69,11 @@ _"Do you accept the license terms?" >yes_
 source ~/.bashrc
 ```
 
-Optional: to prevent base environment from loading automatically, run:
+   Optional: to prevent base environment from loading automatically, run:
 ```
 conda config --set auto_activate_base false
 ```
-and restart shell.
+   and restart shell.
 
 3.  Install git (https://git-scm.com/download/linux): 
 ```
@@ -81,12 +81,13 @@ sudo apt-get install git
 ```
 
 4. Clone Omnipose/Cellpose from Github
-Navigate to folder you want to install Omnipose in (using cd), then run:
+
+   Navigate to folder you want to install Omnipose in (using cd), then run:
 ```
 git clone https://github.com/kevinjohncutler/cellpose.git
 ```
 
-Navigate to folder containing environment.yml file (ie 'cellpose') and create cellpose environment
+   Navigate to folder containing environment.yml file (ie 'cellpose') and create cellpose environment
 ```
 cd cellpose
 conda env create -f environment.yml
@@ -119,13 +120,13 @@ brew install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcurs
 brew install wget
 ```
 
-Latest Anaconda: (as of April 2022; find the full availability here https://repo.anaconda.com/archive/)
+   Latest Anaconda: (as of April 2022; find the full availability here https://repo.anaconda.com/archive/)
 ```
 (sudo) wget https://repo.anaconda.com/archive/Anaconda3-2021.11-MacOSX-x86_64.sh
 bash Anaconda3-2021.11-MacOSX-x86_64.sh
 ```
 
-Latest miniconda:
+   Latest miniconda:
 ```
 (sudo) wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
 bash Miniconda3-latest-MacOSX-x86_64.sh
@@ -136,11 +137,11 @@ bash Miniconda3-latest-MacOSX-x86_64.sh
 source ~/.bashrc
 ```
 
-Optional: to prevent base environment from loading automatically, run:
+   Optional: to prevent base environment from loading automatically, run:
 ```
 conda config --set auto_activate_base false
 ```
-and restart shell.
+   and restart shell.
 
 3.  Install git (https://git-scm.com/download/mac): 
 ```
@@ -148,12 +149,13 @@ brew install git
 ```
 
 4. Clone Omnipose/Cellpose from Github
-Navigate to folder you want to install Omnipose in (using cd), then run:
+
+   Navigate to folder you want to install Omnipose in (using cd), then run:
 ```
 git clone https://github.com/kevinjohncutler/cellpose
 ```
 
-Navigate to folder containing environment.yml file (ie 'cellpose') and create cellpose environment
+   Navigate to folder containing environment.yml file (ie 'cellpose') and create cellpose environment
 ```
 cd cellpose
 conda env create -f environment.yml
