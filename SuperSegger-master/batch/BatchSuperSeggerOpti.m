@@ -437,7 +437,7 @@ function cpstr = genCellposeCommand(dirname_xy)
         disp('>><strong>Caution!</strong> Training model not properly found on path. Please manually input path of file after --pretrained_model option into Terminal.');
         disp('Training model located in folder: ~\SuperSegger-master\cellpose_files\trainedmodel\')
     end 
-    cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model ' [modeldirpath cpmodel.name] ' --nclasses 4 --omni --save_png --dir_above --in_folders --cluster --dist_thresh 1'];
+    cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model ' [modeldirpath cpmodel.name] '  --save_png --dir_above --in_folders --nclasses 4 --omni --cluster --dist_thresh 1'];
     %system(cpstr); %call python to run cellpose
 
     %movefile([diralign '**.png'], [dirname_xy 'cp_masks' filesep]) %move the masks from the phase to the cp_masks folder %mouseland

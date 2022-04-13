@@ -27,7 +27,7 @@ Omnipose options have been preselected to work directly with Supersegger, but if
 
 When running in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --dist_thresh 1".
 In addition, other Omnipose options can be added to possibly improve segmentation. 
-However, Supersegger-Omnipose requires the following options following --omni: "--save_png --dir_above --in_folders"
+However, Supersegger-Omnipose requires the options before "--omni" should not be changed.
 
 
 
