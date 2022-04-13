@@ -4,7 +4,7 @@
 
 1. Install miniconda (https://docs.conda.io/en/latest/miniconda.html)
 
-Warning: If added to PATH, can run miniconda directly from Command Window, but could cause interferences. If not added to PATH, need to use the separate Anaconda Prompt to run.
+   Warning: If added to PATH, can run miniconda directly from Command Window, but could cause interferences. If not added to PATH, need to use the separate Anaconda Prompt to run.
 
 2. Install git (https://git-scm.com/download/win)
 
