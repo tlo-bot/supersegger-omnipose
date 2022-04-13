@@ -38,7 +38,7 @@ However, the options before "--omni" should not be changed when working with Sup
 ```
 git clone https://github.com/tlo-bot/supersegger-omnipose.git
 ```
-3. Install/clone [Omnipose](https://github.com/kevinjohncutler/omnipose/) from github.
+3. Install/clone [Omnipose](https://github.com/kevinjohncutler/cellpose/) from github.
    - Find step-by-step instructions [here](../main/install_omnipose.md).
    - Omnipose can also be installed through pip: `pip install omnipose`
    - Further installation instructions for Omnipose can be found [here](https://pypi.org/project/cellpose/).
