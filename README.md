@@ -34,7 +34,12 @@ However, Supersegger-Omnipose requires the following options following --omni: "
 ### Installation Instructions
 
 1. Install [MATLAB](https://www.mathworks.com/help/install/install-products.html), [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), and [miniconda](https://docs.conda.io/en/latest/miniconda.html).
-2. Install/clone [Supersegger-Omnipose](https://github.com/tlo-bot/supersegger-omnipose) and [Omnipose](https://github.com/kevinjohncutler/omnipose/) from github.
+2. Install/clone Supersegger-Omnipose
+```
+git clone https://github.com/tlo-bot/supersegger-omnipose
+```
+3. Install/clone [Omnipose](https://github.com/kevinjohncutler/omnipose/) from github.
+   - Find step-by-step instructions here.
    - Omnipose can also be installed through pip: `pip install omnipose`
    - Further installation instructions for Omnipose can be found [here](https://pypi.org/project/cellpose/).
 3. Add supersegger-omnipose to MATLAB path, with its subfolders.
@@ -60,7 +65,7 @@ _*note that if the original Supersegger is already installed and on the MATLAB p
 
 ### Troubleshooting & Known Issues
 Coming soon: 
-- Omnipose installation instructions (Windows & Linux)
+- Omnipose installation instructions (Windows, Linux & MacOS)
 - Possible Supersegger-Omnipose errors
 
 
