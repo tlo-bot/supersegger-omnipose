@@ -36,7 +36,7 @@ However, Supersegger-Omnipose requires the following options following --omni: "
 1. Install [MATLAB](https://www.mathworks.com/help/install/install-products.html), [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), and [miniconda](https://docs.conda.io/en/latest/miniconda.html).
 2. Install/clone Supersegger-Omnipose
 ```
-git clone https://github.com/tlo-bot/supersegger-omnipose
+git clone https://github.com/tlo-bot/supersegger-omnipose.git
 ```
 3. Install/clone [Omnipose](https://github.com/kevinjohncutler/omnipose/) from github.
    - Find step-by-step instructions here.
