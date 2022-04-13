@@ -8,7 +8,7 @@ Warning: If added to PATH, can run miniconda directly from Command Window, but c
 
 2. Install git (https://git-scm.com/download/win)
 
-3. In Command Window, navigate to desired folder and install Omnipose (ie C:\Users\Name\omnipose\).
+3. In Command Window, create & navigate to desired folder and install Omnipose (ie C:\Users\Name\omnipose\).
 ```
 git clone https://github.com/kevinjohncutler/cellpose.git
 ```
@@ -26,6 +26,10 @@ pip install sklearn
 pip install -e C:\Users\Name\omnipose\cellpose
 ```
 
+5. For updating:
+```
+git -C C:\Users\Name\omnipose\ pull origin master
+```
 
 ### Linux (Debian/Ubuntu)
 
@@ -37,7 +41,7 @@ sudo apt-get install wget
 sudo apt install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
 ```
 
-Tested and known to work: Anaconda3-2021.05-Linux-x86_64
+Tested: Anaconda3-2021.05-Linux-x86_64
 ```
 (sudo) wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh 
 bash Anaconda3-2021.05-Linux-x86_64.sh 
@@ -47,8 +51,8 @@ rm -rf Anaconda3-2021.05-Linux-x86_64.sh
 Latest Anaconda: (as of April 2022; find the full availability here https://repo.anaconda.com/archive/)
 ```
 (sudo) wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
-bash Anaconda3-2021.05-Linux-x86_64.sh 
-rm -rf Anaconda3-2021.05-Linux-x86_64.sh 
+bash Anaconda3-2021.11-Linux-x86_64.sh 
+rm -rf Anaconda3-2021.11-Linux-x86_64.sh 
 ```
 
 Latest miniconda:
@@ -58,7 +62,7 @@ bash Miniconda3-latest-Linux-x86_64.sh
 rm -rf bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
-"Do you accept the license terms?" >yes
+_"Do you accept the license terms?" >yes_
 
 2. Restart shell:
 ```
