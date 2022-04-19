@@ -86,7 +86,6 @@ sudo apt-get install git
 ```
 git clone https://github.com/kevinjohncutler/cellpose.git
 ```
-*tested working commit: 8f935b; use `git checkout 8f935b'
 
 
 5. Navigate to folder containing environment.yml file (ie 'cellpose') and create cellpose environment
