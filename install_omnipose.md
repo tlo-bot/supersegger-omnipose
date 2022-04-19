@@ -121,17 +121,12 @@ brew install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcurs
 brew install wget
 ```
 
-   Latest Anaconda: (as of April 2022; find the full availability here https://repo.anaconda.com/archive/)
-```
-(sudo) wget https://repo.anaconda.com/archive/Anaconda3-2021.11-MacOSX-x86_64.sh
-bash Anaconda3-2021.11-MacOSX-x86_64.sh
-```
-
-   Latest miniconda:
+   Latest miniconda*:
 ```
 (sudo) wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
 bash Miniconda3-latest-MacOSX-x86_64.sh
 ```
+_*Could also install Anaconda (not recommended): https://repo.anaconda.com/archive/ _
 
 2. Restart shell:
 ```
