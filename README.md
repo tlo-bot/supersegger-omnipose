@@ -25,7 +25,7 @@ The Github for Supersegger is [here](https://github.com/wiggins-lab/SuperSegger)
 
 Omnipose options have been preselected to work directly with Supersegger*, but if needed, further documentation can be found [here](https://cellpose.readthedocs.io/en/latest/command.html).
 
-_*When running in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --dist_thresh 1".
+_*When running in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --mask_threshold 1".
 In addition, other Omnipose options can be added to possibly improve segmentation. 
 However, the options before "--omni" should not be changed when working with Supersegger-Omnipose._
 
