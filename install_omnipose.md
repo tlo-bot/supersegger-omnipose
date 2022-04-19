@@ -81,7 +81,7 @@ sudo apt-get install git
 ```
 
 4. Install Omnipose/Cellpose through pip (recommended) or clone Omnipose/Cellpose from Github 
-   - pip method: pip install cellpose=1.0.2; pip install omnipose
+   - pip method: pip install cellpose==1.0.2; pip install omnipose
    - Github method: navigate to folder you want to install Omnipose in (using cd)*, then run:
 ```
 git clone https://github.com/kevinjohncutler/cellpose.git
