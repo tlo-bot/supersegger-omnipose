@@ -438,7 +438,7 @@ function cpstr = genCellposeCommand(dirname_xy)
         disp('Training model located in folder: ~\SuperSegger-master\cellpose_files\trainedmodel\')
     end 
     %cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model ' [modeldirpath cpmodel.name] '  --save_png --dir_above --in_folders --nclasses 4 --omni --cluster --mask_threshold 1'];
-    cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model bact_omni '  --save_png --dir_above --in_folders --nclasses 4 --omni --cluster --mask_threshold 1'];
+    cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model bact_omni --save_png --dir_above --in_folders --nclasses 4 --omni --cluster --mask_threshold 1'];
     %system(cpstr); %call python to run cellpose
 
     %movefile([diralign '**.png'], [dirname_xy 'cp_masks' filesep]) %move the masks from the phase to the cp_masks folder %mouseland
