@@ -72,7 +72,7 @@ convertImageNames(dirname, basename, timeFilterBefore, ...
 
 res = '60XEc';
 
-%% Paralell Processing Mode
+%% Parallel Processing Mode
 % to run code in parallel mode must have the parallel processing toolbox,
 % for convenience default is false (non-parallel)
 
@@ -85,12 +85,12 @@ CONST = loadConstants(res,parallel_flag) ;
 % after you load the constants you can modify them according to your needs
 % for more options, looks at the loadConstants file.
 
-CONST.trackLoci.numSpots = []; % Max number of foci to fit in each fluorescence channel (default = [0 0])
+CONST.trackLoci.numSpots = [2]; % Max number of foci to fit in each fluorescence channel (default = [0 0])
 CONST.trackLoci.fluorFlag = false ;    % compute integrated fluorescence (default = true)
 CONST.trackOpti.NEIGHBOR_FLAG = false; % calculate number of neighbors (default = false)
 CONST.imAlign.AlignChannel = 1; % change this if you want the images to be aligned to fluorescence channel
 
-CONST.view.fluorColor = {};
+CONST.view.fluorColor = {'g'};
 
 %% Skip Frames for Segmentation
 % For fast time-lapse or slow growth you can skip phase image frames 
