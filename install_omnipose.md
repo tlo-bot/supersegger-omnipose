@@ -1,5 +1,7 @@
 # Step-by-step Omnipose installation instructions (command line based, assumes cellpose is not already installed)
 
+## Note: this page is a work in progress and intended as a general guide. Feel free to open an issue if there are errors in the installation process
+
 ### Windows
 
 1. Install miniconda (https://docs.conda.io/en/latest/miniconda.html)
@@ -8,9 +10,10 @@
 
 2. Install git (https://git-scm.com/download/win)
 
-3. In Command Window, create & navigate to desired folder and install Omnipose (ie C:\Users\Name\omnipose\).
+3. In Command Window, create & navigate to desired folder (ie C:\Users\Name\omnipose\) and clone Omnipose.
 ```
 git clone https://github.com/kevinjohncutler/cellpose.git
+git clone https://github.com/kevinjohncutler/omnipose.git
 ```
 
 4. In Command Window/Anaconda Prompt, navigate to folder with environment.yml file (probably `cd cellpose`), activate environment, and install Omnipose.
@@ -18,6 +21,7 @@ git clone https://github.com/kevinjohncutler/cellpose.git
 conda env create -f environment.yml
 conda activate cellpose
 pip install git+https://github.com/kevinjohncutler/cellpose.git
+pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
 
    May need: 
@@ -80,12 +84,15 @@ conda config --set auto_activate_base false
 sudo apt-get install git
 ```
 
-4. Install Omnipose/Cellpose through pip (recommended) or clone Omnipose/Cellpose from Github 
-   - pip method: pip install cellpose==1.0.2; pip install omnipose
+4. Clone Omnipose/Cellpose from Github (recommended) or install Omnipose/Cellpose through pip
    - Github method: navigate to folder you want to install Omnipose in (using cd)*, then run:
 ```
 git clone https://github.com/kevinjohncutler/cellpose.git
+git clone https://github.com/kevinjohncutler/omnipose.git
+pip install git+https://github.com/kevinjohncutler/cellpose.git
+pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
+   - pip method: pip install cellpose==1.0.2; pip install omnipose
 
 5. Navigate to folder containing environment.yml file (ie 'cellpose') and create cellpose environment
 ```
@@ -144,12 +151,15 @@ brew install git
 ```
 
 
-4. Install Omnipose/Cellpose through pip (recommended) or clone Omnipose/Cellpose from Github 
-   - pip method: pip install cellpose==1.0.2; pip install omnipose
+4. Clone Omnipose/Cellpose from Github (recommended) or install Omnipose/Cellpose through pip
    - Github method: navigate to folder you want to install Omnipose in (using cd)*, then run:
 ```
 git clone https://github.com/kevinjohncutler/cellpose.git
+git clone https://github.com/kevinjohncutler/omnipose.git
+pip install git+https://github.com/kevinjohncutler/cellpose.git
+pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
+   - pip method: pip install cellpose==1.0.2; pip install omnipose
 
 5. Navigate to folder containing environment.yml file (ie 'cellpose') and create cellpose environment
 ```
