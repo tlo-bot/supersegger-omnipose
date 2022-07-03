@@ -2,6 +2,8 @@
 
 ## Note: this page is a work in progress and intended as a general guide. Feel free to open an issue if there are errors in the installation process
 
+## Note: Omnipose has been updated. If Omnipose was previously installed as Cellpose, feel free to remove the pre-existing installation `conda env remove -n cellpose`
+
 ### Windows
 
 1. Install miniconda (https://docs.conda.io/en/latest/miniconda.html)
@@ -10,25 +12,16 @@
 
 2. Install git (https://git-scm.com/download/win)
 
-3. In Command Window, create & navigate to desired folder (ie C:\Users\Name\omnipose\) and clone Omnipose.
-```
-git clone https://github.com/kevinjohncutler/cellpose.git
-git clone https://github.com/kevinjohncutler/omnipose.git
-```
+3. In Command Window, create & navigate to desired folder (ie C:\Users\Name\omnipose\).
 
-4. In Command Window/Anaconda Prompt, navigate to folder with environment.yml file (probably `cd cellpose`), activate environment, and install Omnipose.
+4. In Command Window/Anaconda Prompt, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
 ```
-conda env create -f environment.yml
-conda activate cellpose
-pip install git+https://github.com/kevinjohncutler/cellpose.git
+conda env create -n omnipose python
+conda activate omnipose
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
 
-   May need: 
-```
-pip install sklearn
-pip install -e C:\Users\Name\omnipose\cellpose
-```
+   Note: activate the omnipose environment each time you want to use omnipose.
 
 5. For updating:
 ```
@@ -37,7 +30,7 @@ git -C C:\Users\Name\omnipose\ pull origin master
 
 ### Linux (Debian/Ubuntu)
 
-1. Install Anaconda (https://www.anaconda.com/products/distribution)
+1. Install Anaconda (https://www.anaconda.com/products/distribution) or Miniconda (recommended)
 ```
 sudo apt-get update
 sudo apt-get install curl
@@ -52,11 +45,11 @@ bash Anaconda3-2021.05-Linux-x86_64.sh
 rm -rf Anaconda3-2021.05-Linux-x86_64.sh 
 ```
 
-   Latest Anaconda: (as of April 2022; find the full availability here https://repo.anaconda.com/archive/)
+   Latest Anaconda: (as of June 2022; find the full availability here https://repo.anaconda.com/archive/)
 ```
-(sudo) wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
-bash Anaconda3-2021.11-Linux-x86_64.sh 
-rm -rf Anaconda3-2021.11-Linux-x86_64.sh 
+(sudo) wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+bash Anaconda3-2022.05-Linux-x86_64.sh
+rm -rf Anaconda3-2022.05-Linux-x86_64.sh
 ```
 
    Latest miniconda:
@@ -84,35 +77,20 @@ conda config --set auto_activate_base false
 sudo apt-get install git
 ```
 
-4. Clone Omnipose/Cellpose from Github (recommended) or install Omnipose/Cellpose through pip
-   - Github method: navigate to folder you want to install Omnipose in (using cd)*, then run:
+4. In Command Window, create & navigate to desired folder (ie ~/omnipose).
+
+5. In Command Window, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
 ```
-git clone https://github.com/kevinjohncutler/cellpose.git
-git clone https://github.com/kevinjohncutler/omnipose.git
-pip install git+https://github.com/kevinjohncutler/cellpose.git
+conda env create -n omnipose python
+conda activate omnipose
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
-   - pip method: pip install cellpose==1.0.2; pip install omnipose
 
-5. Navigate to folder containing environment.yml file (ie 'cellpose') and create cellpose environment
-```
-cd cellpose
-conda env create -f environment.yml
-```
+   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
-6. Activate Omnipose/Cellpose environment (repeat step each time you want to use Omnipose)
+6. For updating: 
 ```
-conda activate cellpose
-```
-
-7. (If cloned through Github, not needed for pip method) Install cellpose 
-```
-pip install git+https://github.com/kevinjohncutler/cellpose.git
-```
-
-8. For updating: 
-```
-git -C ~/cellpose pull origin master
+git -C ~/omnipose pull origin master
 ```
 
 
@@ -150,34 +128,18 @@ conda config --set auto_activate_base false
 brew install git
 ```
 
+4. In Command Window, create & navigate to desired folder (ie ~/omnipose).
 
-4. Clone Omnipose/Cellpose from Github (recommended) or install Omnipose/Cellpose through pip
-   - Github method: navigate to folder you want to install Omnipose in (using cd)*, then run:
+5. In Command Window, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
 ```
-git clone https://github.com/kevinjohncutler/cellpose.git
-git clone https://github.com/kevinjohncutler/omnipose.git
-pip install git+https://github.com/kevinjohncutler/cellpose.git
+conda env create -n omnipose python
+conda activate omnipose
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
-   - pip method: pip install cellpose==1.0.2; pip install omnipose
 
-5. Navigate to folder containing environment.yml file (ie 'cellpose') and create cellpose environment
-```
-cd cellpose
-conda env create -f environment.yml
-```
+   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`. 
 
-6. Activate Omnipose/Cellpose environment (repeat step each time you want to use Omnipose)
-```
-conda activate cellpose
-```
-
-7. (If cloned through Github, not needed for pip method) Install cellpose 
-```
-pip install git+https://github.com/kevinjohncutler/cellpose.git
-```
-
-8. For updating: 
+6. For updating: 
 ```
 git -C ~/cellpose pull origin master
 ```
