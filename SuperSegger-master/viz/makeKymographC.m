@@ -210,6 +210,13 @@ end
 
 %%
 
+if nargin<7
+    cperiodFLAG = 0;
+    fscs = [];
+    age = [];
+end
+
+
 if cperiodFLAG
     fscs = nanstozeros(fscs);
     scgate = 5;
