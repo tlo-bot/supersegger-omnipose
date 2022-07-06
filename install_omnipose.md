@@ -17,7 +17,13 @@
 4. In Command Window/Anaconda Prompt, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
 ```
 conda create -n omnipose python
+```
+
+```
 conda activate omnipose
+```
+
+```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
 
@@ -33,8 +39,17 @@ git -C C:\Users\Name\omnipose\ pull origin master
 1. Install Anaconda (https://www.anaconda.com/products/distribution) or Miniconda (recommended)
 ```
 sudo apt-get update
+```
+
+```
 sudo apt-get install curl
+```
+
+```
 sudo apt-get install wget
+```
+
+```
 sudo apt install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
 ```
 
@@ -82,7 +97,13 @@ sudo apt-get install git
 5. In Command Window, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
 ```
 conda create -n omnipose python
+```
+
+```
 conda activate omnipose
+```
+
+```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
 
@@ -101,7 +122,13 @@ git -C ~/omnipose pull origin master
 1. Install Anaconda (https://www.anaconda.com/products/distribution)
 ```
 brew install curl
+```
+
+```
 brew install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+```
+
+```
 brew install wget
 ```
 
@@ -133,7 +160,13 @@ brew install git
 5. In Command Window, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
 ```
 conda create -n omnipose python
+```
+
+```
 conda activate omnipose
+```
+
+```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
 
