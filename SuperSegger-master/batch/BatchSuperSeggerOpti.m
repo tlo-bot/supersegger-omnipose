@@ -438,7 +438,8 @@ function cpstr = genCellposeCommand(dirname_xy)
         disp('Training model located in folder: ~\SuperSegger-master\cellpose_files\trainedmodel\')
     end 
     %cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model ' [modeldirpath cpmodel.name] '  --save_png --dir_above --in_folders --nclasses 4 --omni --cluster --mask_threshold 1'];
-    %cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model bact_omni --save_png --dir_above --no_npy --in_folders --nclasses 4 --omni --cluster --mask_threshold 1 --flow_threshold 0'];
+    % below command is legacy; should work with kevin's cellpose commit #d27dc6d or #7be0e59
+    %cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model bact_omni --save_png --dir_above --no_npy --in_folders --nclasses 4 --omni --cluster --mask_threshold 1 --flow_threshold 0']; 
     cpstr = ['python -m omnipose --dir ' diralign ' --omni --pretrained_model bact_phase_omni --save_png --dir_above --no_npy --in_folders --cluster --mask_threshold 1 --flow_threshold 0'];
     %system(cpstr); %call python to run cellpose
 
