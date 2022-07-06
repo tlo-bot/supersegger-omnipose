@@ -1,10 +1,10 @@
-# Running Omnipose directly from MATLAB
+# Running Omnipose directly from MATLAB for Windows
 
 Omnipose can be run directly from Supersegger-Omnipose in MATLAB, streamlining the process. In fact, the code has already been written into Supersegger-Omnipose (in BatchSuperSeggerOpti.m), but is disabled by default. However, the process to set up and troubleshoot access permissions (which can change with software updates) may not be worth the effort. The following are suggestions for Windows, with numerous existing errors.
 
 The main difficulty is the issue of starting python and activating the conda environment through the MATLAB Command Window's permissions. 
 
-### Windows
+### Instructions
 1. Add conda to command line PATH (or Start>System Variables>Env. Variables>Path): 
 ``` 
 set PATH=%PATH%;C:\Users\Name\miniconda3\envs\cellpose;C:Users\Name\miniconda3\condabin 
