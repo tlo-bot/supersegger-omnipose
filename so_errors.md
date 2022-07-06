@@ -24,10 +24,10 @@ Explanation: There is probably a bug.
 
 Fix: In progress; try to manually create the movie using makeCellMovie.m
 
-## superSeggerViewerGui bugs: Kymograph Mosaic for 1 cell - MATLAB Error
+## superSeggerViewerGui bugs: Kymograph Mosaic for specific cells - MATLAB Error
 
-Description: when making a cell kymograph mosaic for 1 cell through superSeggerViewerGui, there is an error.
+Description: when making a cell kymograph mosaic for 1 or more specific cells through superSeggerViewerGui by inputting the cell numbers, there is an error.
 
-Explanation: There is probably a bug.
+Explanation: There is probably a bug; also not sure if the function allows for these input parameters (may only allow Max Cells argument rather than specific cell numbers).
 
-Fix: Manually create the kymograph using makeKymographC.m
+Fix: Manually create the kymographs individually using Cell Kymo in the ViewerGui, or makeKymographC.m
