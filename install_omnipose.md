@@ -16,7 +16,7 @@
 
 4. In Command Window/Anaconda Prompt, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
 ```
-conda env create -n omnipose python
+conda create -n omnipose python
 conda activate omnipose
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
@@ -81,7 +81,7 @@ sudo apt-get install git
 
 5. In Command Window, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
 ```
-conda env create -n omnipose python
+conda create -n omnipose python
 conda activate omnipose
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
@@ -132,7 +132,7 @@ brew install git
 
 5. In Command Window, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
 ```
-conda env create -n omnipose python
+conda create -n omnipose python
 conda activate omnipose
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
