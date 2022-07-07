@@ -29,9 +29,9 @@ pip install git+https://github.com/kevinjohncutler/omnipose.git
 
    Note: activate the omnipose environment each time you want to use omnipose.
 
-5. For updating:
+5. For updating, repeat the above install command after activating environment:
 ```
-git -C C:\Users\Name\omnipose\ pull origin master
+pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
 
 ### Linux (Debian/Ubuntu)
@@ -109,9 +109,9 @@ pip install git+https://github.com/kevinjohncutler/omnipose.git
 
    Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
-6. For updating: 
+6. For updating, repeat the above install command after activating environment:
 ```
-git -C ~/omnipose pull origin master
+pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
 
 
@@ -172,9 +172,9 @@ pip install git+https://github.com/kevinjohncutler/omnipose.git
 
    Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`. 
 
-6. For updating: 
+6. For updating, repeat the above install command after activating environment:
 ```
-git -C ~/cellpose pull origin master
+pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
 
 
