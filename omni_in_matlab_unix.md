@@ -8,14 +8,14 @@ Some combination of the following instructions should work...
 Further documentation can be found on the [conda github](https://github.com/conda/conda/issues/7980).
 
 ### Instructions
-1. Initialize the MATLAB bash shell with the local conda installation: 
+1. In the MATLAB Command Window, initialize the MATLAB bash shell with the local conda installation: 
 ``` 
-conda init bash
+system('conda init bash')
 ```
 
 May be instead:
 ```
-conda init
+system('conda init')
 ```
 
 2. Check that the proper location for conda has been added to your .bashrc file. Should appear similar to:
@@ -42,7 +42,7 @@ Note: the path to the conda.sh file listed above (ie, the path to the local cond
 conda info | grep -i 'base environment'
 ```
 
-2. Restart the MATLAB shell:
+2. In MATLAB Command Window, restart the MATLAB shell:
 ```
 system('source ~/.bashrc')
 ```
