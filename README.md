@@ -79,7 +79,9 @@ _*note that if the original Supersegger is already installed and on the MATLAB p
 ### Troubleshooting & Known Issues
 - [Omnipose installation instructions (Windows, Linux & MacOS)](../main/install_omnipose.md)
 - [Possible Supersegger-Omnipose errors](../main/so_errors.md)
-- [Running Omnipose directly from MATLAB for Windows (not recommended)](../main/omni_in_matlab.md)
+- [Running Omnipose directly from MATLAB for Windows (in progress)](../main/omni_in_matlab_windows.md)
+- [Running Omnipose directly from MATLAB for Linux (verified) & MacOS](../main/omni_in_matlab_unix.md)
+
 
 
 
