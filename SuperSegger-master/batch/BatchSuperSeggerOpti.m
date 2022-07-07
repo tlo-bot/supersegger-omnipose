@@ -1,4 +1,4 @@
-function BatchSuperSeggerOpti(dirname_,skip,clean_flag,res,startEnd,showWarnings)
+function BatchSuperSeggerOpti(dirname_,skip,clean_flag,res,startEnd,showWarnings,autoomni)
 % BatchSuperSeggerOpti : runs everything from start to finish,
 % including alignment, building the directory structure,
 %single image segmentation, error resolution, cell linking,
@@ -33,6 +33,7 @@ function BatchSuperSeggerOpti(dirname_,skip,clean_flag,res,startEnd,showWarnings
 % startEnd : array of two values to indicate where to start and where to
 % stop the program. 1, alignment, 2, segmentation, 3, stripping, 4 linking,
 % 5, cell marker, 6 : fluor, 7 : foci, 8, cellA structrues, 9, clist, 10 cell files.
+% autoomni : run Omnipose automatically with MATLAB
 %
 % Copyright (C) 2016 Wiggins Lab
 % Written by Paul Wiggins & Stella Stylianidou.
@@ -217,7 +218,7 @@ else
         
         dirname_xy = dirname_list{j};
         intProcessXY( dirname_xy, skip, nc, num_c, clean_flag, ...
-            CONST, startEnd, crop_box_array{j})
+            CONST, startEnd, crop_box_array{j}, autoomni)
         
         if workers || ~CONST.parallel.show_status
             disp( ['BatchSuperSeggerOpti: No status bar. xy ',num2str(j), ...
@@ -247,7 +248,7 @@ end
 end
 
 function intProcessXY( dirname_xy, skip, nc, num_c, clean_flag, ...
-    CONST, startEnd, crop_box)
+    CONST, startEnd, crop_box, autoomni)
 % intProcessXY : the details of running the code in parallel.
 % Essentially for parallel processing to work, you have to hand each
 % processor all the information it needs to process the images.
@@ -311,35 +312,20 @@ if clean_flag
     cleanSuperSegger (dirname_xy, startEnd, skip)
 end
 
-%[~] = input('Images aligned. Get masks of aligned images from cellpose ("cp_masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
-%call cellpose here and have it save the masks in the xy folder  
-%[~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');
-
-cpinstalled = contains(pwd,['envs' filesep 'cellpose']);
+%check if omnipose installed to matlab and want to run automatically
+%only unix supported at the moment
+opinstalled = ~system('source activate omnipose') && ( isunix || ismac ) && autoomni;
 if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
-    cpstr = genCellposeCommand(dirname_xy); %get cellpose command
-    %check if cellpose is installed
-    if cpinstalled %if cellpose installed and in right matlab path  
-        disp('Generating cellpose masks.');
-        system(cpstr); %call python to run cellpose
-    else %cellpose not installed or in wrong path
-%         reply = input('Do you have cellpose installed? (y/n)','s');
-%         if isempty(reply)
-%             reply = 'n';
-%         end
-%         if (reply=='y' || reply=='Y') %cellpose installed but path wrong
-%             disp('<strong>Check that your MATLAB path is in C:\Users\Name\miniconda3\envs\cellpose</strong>')
-%             [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');   
-%             disp('Generating cellpose masks.');
-%             genCellposeMasks(dirname_xy);
-%         elseif reply=='n' %cellpose not installed
-%             %[~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
-%             [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
-%         end
-        clipboard('copy',cpstr);
-        disp(['<strong>Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
-        disp(['<strong>Cellpose command copied to clipboard:</strong>']);
-        disp(cpstr);
+    opstr = genOmniposeCommand(dirname_xy); %get omnipose command
+    if opinstalled 
+        disp('Generating omnipose masks.');
+        [~,omnipose_out] = system(['source activate omnipose && ' opstr]); %call python to run cellpose
+        disp(omnipose_out)
+    else %cellpose not installed or run manually
+        clipboard('copy',opstr);
+        disp(['<strong>Omnipose not available in MATLAB. Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
+        disp(['<strong>Omnipose command copied to clipboard:</strong>']);
+        disp(opstr);
         [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
     end
 else %folder exists
@@ -350,32 +336,20 @@ else %folder exists
     end
     dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %return 1 if file exists that's not a . hidden file
     if dirnotempty==0 % no masks inside; folder is empty
-        cpstr = genCellposeCommand(dirname_xy); %get cellpose command
-        if cpinstalled
-            disp('Generating cellpose masks.');
-            system(cpstr);
+        opstr = genOmniposeCommand(dirname_xy); %get omnipose command
+        if opinstalled
+            disp('Generating omnipose masks.');
+            [~,omnipose_out] = system(['source activate omnipose && ' opstr]);
+            disp(omnipose_out)
         else
-%             reply = input('Do you have cellpose installed? (y/n)','s');
-%             if isempty(reply)
-%                 reply = 'n';
-%             end
-%             if (reply=='y' || reply=='Y') %cellpose installed but path wrong
-%                 disp('<strong>Check that your MATLAB path is in C:\Users\Name\miniconda3\envs\cellpose</strong>')
-%                 [~] = input('Are you ready??? \n Press Enter to go to the Dark Side.');   
-%                 disp('Generating cellpose masks.');
-%                 genCellposeMasks(dirname_xy);
-%             else %cellpose not installed
-%             %[~] = input('Images aligned. Get masks of aligned images from cellpose ("masks" folder) and put into xy# folder please. \n Press Enter when ready to continue.');
-%             [~] = input('Images aligned. Please run cellpose on xy\phase folder to generate masks. \n Press Enter when ready to continue.');
-%             end
-            clipboard('copy',cpstr);
-            disp(['<strong>Cellpose not found on MATLAB path. Please run cellpose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
-            disp(['<strong>Cellpose command copied to clipboard:</strong>']);
-            disp(cpstr);
+            clipboard('copy',opstr);
+            disp(['<strong>Omnipose not available in MATLAB. Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
+            disp(['<strong>Omnipose command copied to clipboard:</strong>']);
+            disp(opstr);
             [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
         end
     elseif dirnotempty==1 %folder and masks exist
-    disp('Cellpose masks already generated.');
+    disp('Omnipose masks already generated.');
     end
 end
 
@@ -421,28 +395,10 @@ if startEnd(2) >2
 end
 end
 
-function cpstr = genCellposeCommand(dirname_xy)
+function opstr = genOmniposeCommand(dirname_xy)
     diralign = [dirname_xy 'phase' filesep];
-    %get the path to model here
-    %model should be only file w/ cpmodellocate.m in trainedmodel folder
-    modeldirpath = extractBefore(which('cpmodellocate'),'cpmodellocate');
-    modeldir = dir(modeldirpath);
-    cpmodel = modeldir(~endsWith({modeldir.name},'.m')); %ignore the cpmodellocate file
-    cpmodel = cpmodel(~startsWith({cpmodel.name},'.')); %ignore the hidden . files
-    %cpmodel = dir([modeldir '*cell*']); %assumes modelname includes 'cell'
-    %cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --flow_threshold 0 --save_png --no_npy']; %mouseland
-    %kevin's version should output masks folder in xy dir
-    %cpstr = ['python -m cellpose --dir ' diralign ' --pretrained_model ' [modeldirpath cpmodel.name] ' --save_png --save_above']; %kevin's cellpose
-    if isempty(modeldirpath) || isempty(cpmodel)
-        disp('>><strong>Caution!</strong> Training model not properly found on path. Please manually input path of file after --pretrained_model option into Terminal.');
-        disp('Training model located in folder: ~\SuperSegger-master\cellpose_files\trainedmodel\')
-    end 
-    %cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model ' [modeldirpath cpmodel.name] '  --save_png --dir_above --in_folders --nclasses 4 --omni --cluster --mask_threshold 1'];
     % below command is legacy; should work with kevin's cellpose commit #d27dc6d or #7be0e59
-    %cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model bact_omni --save_png --dir_above --no_npy --in_folders --nclasses 4 --omni --cluster --mask_threshold 1 --flow_threshold 0']; 
-    % tested to work with omnipose installation, commit #5822683
-    cpstr = ['python -m omnipose --dir ' diralign ' --omni --pretrained_model bact_phase_omni --save_png --dir_above --no_npy --in_folders --cluster --mask_threshold 1 --flow_threshold 0'];
-    %system(cpstr); %call python to run cellpose
-
-    %movefile([diralign '**.png'], [dirname_xy 'cp_masks' filesep]) %move the masks from the phase to the cp_masks folder %mouseland
+    % cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model bact_omni --save_png --dir_above --no_npy --in_folders --nclasses 4 --omni --cluster --mask_threshold 1 --flow_threshold 0']; 
+    % below tested to work with omnipose installation, commit #5822683
+    opstr = ['python -m omnipose --dir ' diralign ' --omni --pretrained_model bact_phase_omni --save_png --dir_above --no_npy --in_folders --cluster --mask_threshold 1 --flow_threshold 0'];
 end
