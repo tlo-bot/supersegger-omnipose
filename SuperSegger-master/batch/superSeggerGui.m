@@ -208,9 +208,9 @@ end_step = str2double(handles.end_step.String);
 startEnd = [start_step end_step];
 debug_flag = 0;
 if debug_flag
-    BatchSuperSeggerDebug(dirname, skip, clean_flag, CONST, startEnd);
+    BatchSuperSeggerDebug(dirname, skip, clean_flag, CONST, startEnd, [], 0);
 else
-    BatchSuperSeggerOpti(dirname, skip, clean_flag, CONST, startEnd);
+    BatchSuperSeggerOpti(dirname, skip, clean_flag, CONST, startEnd, [], 0);
 end
 
 % tries different constants

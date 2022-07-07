@@ -318,7 +318,7 @@ opinstalled = ~system('source activate omnipose') && ( isunix || ismac ) && auto
 if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
     opstr = genOmniposeCommand(dirname_xy); %get omnipose command
     if opinstalled 
-        disp('Generating omnipose masks.');
+        disp('Generating Omnipose masks.');
         [~,omnipose_out] = system(['source activate omnipose && ' opstr]); %call python to run cellpose
         disp(omnipose_out)
     else %cellpose not installed or run manually
@@ -338,7 +338,7 @@ else %folder exists
     if dirnotempty==0 % no masks inside; folder is empty
         opstr = genOmniposeCommand(dirname_xy); %get omnipose command
         if opinstalled
-            disp('Generating omnipose masks.');
+            disp('Generating Omnipose masks.');
             [~,omnipose_out] = system(['source activate omnipose && ' opstr]);
             disp(omnipose_out)
         else
