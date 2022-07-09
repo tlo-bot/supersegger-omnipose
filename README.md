@@ -25,7 +25,7 @@ The Github for Supersegger is [here](https://github.com/wiggins-lab/SuperSegger)
 
 Omnipose options have been preselected to work directly with Supersegger-Omnipose*, but if needed, further documentation can be found [here](https://cellpose.readthedocs.io/en/latest/command.html).
 
->*When running in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --mask_threshold 1 --flow_threshold 0". Other models can be used as well instead of the default "--bact_phase_omni".
+>*When running in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --mask_threshold 1 --flow_threshold 0". Other models can be used as well instead of the default "bact_phase_omni".
 In addition, other Omnipose options can be added to possibly improve segmentation. 
 However, the options before "--omni" should not be changed when working with Supersegger-Omnipose.
 
