@@ -29,6 +29,7 @@ conda activate omnipose
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
+>   Note: for the latest stable release of Omnipose, use instead: `pip install omnipose`
 
 > Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
@@ -102,6 +103,7 @@ conda activate omnipose
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
+>   Note: for the latest stable release of Omnipose, use instead: `pip install omnipose`
 
 >   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
@@ -163,6 +165,7 @@ conda activate omnipose
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
+>   Note: for the latest stable release of Omnipose, use instead: `pip install omnipose`
 
 >   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`. 
 
