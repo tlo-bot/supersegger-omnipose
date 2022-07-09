@@ -313,17 +313,33 @@ if clean_flag
 end
 
 %check if omnipose installed to matlab and want to run automatically
-%only unix supported at the moment
-opinstalled = ~system('source activate omnipose') && ( isunix || ismac ) && autoomni;
+opinstalled = 0;
+if (isunix || ismac) && autoomni
+	opinstalled = ~system('source activate omnipose');
+elseif (ispc && autoomni)
+    [initPath,condaStatus] = condaactivateomnipose;
+    if condaStatus %conda is found & activated
+        opinstalled = 1;
+    else
+        warning('Conda not added to MATLAB Path.')
+        opinstalled = 0;
+    end
+end
+
+
 if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
     opstr = genOmniposeCommand(dirname_xy); %get omnipose command
     if opinstalled 
         disp('Generating Omnipose masks.');
-        [~,omnipose_out] = system(['source activate omnipose && ' opstr]); %call python to run cellpose
+        if (isunix || ismac)
+            [~,omnipose_out] = system(['source activate omnipose && ' opstr]); %call python to run cellpose
+        elseif ispc
+            [~,omnipose_out] = system(opstr);
+        end
         disp(omnipose_out)
     else %cellpose not installed or run manually
         clipboard('copy',opstr);
-        disp(['<strong>Omnipose not available in MATLAB. Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
+        disp(['<strong>Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
         disp(['<strong>Omnipose command copied to clipboard:</strong>']);
         disp(opstr);
         [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
@@ -339,11 +355,15 @@ else %folder exists
         opstr = genOmniposeCommand(dirname_xy); %get omnipose command
         if opinstalled
             disp('Generating Omnipose masks.');
-            [~,omnipose_out] = system(['source activate omnipose && ' opstr]);
+            if (isunix || ismac)
+                [~,omnipose_out] = system(['source activate omnipose && ' opstr]);
+            elseif ispc
+                [~,omnipose_out] = system(opstr);
+            end
             disp(omnipose_out)
         else
             clipboard('copy',opstr);
-            disp(['<strong>Omnipose not available in MATLAB. Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
+            disp(['<strong>Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
             disp(['<strong>Omnipose command copied to clipboard:</strong>']);
             disp(opstr);
             [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
@@ -352,6 +372,13 @@ else %folder exists
     disp('Omnipose masks already generated.');
     end
 end
+
+%after segmentation, reset the MATLAB path for Windows
+if (ispc && autoomni)
+    setenv('PATH', initPath);
+end
+
+
 
 disp('Continuing segmentation.'); 
 
