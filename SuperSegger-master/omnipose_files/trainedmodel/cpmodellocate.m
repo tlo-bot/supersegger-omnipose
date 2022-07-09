@@ -1,1 +1,0 @@
-%used to find cellpose model in the system path
