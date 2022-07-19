@@ -29,7 +29,7 @@ conda activate omnipose
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
->   Note: for the latest stable release of Omnipose, use instead: `pip install omnipose`
+>   Note: for the latest stable release of Omnipose from PyPi, use instead: `pip install omnipose` (June 19 2022 - not yet supported)
 
 > Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
