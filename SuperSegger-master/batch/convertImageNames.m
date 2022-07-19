@@ -8,13 +8,14 @@ function convertImageNames(dirname, basename, timeFilterBefore, ...
 % and the channelNames used in your filenames starting with phase.
 % If you leave both the before and after values as '', then it sets the
 % value to 1 (can be used for snapshots, or a single xy position).
-% For example, Micromanager has the convention img_00000000t_channel.tif,
-% if we used BF for phase images and gfp for the 1st channel we would call
+% For example, Micromanager has the convention img_00000000t_channel.tif.
+% If we used BF for phase images and gfp for the 1st channel, we would call
 % this function as following :
-% convertImageNames(dirname, 'img', '_', 't', '','' , {'BF','gfp'} )
+% convertImageNames(dirname, 'img', '_', 't', [],[], {'BF','gfp'} )
 % which would rename img_00000001t_BF.tif to img_t1xy1c1.tif
 %
-% INPUT : dirname : directory contains micromanager images
+% INPUT : dirname : directory contains micromanager images (as a string)
+%	  basename : string for describing/naming your dataset
 %         timeFilterBefore : string found before frame number
 %         timeFilterAfter : string found after frame number
 %         xyFilterBefore : string found before xy position number
