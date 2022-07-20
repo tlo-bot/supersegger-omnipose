@@ -63,26 +63,26 @@ end
 
 %%
 % optimize the regions with bad scores
-% if CONST.seg.OPTI_FLAG %might need to comment this out since it uses seg?
-%     data = perRegionOpti( data, 1, CONST,header);
-%     drawnow
-% else
     data = [];
     data.phase = phase;
     % masks now stored adjacent to 'phase' directory 
-    if exist([extractBefore(dataname,[filesep 'seg' filesep]) filesep 'cp_masks' filesep],'dir')
-        maskdir = [extractBefore(dataname, [filesep 'seg' filesep]) filesep 'cp_masks' filesep];
-    elseif exist([extractBefore(dataname,[filesep 'seg' filesep]) filesep 'masks' filesep],'dir')
+    while ~exist([extractBefore(dataname,[filesep 'seg' filesep]) filesep 'masks' filesep],'dir')
+        fprintf(2, ['Mask directory not found! ' ...
+        'Check that Omnipose has run successfully, ' ...
+        'or that path of dataset does not contain directory named ''seg''.' ...
+        '\nPress Enter to retry, or Ctrl+C to exit.\n']);   
+        pause;
+    end
+    
+    if exist([extractBefore(dataname,[filesep 'seg' filesep]) filesep 'masks' filesep],'dir')
         maskdir = [extractBefore(dataname, [filesep 'seg' filesep]) filesep 'masks' filesep];
     else
-        
+
     end
-%     maskdir = [extractBefore(dataname,'seg') 'phase' filesep];
     filename = char(extractBetween(dataname,[filesep 'seg' filesep],'_seg.mat')); %generalized to filesep 
     maskpath = strcat(maskdir,filename,'c1_cp_masks.png'); %get path of cellpose mask  
     data = intMakeRegs( maskpath, data, CONST ); %input cellpose mask 
     err_flag = false; %shh no errors here...
-% end
 
 end
 
