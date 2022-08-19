@@ -1,4 +1,4 @@
-function processExp( dirname , autoomni )
+function processExp( dirname , autoomni, log_flag )
 % processExp : main function for running the segmentation software.
 % Used to choose the appropriate settings, and converting the images
 % filenames before running BatchSuperSeggerOpti.
@@ -26,6 +26,9 @@ function processExp( dirname , autoomni )
 %                : by running in Terminal rather than the default options
 %                : preset in the batchSuperSeggerOpti.m file
 %                : 1 to run automatically; 0 to run manually (default)
+%       log_flag : save SuperSegger output from Command Window to
+%                : a file in the main directory called output_log.txt
+%                : 1 to save output; 0 to not save (default)
 % 
 %
 % Copyright (C) 2016 Wiggins Lab 
@@ -45,6 +48,16 @@ function processExp( dirname , autoomni )
 % 
 % You should have received a copy of the GNU General Public License
 % along with SuperSegger.  If not, see <http://www.gnu.org/licenses/>.
+
+%% start logging Command Window
+
+if ~exist( 'log_flag', 'var') || isempty( log_flag )
+    log_flag = 0;
+end
+
+if log_flag
+    diary([dirname filesep 'output_log.txt']);    
+end
 
 %% Converting other microscopes files
 % For example if you are using MicroManager and the file format is the 
@@ -122,5 +135,11 @@ end
 
 %BatchSuperSeggerOpti( dirname, skip, cleanflag, CONST);
 BatchSuperSeggerOpti( dirname, skip, cleanflag, CONST, [], [], autoomni);
+
+%% turn off log
+
+if log_flag
+    diary off
+end
 
 end
