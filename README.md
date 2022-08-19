@@ -21,7 +21,7 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 
 ### Software Documentation
 
-The Github for Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/SuperSegger.php). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
+The Github for the original Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/SuperSegger.php) and documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
 
 Omnipose options have been preselected to work directly with Supersegger-Omnipose*, but if needed, further documentation can be found by running `python -m omnipose --help` in the omnipose environment.
 
