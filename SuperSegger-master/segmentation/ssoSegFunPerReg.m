@@ -65,6 +65,7 @@ end
 % optimize the regions with bad scores
     data = [];
     data.phase = phase;
+    dataname = char(dataname); %make sure dataname is char, not string
     % masks now stored adjacent to 'phase' directory 
     while ~exist([extractBefore(dataname,[filesep 'seg' filesep]) filesep 'masks' filesep],'dir')
         fprintf(2, ['Mask directory not found! ' ...

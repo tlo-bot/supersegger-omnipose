@@ -199,7 +199,8 @@ for it = nt;
                 
                 [out,errNum,focusNum] = intAlignIm(im_, phaseBef_, precision );
                 if verbose
-                    disp(['focusNum: ',num2str(focusNum),' errNum: ',num2str(errNum)]);
+                    %disp(['focusNum: ',num2str(focusNum),' errNum: ',num2str(errNum)]);
+                    % commented, reduce output
                 end
                 FOCUS_FLAG = (focusNum > FOCUS_NUM_LIM) & (errNum < ERR_LIM);
                 
