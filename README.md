@@ -2,7 +2,7 @@
 
 Supersegger-Omnipose is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running Supersegger-Omnipose.
 
-More information about Omnipose can be found [here](https://github.com/kevinjohncutler/omnipose/).
+More information about Omnipose can be found at the [Github](https://github.com/kevinjohncutler/omnipose/) and [documentation page](https://omnipose.readthedocs.io/).
 
 
 
@@ -41,8 +41,8 @@ git clone https://github.com/tlo-bot/supersegger-omnipose.git
 3. Add supersegger-omnipose to MATLAB path, with its subfolders (see "Setting the Path").
 4. Install [Omnipose](https://github.com/kevinjohncutler/omnipose/)
    - Find step-by-step instructions [here](../main/install_omnipose.md).
-   - Further installation instructions for Omnipose can be found [here](https://pypi.org/project/cellpose/).
-   - GPU usage is discussed [here](https://github.com/kevinjohncutler/omnipose/). The Supersegger-Omnipose command defaults to using CPU only.
+   - Further advanced installation instructions for Omnipose can be found [here](https://pypi.org/project/cellpose/).
+   - GPU usage is discussed [here](https://omnipose.readthedocs.io/installation.html#gpu-support). The Supersegger-Omnipose command defaults to using CPU only.
 
 
 ### Setting the Path
