@@ -21,14 +21,24 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 
 ### Software Documentation
 
+#### SuperSegger
 The Github for the original Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/SuperSegger.php), the [wiki](https://github.com/wiggins-lab/SuperSegger/wiki), and documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
 
-Omnipose options have been preselected to work directly with Supersegger-Omnipose*, but if needed, further documentation can be found by running `python -m omnipose --help` in the omnipose environment.
+#### Omnipose
+[Omnipose](https://omnipose.readthedocs.io/) options have been preselected to work directly with Supersegger-Omnipose*, but if needed, further documentation can be found by running `python -m omnipose --help` in the omnipose environment. Recommended options can also be found on the [documentation page](https://omnipose.readthedocs.io/command.html). 
 
->*When running in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --mask_threshold 1 --flow_threshold 0". Other models can be used as well instead of the default "bact_phase_omni".
-In addition, other Omnipose options can be added to possibly improve segmentation. 
-However, the options before "--omni" should not be changed when working with Supersegger-Omnipose.
-
+>*Segmentation Options: When running the Omnipose command in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --mask_threshold 1 --flow_threshold 0 --diameter 30". 
+<br>
+ - --cluster: DBscan clustering, reduces oversegmentation of thin features
+ - --mask_threshold: mask threshold [0 default, decrease to find more and larger masks]
+ - --flow_threshold: flow error threshold [0.4 default, 0 to turn off]
+ - --diameter: approximate diameter of cell in pixels (for rod-shape, this is the length of the short axis) [30 default, 0 to have omnipose estimate for each image]
+<br>
+Mask and flow threshold numbers can be tested quickly with the Omnipose GUI (`python -m omnipose`). In addition, other Omnipose options can be added to possibly improve segmentation. 
+<br>
+Training Models: Other models can be used as well instead of the default "bact_phase_omni".
+<br>
+Note that the options before "--omni" should not be changed when working with Supersegger-Omnipose.
 
 
 ### Installation Instructions

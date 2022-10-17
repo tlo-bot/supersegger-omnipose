@@ -350,8 +350,15 @@ else %folder exists
     elseif exist([dirname_xy 'masks'],'dir')
         cpmasksdir = dir([dirname_xy 'masks']);
     end
+    
     dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %return 1 if file exists that's not a . hidden file
-    if dirnotempty==0 % no masks inside; folder is empty
+    
+    numMask = length({cpmasksdir.name})-2; %-2 for the .,.. files
+    dirname_phase = [dirname_xy 'phase' filesep];
+    phasedir = dir(dirname_phase);
+    numPhase = length({phasedir.name})-2;
+    
+    if (dirnotempty==0) || (numMask~=numPhase)  % no masks inside, folder is empty OR less masks than phase imgs
         opstr = genOmniposeCommand(dirname_xy); %get omnipose command
         if opinstalled
             disp('Generating Omnipose masks.');
@@ -427,5 +434,5 @@ function opstr = genOmniposeCommand(dirname_xy)
     % below command is legacy; should work with kevin's cellpose commit #d27dc6d or #7be0e59
     % cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model bact_omni --save_png --dir_above --no_npy --in_folders --nclasses 4 --omni --cluster --mask_threshold 1 --flow_threshold 0']; 
     % below tested to work with omnipose installation, commit #5822683
-    opstr = ['python -m omnipose --dir ' diralign ' --omni --pretrained_model bact_phase_omni --save_png --dir_above --no_npy --in_folders --cluster --mask_threshold 1 --flow_threshold 0'];
+    opstr = ['python -m omnipose --dir ' diralign ' --omni --pretrained_model bact_phase_omni --save_png --dir_above --no_npy --in_folders --cluster --mask_threshold 1 --flow_threshold 0 --diameter 30'];
 end
