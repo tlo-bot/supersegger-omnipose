@@ -2,7 +2,7 @@
 
 ## Using the GUI
 
-	<img src="https://camo.githubusercontent.com/2903acaebd8ee6da9498dd5ccff1c9939624b16827758ab401b06a005344d706/687474703a2f2f6d747368617374612e706879732e77617368696e67746f6e2e6564752f776562736974652f696d616765732f7365676765726775692e706e67" width="200vw" height="300vh">
+	MATLAB Command: `superSeggerGui`
 
 	1. Image directory: 
 
