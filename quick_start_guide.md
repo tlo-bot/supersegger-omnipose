@@ -6,7 +6,7 @@ MATLAB Command: `superSeggerGui`
 
 1. Image directory: 
 
-Paste the image directory into the input box, or use the folder icon to select the folder. 
+	Paste the image directory into the input box, or use the folder icon to select the folder. 
 
 2. Image requirements: 
 
@@ -33,8 +33,9 @@ Note that since Omnipose has replaced Supersegger's segmentation, segmentation c
 5. Modifying constants parameters
 
 The main parameters that may need to be adjusted are the Foci and Minimum Cell Age. 
-Foci: maximum number of foci in the fluorescence channels that should be identified per cell (ie for 2 fluorescence channels, `4,2` will identify up to 4 foci in the first channel and 2 in the second) 
-Minimum Cell Age: Minimum frames of cell age to be considered full cell cycle.
+
+- Foci: maximum number of foci in the fluorescence channels that should be identified per cell (ie for 2 fluorescence channels, `4,2` will identify up to 4 foci in the first channel and 2 in the second) 
+- Minimum Cell Age: Minimum frames of cell age to be considered full cell cycle.
 
 Find [further details](https://github.com/wiggins-lab/SuperSegger/wiki/Segmenting-with-SuperSegger#modifying-constants-parameters-) about other constants parameters.
 
