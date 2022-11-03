@@ -52,13 +52,13 @@ processExp contains all the functions of the GUI, but can be run directly from t
 - 'Parallel Processing Mode': Set parallel processing to 'true' if desired.
 - 'Calculation Options': change CONST.trackLoci.numSpots to max number of foci to identify for each fluorescence channel; CONST.view.fluorColor to the color(s) to display the fluorescence in superSeggerViewerGui (eg {'g','r','b','c','o','y'})
 
-2. Automatically run Omnipose
+2. Automatically run Omnipose (optional)
 
 	Add a 1 after the dirname input (default 0). There is some setup required for [Linux/MacOS systems](https://github.com/tlo-bot/supersegger-omnipose/blob/main/omni_in_matlab_unix.md), but Windows should not require setup.
 
 	`processExp('dirname',1)`
 
-3. Save a log of the processing
+3. Save a log of the processing (optional)
 
 	Add another 1 after the automatic input. The log will be saved as 'output_log.txt'.
 	
@@ -67,4 +67,28 @@ processExp contains all the functions of the GUI, but can be run directly from t
 
 ## Channel alignment (for fluorescence)
 
-	Documentation in progress.
+Images in different channels may need to be aligned. Supersegger uses translation alignment. The following is step-by-step instructions to find the proper coordinates for Supersegger alignment.
+
+1. Take reference images in the different channels.
+
+2. Convert images to .tif
+
+3. Use the command `[out]=intAlignIm2('pathA','pathB',1000)` to determine the registration coordinates for alignment between 2 channels (where image A at path A is the reference image, and image B is the registered image). If there is vignetting, crop that out by selecting a region of the image and double clicking on the region to confirm the crop.
+
+4. Create a copy of the file 'loadConstants.m' and rename it as 'loadConstantsMine.m'; place it in the MATLAB path.
+
+5. Change the display text in line 207 of loadConstantsMine.m to show that you are running the modified code. (ex `disp(['loading Constants (modified for Octoscope): ', constFilename]);` )
+
+6. Enter the registration coordinates in the '%% Parameters that are the same for all constants' section (line 68). Enter each coordinate corresponding to each registered channel. The reference channel should have no registration offset needed (eg [0 0 0 0]).
+
+7. Change the order of CONST.imAlign.out (line 86) to match the channel order of the dataset.
+
+8. Edit processExp to use the modified loadConstantsMine function (line 101) by changing 'loadConstants' to 'loadConstantsMine'
+
+
+
+
+
+
+
+
