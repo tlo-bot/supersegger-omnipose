@@ -1,6 +1,6 @@
-## Quick Start Guide for SuperSegger
+# Quick Start Guide for SuperSegger
 
-### Using the GUI
+## Using the GUI
 
 	<img src="https://camo.githubusercontent.com/2903acaebd8ee6da9498dd5ccff1c9939624b16827758ab401b06a005344d706/687474703a2f2f6d747368617374612e706879732e77617368696e67746f6e2e6564752f776562736974652f696d616765732f7365676765726775692e706e67" width="200vw" height="300vh">
 
@@ -41,7 +41,7 @@
 
 	6. Follow the rest of the [Supersegger-Omnipose GUI instructions](https://github.com/tlo-bot/supersegger-omnipose#running-supersegger-omnipose-gui).
 
-### Using processExp
+## Using processExp
 
 	processExp contains all the functions of the GUI, but can be run directly from the command line. In addition, the functionality to automatically run Omnipose (without needing to manually open a Terminal window) and also save a log of the processing has been added.
 
@@ -58,6 +58,6 @@
 	`processExp('dirname',1,1)` or `processExp('dirname',[],1)` etc
 
 
-### Channel alignment (for fluorescence)
+## Channel alignment (for fluorescence)
 
 	Documentation in progress.
