@@ -2,11 +2,11 @@
 
 ## Using the GUI
 
-	MATLAB Command: `superSeggerGui`
+MATLAB Command: `superSeggerGui`
 
-	1. Image directory: 
+1. Image directory: 
 
-	Paste the image directory into the input box, or use the folder icon to select the folder. 
+Paste the image directory into the input box, or use the folder icon to select the folder. 
 
 	2. Image requirements: 
 
