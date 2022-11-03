@@ -10,14 +10,15 @@ MATLAB Command: `superSeggerGui`
 
 2. Image requirements: 
 
-Images should be monochromatic and .tif format. Images do not need to be a specific resolution, because Omnipose segmentation has been trained with various resolutions.
+	Images should be monochromatic and .tif format. Images do not need to be a specific resolution, because Omnipose segmentation has been trained with various resolutions.
 
 3. Image file naming: 
 
-The file naming convention is `[somebasename]t[number]xy[number]c[number].tif` where the numbers after 't' are the time frames after 'xy' are for the different timelapse positions, and after 'c' are the different channels (c1 are the phase images, c2 onwards are the fluorescence channels), eg MG1655_t001xy1c1.tif.
+	The file naming convention is `[somebasename]t[number]xy[number]c[number].tif` where the numbers after 't' are the time frames after 'xy' are for the different timelapse positions, and after 'c' are the different channels (c1 are the phase images, c2 onwards are the fluorescence channels), eg MG1655_t001xy1c1.tif.
 
-Renaming images can be done with the GUI or with the function convertImageNames.m.
-For the GUI:
+	Renaming images can be done with the GUI or with the function convertImageNames.m.
+	
+	For the GUI:
 
 - Fill Basename with the desired identification of the images (suggested is date-strain).
 - Fill Channels with the corresponding channel names as identified in your original filenames, separated by a comma. The first entry should correspond to the phase image. (ie if the file names are MG1655_GFP.tif, MG1655_BF.tif, enter `BF,GFP`)
@@ -28,16 +29,16 @@ For the GUI:
 
 4. Selecting constants
 
-Note that since Omnipose has replaced Supersegger's segmentation, segmentation constants no longer need to be selected. Omnipose segmentation [parameters](https://github.com/tlo-bot/supersegger-omnipose#omnipose) can be tested via the Omnipose GUI (`python -m omnipose`). The default segmentation parameters were selected for E. coli. 
+	Note that since Omnipose has replaced Supersegger's segmentation, segmentation constants no longer need to be selected. Omnipose segmentation [parameters](https://github.com/tlo-bot/supersegger-omnipose#omnipose) can be tested via the Omnipose GUI (`python -m omnipose`). The default segmentation parameters were selected for E. coli. 
 
 5. Modifying constants parameters
 
-The main parameters that may need to be adjusted are the Foci and Minimum Cell Age. 
+	The main parameters that may need to be adjusted are the Foci and Minimum Cell Age. 
 
 - Foci: maximum number of foci in the fluorescence channels that should be identified per cell (ie for 2 fluorescence channels, `4,2` will identify up to 4 foci in the first channel and 2 in the second) 
 - Minimum Cell Age: Minimum frames of cell age to be considered full cell cycle.
 
-Find [further details](https://github.com/wiggins-lab/SuperSegger/wiki/Segmenting-with-SuperSegger#modifying-constants-parameters-) about other constants parameters.
+	Find [further details](https://github.com/wiggins-lab/SuperSegger/wiki/Segmenting-with-SuperSegger#modifying-constants-parameters-) about other constants parameters.
 
 6. Follow the rest of the [Supersegger-Omnipose GUI instructions](https://github.com/tlo-bot/supersegger-omnipose#running-supersegger-omnipose-gui).
 
@@ -51,11 +52,17 @@ processExp contains all the functions of the GUI, but can be run directly from t
 - 'Parallel Processing Mode': Set parallel processing to 'true' if desired.
 - 'Calculation Options': change CONST.trackLoci.numSpots to max number of foci to identify for each fluorescence channel; CONST.view.fluorColor to the color(s) to display the fluorescence in superSeggerViewerGui (eg {'g','r','b','c','o','y'})
 
-2. Automatically run Omnipose: Add a 1 after the dirname input (default 0). There is some setup required for [Linux/MacOS systems](https://github.com/tlo-bot/supersegger-omnipose/blob/main/omni_in_matlab_unix.md), but Windows should not require setup.
-`processExp('dirname',1)`
+2. Automatically run Omnipose
 
-3. Save a log of the processing: Add another 1 after the automatic input. The log will be saved as 'output_log.txt'.
-`processExp('dirname',1,1)` or `processExp('dirname',[],1)` etc
+	Add a 1 after the dirname input (default 0). There is some setup required for [Linux/MacOS systems](https://github.com/tlo-bot/supersegger-omnipose/blob/main/omni_in_matlab_unix.md), but Windows should not require setup.
+
+	`processExp('dirname',1)`
+
+3. Save a log of the processing
+
+	Add another 1 after the automatic input. The log will be saved as 'output_log.txt'.
+	
+	`processExp('dirname',1,1)` or `processExp('dirname',[],1)` etc
 
 
 ## Channel alignment (for fluorescence)
