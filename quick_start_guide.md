@@ -1,8 +1,8 @@
 ## Quick Start Guide for SuperSegger
 
-- Using the GUI
+### Using the GUI
 
-	<img src="https://camo.githubusercontent.com/2903acaebd8ee6da9498dd5ccff1c9939624b16827758ab401b06a005344d706/687474703a2f2f6d747368617374612e706879732e77617368696e67746f6e2e6564752f776562736974652f696d616765732f7365676765726775692e706e67" width="20vw" height="30vh">
+	<img src="https://camo.githubusercontent.com/2903acaebd8ee6da9498dd5ccff1c9939624b16827758ab401b06a005344d706/687474703a2f2f6d747368617374612e706879732e77617368696e67746f6e2e6564752f776562736974652f696d616765732f7365676765726775692e706e67" width="200vw" height="300vh">
 
 	1. Image directory: 
 
@@ -15,9 +15,8 @@
 	3. Image file naming: 
 
 	The file naming convention is `[somebasename]t[number]xy[number]c[number].tif` where the numbers after 't' are the time frames after 'xy' are for the different timelapse positions, and after 'c' are the different channels (c1 are the phase images, c2 onwards are the fluorescence channels), eg MG1655_t001xy1c1.tif.
-	The program can segment images for snapshots (i.e. if t is missing from the filename, [somebasename]xy[number]c[number].tif) or for one xy position (i.e. if xy is missing from the filename [somebasename]t[number]c[number].tif).
 
-	To rename images can be done with the GUI or with the function convertImageNames.m.
+	Renaming images can be done with the GUI or with the function convertImageNames.m.
 	For the GUI:
 
 	- Fill Basename with the desired identification of the images (suggested is date-strain).
@@ -26,6 +25,7 @@
 	- Fill XY prefix/suffix similarly to the Time prefix/suffix.
 	- The prefix/suffix can also be left blank (ex snapshots have a single time; a single XY)
 	- Click 'Convert Image Names'
+
 
 	4. Selecting constants
 
@@ -41,22 +41,23 @@
 
 	6. Follow the rest of the [Supersegger-Omnipose GUI instructions](https://github.com/tlo-bot/supersegger-omnipose#running-supersegger-omnipose-gui).
 
-- Using processExp
+### Using processExp
 
 	processExp contains all the functions of the GUI, but can be run directly from the command line. In addition, the functionality to automatically run Omnipose (without needing to manually open a Terminal window) and also save a log of the processing has been added.
 
-	First, edit processExp to your desired parameters.	
-	1. 'Converting other microscopes files': Convert image names if needed. The strings can be modified similarly to the GUI instructions above.
-	2. 'Parallel Processing Mode': Set parallel processing to 'true' if desired.
-	3. 'Calculation Options': change CONST.trackLoci.numSpots to max number of foci to identify for each fluorescence channel; CONST.view.fluorColor to the color(s) to display the fluorescence in superSeggerViewerGui (eg {'g','r','b','c','o','y'})
+	1. Edit processExp to your desired parameters.	
 
-	Automatically run Omnipose: Add a 1 after the dirname input (default 0). There is some setup required for [Linux/MacOS systems](https://github.com/tlo-bot/supersegger-omnipose/blob/main/omni_in_matlab_unix.md), but Windows should not require setup.
+	- 'Converting other microscopes files': Convert image names if needed. The strings can be modified similarly to the GUI instructions above.
+	- 'Parallel Processing Mode': Set parallel processing to 'true' if desired.
+	- 'Calculation Options': change CONST.trackLoci.numSpots to max number of foci to identify for each fluorescence channel; CONST.view.fluorColor to the color(s) to display the fluorescence in superSeggerViewerGui (eg {'g','r','b','c','o','y'})
+
+	2. Automatically run Omnipose: Add a 1 after the dirname input (default 0). There is some setup required for [Linux/MacOS systems](https://github.com/tlo-bot/supersegger-omnipose/blob/main/omni_in_matlab_unix.md), but Windows should not require setup.
 	`processExp('dirname',1)`
 
-	Save a log of the processing: Add another 1 after the automatic input. The log will be saved as 'output_log.txt'.
-	`processExp('dirname',1,1)` or `processExp('dirname',[],1)`
+	3. Save a log of the processing: Add another 1 after the automatic input. The log will be saved as 'output_log.txt'.
+	`processExp('dirname',1,1)` or `processExp('dirname',[],1)` etc
 
 
-- Channel alignment (for fluorescence)
+### Channel alignment (for fluorescence)
 
 	Documentation in progress.
