@@ -1,4 +1,4 @@
-# <p> <b>SUPERSEGGER-OMNIPOSE</b> </p>
+# <p> <b>SUPERSEGGER-OMNIPOSE (SuperSegger 2)</b> </p>
 
 ![Phase image, old SuperSegger segmentation, new SuperSegger 2 segmentation.](/assets/githubfig2.png)
 
