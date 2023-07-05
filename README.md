@@ -8,9 +8,8 @@ Supersegger-Omnipose is the Supersegger MATLAB-based suite modified to work with
 More information about Omnipose can be found at the [Github](https://github.com/kevinjohncutler/omnipose/) and [documentation page](https://omnipose.readthedocs.io/).
 
 
-
-### Software Requirements
 ---
+### Software Requirements
 
 Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 
@@ -22,9 +21,8 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 - Statistics and Machine Learning Toolbox
 
 
-
-### Software Documentation
 ---
+### Software Documentation
 
 #### SuperSegger
 The Github for the original Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/SuperSegger.php), the [wiki](https://github.com/wiggins-lab/SuperSegger/wiki), and documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
@@ -51,8 +49,8 @@ The Github for the original Supersegger is [here](https://github.com/wiggins-lab
 > ##### Note that the options before "--omni" should not be changed when working with Supersegger-Omnipose.
 
 
-### Installation Instructions
 ---
+### Installation Instructions
 
 1. Install [MATLAB](https://www.mathworks.com/help/install/install-products.html) and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 2. Cd to desired folder and clone Supersegger-Omnipose with git
@@ -66,17 +64,16 @@ git clone https://github.com/tlo-bot/supersegger-omnipose.git
    - GPU usage is discussed [here](https://omnipose.readthedocs.io/installation.html#gpu-support). The Supersegger-Omnipose command defaults to using CPU only.
 
 
-### Setting the Path
 ---
+### Setting the Path
 
 In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omnipose folder needs to be in your path*. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click 'add folder with subfolders' and add the SuperSegger-Omnipose folder. 
 
 >*note that if the original Supersegger is already installed and on the MATLAB path, you should replace the paths of the original Supersegger folders & subfolders with the paths to the new Supersegger-Omnipose folders & subfolders.
 
 
-
-### Running Supersegger-Omnipose (GUI)
 ---
+### Running Supersegger-Omnipose (GUI)
 
 1. Put images (.tif) into a folder.
 2. Convert image file names to Supersegger convention (in MATLAB with `superSeggerGui`, or `convertImageNames`; or manually with command line).
@@ -89,8 +86,8 @@ In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omn
 6. Once Omnipose has completed, continue running Supersegger by pressing the return/Enter key in the MATLAB Command Window.
 
 
-### Running Supersegger-Omnipose (Command Line)
 ---
+### Running Supersegger-Omnipose (Command Line)
 
 1. Put images (.tif) into a folder.
 2. Convert image file names to Supersegger convention.
@@ -100,14 +97,17 @@ In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omn
 6. Once images are aligned in MATLAB terminal, run Omnipose command. Wait for Omnipose to segment images and generate masks.
 7. Once Omnipose has completed, continue running Supersegger by pressing the return/Enter key in the MATLAB terminal.
 
-### Running Supersegger-Omnipose and Omnipose directly from MATLAB 
+
 ---
+### Running Supersegger-Omnipose and Omnipose directly from MATLAB 
+
 
 Only supported when using `processExp`. Specify autoomni=1 input for processExp (ie `processExp('dirname',1)`). Disabled by default.
 See documentation for setup linked below.
 
-### Troubleshooting & Known Issues
+
 ---
+### Troubleshooting & Known Issues
 
 - [Omnipose installation instructions (Windows, Linux & MacOS)](../main/docs/install_omnipose.md)
 - [Possible Supersegger-Omnipose errors](../main/docs/so_errors.md)
