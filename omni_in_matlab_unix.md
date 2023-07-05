@@ -19,7 +19,7 @@ setenv(‘PATH’, [getenv(‘PATH’) ‘:/<...>/miniconda3/bin’]);
 ```
 where <...> should be replaced with the proper path to your conda installations. (possible locations `\Users\name\` or `/local/user/`)
 
-Note: the path to the conda.sh file listed above (ie, the path to the local conda installation) should also be able to be located with the following command in Terminal
+Tip: the path to the local conda installation should be able to be located with the following command in Terminal
 ```
 conda info | grep -i 'base environment'
 ```
