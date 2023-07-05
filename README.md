@@ -10,6 +10,7 @@ More information about Omnipose can be found at the [Github](https://github.com/
 
 
 ### Software Requirements
+---
 
 Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 
@@ -23,6 +24,7 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 
 
 ### Software Documentation
+---
 
 #### SuperSegger
 The Github for the original Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/SuperSegger.php), the [wiki](https://github.com/wiggins-lab/SuperSegger/wiki), and documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
@@ -50,6 +52,7 @@ The Github for the original Supersegger is [here](https://github.com/wiggins-lab
 
 
 ### Installation Instructions
+---
 
 1. Install [MATLAB](https://www.mathworks.com/help/install/install-products.html) and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 2. Cd to desired folder and clone Supersegger-Omnipose with git
@@ -64,6 +67,7 @@ git clone https://github.com/tlo-bot/supersegger-omnipose.git
 
 
 ### Setting the Path
+---
 
 In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omnipose folder needs to be in your path*. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click 'add folder with subfolders' and add the SuperSegger-Omnipose folder. 
 
@@ -72,6 +76,7 @@ In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omn
 
 
 ### Running Supersegger-Omnipose (GUI)
+---
 
 1. Put images (.tif) into a folder.
 2. Convert image file names to Supersegger convention (in MATLAB with `superSeggerGui`, or `convertImageNames`; or manually with command line).
@@ -85,6 +90,7 @@ In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omn
 
 
 ### Running Supersegger-Omnipose (Command Line)
+---
 
 1. Put images (.tif) into a folder.
 2. Convert image file names to Supersegger convention.
@@ -95,11 +101,14 @@ In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omn
 7. Once Omnipose has completed, continue running Supersegger by pressing the return/Enter key in the MATLAB terminal.
 
 ### Running Supersegger-Omnipose and Omnipose directly from MATLAB 
+---
 
 Only supported when using `processExp`. Specify autoomni=1 input for processExp (ie `processExp('dirname',1)`). Disabled by default.
 See documentation for setup linked below.
 
 ### Troubleshooting & Known Issues
+---
+
 - [Omnipose installation instructions (Windows, Linux & MacOS)](../main/docs/install_omnipose.md)
 - [Possible Supersegger-Omnipose errors](../main/docs/so_errors.md)
 - [Running Omnipose directly from MATLAB for Windows (verified)](../main/docs/omni_in_matlab_windows.md)
