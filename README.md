@@ -27,7 +27,7 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 #### SuperSegger
 The Github for the original Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/SuperSegger.php), the [wiki](https://github.com/wiggins-lab/SuperSegger/wiki), and documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
 
-[Quick-start guide for new users](../main/quick_start_guide.md)
+[Quick-start guide for new users](../main/docs/quick_start_guide.md)
 
 #### Omnipose
 [Omnipose](https://omnipose.readthedocs.io/) options have been preselected to work directly with Supersegger-Omnipose, but if needed, further documentation can be found by running `python -m omnipose --help` in the omnipose environment. Recommended options can also be found on the [documentation page](https://omnipose.readthedocs.io/command.html). 
@@ -58,7 +58,7 @@ git clone https://github.com/tlo-bot/supersegger-omnipose.git
 ```
 3. Add supersegger-omnipose to MATLAB path, with its subfolders (see "Setting the Path").
 4. Install [Omnipose](https://github.com/kevinjohncutler/omnipose/)
-   - Find step-by-step instructions [here](../main/install_omnipose.md).
+   - Find step-by-step instructions [here](../main/docs/install_omnipose.md).
    - Further advanced installation instructions for Omnipose can be found [here](https://pypi.org/project/cellpose/).
    - GPU usage is discussed [here](https://omnipose.readthedocs.io/installation.html#gpu-support). The Supersegger-Omnipose command defaults to using CPU only.
 
@@ -100,10 +100,10 @@ Only supported when using `processExp`. Specify autoomni=1 input for processExp 
 See documentation for setup linked below.
 
 ### Troubleshooting & Known Issues
-- [Omnipose installation instructions (Windows, Linux & MacOS)](../main/install_omnipose.md)
-- [Possible Supersegger-Omnipose errors](../main/so_errors.md)
-- [Running Omnipose directly from MATLAB for Windows (verified)](../main/omni_in_matlab_windows.md)
-- [Running Omnipose directly from MATLAB for Linux (verified) & MacOS](../main/omni_in_matlab_unix.md)
+- [Omnipose installation instructions (Windows, Linux & MacOS)](../main/docs/install_omnipose.md)
+- [Possible Supersegger-Omnipose errors](../main/docs/so_errors.md)
+- [Running Omnipose directly from MATLAB for Windows (verified)](../main/docs/omni_in_matlab_windows.md)
+- [Running Omnipose directly from MATLAB for Linux (verified) & MacOS](../main/docs/omni_in_matlab_unix.md)
 
 
 
