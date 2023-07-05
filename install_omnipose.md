@@ -1,4 +1,6 @@
 # Step-by-step Omnipose installation instructions (command line based, assumes cellpose is not already installed)
+ 
+ Updated: July 5, 2023.
 
  Note: this page is a work in progress and intended as a general guide. Feel free to open an issue if there are errors in the installation process
 
@@ -29,13 +31,18 @@ conda activate omnipose
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
->   Note: for the latest stable release of Omnipose from PyPi, use instead: `pip install omnipose` (June 19 2022 - not yet supported)
+
+```
+pip install git+https://github.com/kevinjohncutler/cellpose-omni.git
+```
+>   Note: for the latest stable release of Omnipose from PyPi, use instead: `pip install omnipose` 
 
 > Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
 4. For updating, repeat the above install command after activating omnipose environment:
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
+pip install git+https://github.com/kevinjohncutler/cellpose-omni.git
 ```
 
 
@@ -103,6 +110,10 @@ conda activate omnipose
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
+
+```
+pip install git+https://github.com/kevinjohncutler/cellpose-omni.git
+```
 >   Note: for the latest stable release of Omnipose, use instead: `pip install omnipose`
 
 >   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
@@ -110,6 +121,7 @@ pip install git+https://github.com/kevinjohncutler/omnipose.git
 5. For updating, repeat the above install command after activating omnipose environment:
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
+pip install git+https://github.com/kevinjohncutler/cellpose-omni.git
 ```
 
 
@@ -146,6 +158,10 @@ rm -rf bash Miniconda3-latest-MacOSX-x86_64.sh
 ```
 source ~/.bashrc
 ```
+   or for macOS 10.15+:
+```
+source ~/.zshrc
+```
 
    Optional: to prevent base environment from loading automatically, run:
 ```
@@ -165,6 +181,9 @@ conda activate omnipose
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
 ```
+```
+pip install git+https://github.com/kevinjohncutler/cellpose-omni.git
+```
 >   Note: for the latest stable release of Omnipose, use instead: `pip install omnipose`
 
 >   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`. 
@@ -172,6 +191,7 @@ pip install git+https://github.com/kevinjohncutler/omnipose.git
 5. For updating, repeat the above install command after activating omnipose environment:
 ```
 pip install git+https://github.com/kevinjohncutler/omnipose.git
+pip install git+https://github.com/kevinjohncutler/cellpose-omni.git
 ```
 
 
