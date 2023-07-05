@@ -31,3 +31,11 @@ Description: when making a cell kymograph mosaic for 1 or more specific cells th
 Explanation: There is probably a bug; also not sure if the function allows for these input parameters (may only allow Max Cells argument rather than specific cell numbers).
 
 Fix: Manually create the kymographs individually using Cell Kymo in the ViewerGui, or makeKymographC.m
+
+## Omnipose installation bug: mahotas 
+
+Description: when installing the stable version of Omnipose (pip install omnipose), there is an error with the library
+
+Explanation: Not sure what causes this error.
+
+Fix: Reinstall numpy first (pip install numpy), then rerun pip install omnipose.
