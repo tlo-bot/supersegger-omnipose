@@ -435,4 +435,6 @@ function opstr = genOmniposeCommand(dirname_xy)
     % cpstr = ['python -m cellpose --dir ' diralign  ' --pretrained_model bact_omni --save_png --dir_above --no_npy --in_folders --nclasses 4 --omni --cluster --mask_threshold 1 --flow_threshold 0']; 
     % below tested to work with omnipose installation, commit #5822683
     opstr = ['python -m omnipose --dir ' diralign ' --save_png --dir_above --no_npy --in_folders  --omni --pretrained_model bact_phase_omni --cluster --mask_threshold 1 --flow_threshold 0 --diameter 30'];
+    % kevin's recommended command for omnipose commit #13bf9d4
+    % opstr = ['python -m omnipose --dir ' diralign ' --save_png --dir_above --no_npy --in_folders  --omni --pretrained_model bact_phase_omni --cluster --mask_threshold -1 --flow_threshold 0 --diameter 0'];
 end

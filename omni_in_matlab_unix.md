@@ -12,14 +12,15 @@ Further documentation can be found on the [conda github](https://github.com/cond
 ```
 getenv('PATH')
 ```
-If you see the bin and condabin directories in the path of the form `/.../anaconda3/bin:/.../anaconda3/condabin` or `\...\miniconda3\condabin:\...\miniconda3\bin\`, continue to step 2. Else, add these to the MATLAB environment:
+If you see the bin and condabin directories in the path of the form `/.../anaconda3/bin:/.../anaconda3/condabin` or `/.../miniconda3/condabin:/.../miniconda3/bin/`, continue to step 2. Else, add these to the MATLAB environment:
 ```
 setenv(‘PATH’, [getenv(‘PATH’) ‘:/<...>/miniconda3/condabin’]);
 setenv(‘PATH’, [getenv(‘PATH’) ‘:/<...>/miniconda3/bin’]);
 ```
-where <...> should be replaced with the proper path to your conda installations. (possible locations `\Users\[name]\` or `/local/[name]/`)
+where <...> should be replaced with the proper path to your conda installations. (possible locations `/Users/[name]/` or `/local/[name]/`).
 
-Tip: the path to the local conda installation should be able to be located with the following command in Terminal
+
+Tip: the path to the local conda installation should be able to be located with the following command in Terminal:
 ```
 conda info | grep -i 'base environment'
 ```
