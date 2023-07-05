@@ -8,17 +8,39 @@ Some combination of the following instructions should work...
 Further documentation can be found on the [conda github](https://github.com/conda/conda/issues/7980).
 
 ### Instructions
-1. In the MATLAB Command Window, initialize the MATLAB bash shell with the local conda installation: 
+1. Check that conda and activate are available to MATLAB ie included in the MATLAB path. In the MATLAB Command Window, try:
+```
+getenv('PATH')
+```
+If you see the bin and condabin directories in the path of the form `/.../anaconda3/bin:/.../anaconda3/condabin` or `\...\miniconda3\condabin:\...\miniconda3\...\`, continue to step 2. Else, add these to the MATLAB environment:
+```
+setenv(‘PATH’, [getenv(‘PATH’) ‘:/<...>/miniconda3/condabin’]);
+setenv(‘PATH’, [getenv(‘PATH’) ‘:/<...>/miniconda3/bin’]);
+```
+where <...> should be replaced with the proper path to your conda installations. (possible locations `\Users\name\` or `/local/user/`)
+
+Note: the path to the conda.sh file listed above (ie, the path to the local conda installation) should also be able to be located with the following command in Terminal
+```
+conda info | grep -i 'base environment'
+```
+
+2. In the MATLAB Command Window, initialize the MATLAB bash shell with the local conda installation: 
 ``` 
 system('conda init bash')
 ```
+or for macOS 10.15+:
+```
+system('conda init zsh')
+```
 
+<!---
 May be instead:
 ```
 system('conda init')
 ```
+-->
 
-2. Check that the proper location for conda has been added to your .bashrc file. Should appear similar to:
+3. Check that the proper location for conda has been added to your .bashrc/.zshrc file. Should appear similar to:
 
 ```
 # >>> conda initialize >>>
@@ -37,17 +59,18 @@ unset __conda_setup
 # <<< conda initialize <<<
 ```
 
-Note: the path to the conda.sh file listed above (ie, the path to the local conda installation) should also be able to be located with the following command in Terminal
-```
-conda info | grep -i 'base environment'
-```
 
-2. In MATLAB Command Window, restart the MATLAB shell:
+4. In MATLAB Command Window, restart the MATLAB shell:
 ```
 system('source ~/.bashrc')
 ```
+or for macOS 10.15+:
+```
+system('source ~/.zshrc')
+```
 
-3. If conda is now accessible (and Omnipose has already been installed to the system), the following MATLAB command should return a status of 0:
+
+5. If conda is now accessible (and Omnipose has already been installed to the system), the following MATLAB command should return a status of 0:
 ```
 [status,~] = system('source activate omnipose')
 ```
