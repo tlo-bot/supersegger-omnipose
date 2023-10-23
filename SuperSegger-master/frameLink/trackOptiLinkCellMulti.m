@@ -1,5 +1,5 @@
-    function trackOptiLinkCellMulti (dirname,clean_flag,CONST,header,...
-    debug_flag,startFrom)
+function trackOptiLinkCellMulti (dirname,clean_flag,CONST,header,...
+debug_flag,startFrom)
 % trackOptiLinkCellMulti : links the cells frame-to-frame and resolves errors.
 %
 % INPUT :
@@ -142,26 +142,27 @@ while time <= numIm
     lastCellCount = cell_count;  
     
     if ~isempty(data_r) %r for first frame is empty, otherwise update data_r to r of c frame
-        [data_r.regs.map.f,data_r.regs.error.f,data_r.regs.cost.f,...
-            data_r.regs.idsC.f,data_r.regs.idsF.f,data_r.regs.dA.f,...
+        [data_r.regs.map.f,data_r.regs.error.f,data_r.regs.dA.f,...
             data_r.regs.revmap.f] = assignmentFun (data_r, data_c,CONST,1,0);
     end
-    [data_c.regs.map.r,data_c.regs.error.r,data_c.regs.cost.r,...
-        data_c.regs.idsC.r,data_c.regs.idsR.r,data_c.regs.dA.r,...
+    [data_c.regs.map.r,data_c.regs.error.r,data_c.regs.dA.r,...
         data_c.regs.revmap.r]  = assignmentFun (data_c, data_r,CONST,0,0);
-    [data_c.regs.map.f,data_c.regs.error.f,data_c.regs.cost.f,...
-        data_c.regs.idsC.f,data_c.regs.idsF.f,data_c.regs.dA.f,...
+    [data_c.regs.map.f,data_c.regs.error.f,data_c.regs.dA.f,...
         data_c.regs.revmap.f] = assignmentFun (data_c, data_f,CONST,1,0);
-    
+
     % Only allow to repeat each frame error up to maxIterPerFrame.
     if curIter >= maxIterPerFrame
         finalIteration = 1;
     end
-    
-    % Error resolution and ID assignment.
-    [data_c,data_r,cell_count,resetRegions] = errorRez (time, data_c, ...
-        data_r, data_f, CONST, cell_count,header, finalIteration, debug_flag);
-    curIter = curIter + 1;
+
+    % if time == 1
+    %      [data_c,cell_count] = createNewCell (data_c, 1, time, cell_count);
+    % else
+    % % Error resolution and ID assignment.
+    % [data_c,data_r,cell_count,resetRegions] = errorRez (time, data_c, ...
+    %     data_r, data_f, CONST, cell_count,header, finalIteration, debug_flag);
+    % curIter = curIter + 1;
+    % end
         
     if resetRegions
         if verbose

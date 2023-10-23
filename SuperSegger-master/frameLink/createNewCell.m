@@ -29,6 +29,9 @@ function [data_c,cell_count] = createNewCell (data_c, regNum, time, cell_count)
 
 
 
+disp('create cell be called')
+disp(cell_count)
+
 cell_count = cell_count+1;
 
 % set the death/deathF to current time. They are reset when cell is
