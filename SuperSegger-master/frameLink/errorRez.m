@@ -1,5 +1,5 @@
 function [data_c, data_r, cell_count,resetRegions] =  errorRez (time, ...
-    data_c, data_r, data_f, CONST, cell_count, header, finalIteration, debug_flag)
+    data_c, data_r, CONST, cell_count, header)
 % errorRez : links cells from the current frame to the frame before and
 % attempts to resolve segmentation errors if the linking is inconsistent.
 %
@@ -57,16 +57,17 @@ minAreaToMerge = CONST.trackOpti.SMALL_AREA_MERGE;
 % set all ids to 0
 cArea = [data_c.regs.props.Area];
 data_c.regs.ID = zeros(1,data_c.regs.num_regs);
-modRegions = [];
-
-rAssignmnet = data_r.regs.map.f;       
+modRegions = [];  
 maxIndex = data_c.regs.num_regs;
 cTor = NaN(1, maxIndex);
 
-% Loop through each cell and update the result array
-for i = 1:numel(rAssignmnet)
-    indices = rAssignmnet{i};
-    cTor(indices) = i;
+if ~isempty(data_r)
+    rAssignmnet = data_r.regs.map.f; 
+    % Loop through each cell and update the result array
+    for i = 1:numel(rAssignmnet)
+        indices = rAssignmnet{i};
+        cTor(indices) = i;
+    end
 end
 
 for regNum =  1 : data_c.regs.num_regs
@@ -75,12 +76,11 @@ for regNum =  1 : data_c.regs.num_regs
         continue
     end
 
-
-    if isfield (data_c.regs, 'manual_link')
-        manual_link = data_c.regs.manual_link.r(regNum);
-    else
-        manual_link = 0;
-    end
+    % if isfield (data_c.regs, 'manual_link')
+    %     manual_link = data_c.regs.manual_link.r(regNum);
+    % else
+    %     manual_link = 0;
+    % end
 
     if data_c.regs.ID(regNum) ~= 0
         disp ([header, 'ErRes: Frame: ', num2str(time), ' already has an id ',num2str(regNum)]);
@@ -92,28 +92,27 @@ for regNum =  1 : data_c.regs.num_regs
 
         if isnan(rIndex)
             [data_c,cell_count] = createNewCell (data_c, regNum, time, cell_count);
-            continue
-        end
-
-        cCellsFromR = data_r.regs.map.f(rIndex);
-
-       
-        if numel(cCellsFromR) == 1 
-            % Maps to one in the previous frame.
-            % Sets cell ID from mapped reg, updates death in data_r
-            errorStat = (data_c.regs.error.r(regNum)>0);
-            [data_c, data_r] = continueCellLine(data_c, regNum, data_r,...
-                rIndex, time, errorStat);
-        elseif numel(cCellsFromR) == 2
-             disp(numel(cCellsFromR))
-
-            % Cell (regNum) and another cell in current frame map to one
-            % in reverse but one cell in reverse, but reverse cell only
-            % maps to one of them forward.
-            sister1 = cCellsFromR(1); %cell of interest
-            sister2 = cCellsFromR(2);
-            mother = rIndex; %cell from previous frame
-            [data_c, data_r, cell_count] = createDivision (data_c, data_r, mother, sister1, sister2, cell_count, time, header, verbose);
+        else
+            cCellsFromR = data_r.regs.map.f(rIndex);
+            cCellsFromR = cCellsFromR{1};
+    
+            if numel(cCellsFromR) == 1 
+                %disp('into branch == 1')
+                %disp(cCellsFromR)
+                
+                errorStat = (data_c.regs.error.r(regNum)>0);
+                [data_c, data_r] = continueCellLine(data_c, regNum, data_r,...
+                    rIndex, time, errorStat);
+            elseif numel(cCellsFromR) == 2
+                disp('into branch 2')
+                %disp(cCellsFromR)
+    
+                sister1 = cCellsFromR(1); 
+                sister2 = cCellsFromR(2);
+                
+                mother = rIndex; 
+                [data_c, data_r, cell_count] = createDivision (data_c, data_r, mother, sister1, sister2, cell_count, time, header, verbose);
+            end
         end
     end
 

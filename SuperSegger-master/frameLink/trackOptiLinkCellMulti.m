@@ -141,7 +141,7 @@ while time <= numIm
     % Last cellID of previous frame to reset numbering if a frame is repeated.
     lastCellCount = cell_count;  
     
-    if ~isempty(data_r) %r for first frame is empty, otherwise update data_r to r of c frame
+    if ~isempty(data_r)
         [data_r.regs.map.f,data_r.regs.error.f,data_r.regs.dA.f,...
             data_r.regs.revmap.f] = assignmentFun (data_r, data_c,CONST,1,0);
     end
@@ -155,14 +155,10 @@ while time <= numIm
         finalIteration = 1;
     end
 
-    % if time == 1
-    %      [data_c,cell_count] = createNewCell (data_c, 1, time, cell_count);
-    % else
-    % % Error resolution and ID assignment.
-    % [data_c,data_r,cell_count,resetRegions] = errorRez (time, data_c, ...
-    %     data_r, data_f, CONST, cell_count,header, finalIteration, debug_flag);
-    % curIter = curIter + 1;
-    % end
+    % Error resolution and ID assignment.
+    [data_c,data_r,cell_count,resetRegions] = errorRez (time, data_c, ...
+        data_r, CONST, cell_count,header);
+    curIter = curIter + 1;
         
     if resetRegions
         if verbose
