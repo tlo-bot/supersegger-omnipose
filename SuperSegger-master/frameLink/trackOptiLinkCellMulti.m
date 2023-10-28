@@ -142,6 +142,7 @@ while time <= numIm
     lastCellCount = cell_count;  
     
     if ~isempty(data_r)
+        disp(['get this frame single direction linking: Frame', time]);
         [data_r.regs.map.f,data_r.regs.error.f,data_r.regs.dA.f,...
             data_r.regs.revmap.f] = assignmentFun (data_r, data_c,CONST,1,0);
     end
