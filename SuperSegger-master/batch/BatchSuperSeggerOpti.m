@@ -332,11 +332,11 @@ if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  
     if opinstalled 
         disp('Generating Omnipose masks.');
         if (isunix || ismac)
-            [~,omnipose_out] = system(['source activate omnipose && ' opstr]); %call python to run cellpose
+            [~,omnipose_out] = system(['source activate omnipose && ' opstr],'-echo'); %call python to run cellpose
         elseif ispc
-            [~,omnipose_out] = system(opstr);
+            [~,omnipose_out] = system(opstr,'-echo');
         end
-        disp(omnipose_out)
+        % disp(omnipose_out)
     else %cellpose not installed or run manually
         clipboard('copy',opstr);
         disp(['<strong>Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
@@ -363,11 +363,11 @@ else %folder exists
         if opinstalled
             disp('Generating Omnipose masks.');
             if (isunix || ismac)
-                [~,omnipose_out] = system(['source activate omnipose && ' opstr]);
+                [~,omnipose_out] = system(['source activate omnipose && ' opstr],'-echo');
             elseif ispc
-                [~,omnipose_out] = system(opstr);
+                [~,omnipose_out] = system(opstr,'-echo');
             end
-            disp(omnipose_out)
+            % disp(omnipose_out)
         else
             clipboard('copy',opstr);
             disp(['<strong>Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
