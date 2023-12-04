@@ -17,6 +17,7 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 - Deep Learning Toolbox (fka Neural Network Toolbox)
 - Global Optimization Toolbox
 - Image Processing Toolbox
+- Optimization Toolbox
 - Parallel Computing Toolbox (not necessary)
 - Statistics and Machine Learning Toolbox
 
