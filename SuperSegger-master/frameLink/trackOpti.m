@@ -184,7 +184,8 @@ if ~exist( stamp_name, 'file' ) && (startEnd(1) <= 9 && startEnd(2) >= 9)
     disp([header,'trackOpti - Step 7: Running trackOptiClist.']);  
     
     [clist] = trackOptiClist(dirname_seg, CONST, header);
-%     [clist] = trackOptiClist_fluor123(dirname_seg, CONST, header); %clist with more fluor info
+    % more fluor info for fluorescence chans 2,3
+%     [clist] = trackOptiClist_fluor123(dirname_seg, CONST, header); 
     
     if isfield( CONST, 'gate' )
         clist.gate = CONST.gate;

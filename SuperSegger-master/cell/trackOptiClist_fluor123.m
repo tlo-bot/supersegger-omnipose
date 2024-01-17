@@ -1,4 +1,4 @@
-function [clist] = trackOptiClist(dirname,CONST,header)
+function [clist] = trackOptiClist_fluor123(dirname,CONST,header)
 % trackOptiClist : generates an array called the clist
 % which contains non time dependent information for each cell.
 % Fluorescence values contained are for at birth time.
