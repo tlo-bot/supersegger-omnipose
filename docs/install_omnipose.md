@@ -46,8 +46,8 @@ pip install -e .
 
 > Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
-4. For updating, repeat the above install command after activating omnipose environment:
-Change directory to the omnipose directory with cd. The directory should contain the 'setup.py' file.
+4. For updating, change directory to the omnipose directory with `cd`. The directory should contain the 'setup.py' file. Then repeat the above install command after activating omnipose environment:
+
 ```
 pip install -e .
 ```
@@ -130,8 +130,7 @@ pip install -e .
 
 >   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
-5. For updating, repeat the above install command after activating omnipose environment:
-Change directory to the omnipose directory with cd. The directory should contain the 'setup.py' file.
+5. For updating, change directory to the omnipose directory with `cd`. The directory should contain the 'setup.py' file. Then repeat the above install command after activating omnipose environment:
 ```
 pip install -e .
 ```
@@ -206,8 +205,7 @@ pip install -e .
 
 >   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`. 
 
-5. For updating, repeat the above install command after activating omnipose environment:
-Change directory to the omnipose directory with cd. The directory should contain the 'setup.py' file.
+5. For updating, change directory to the omnipose directory with `cd`. The directory should contain the 'setup.py' file. Then repeat the above install command after activating omnipose environment:
 ```
 pip install -e .
 ```
