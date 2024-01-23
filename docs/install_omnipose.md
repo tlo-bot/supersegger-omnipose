@@ -1,12 +1,12 @@
 # Step-by-step Omnipose installation instructions (command line based, assumes cellpose is not already installed)
  
- Updated: Dec 4, 2023.
+ Updated: Jan 23, 2024.
 
  [Windows](https://github.com/tlo-bot/supersegger-omnipose/blob/main/docs/install_omnipose.md#windows) \ [Linux](https://github.com/tlo-bot/supersegger-omnipose/blob/main/docs/install_omnipose.md#linux-debianubuntu) \ [MacOS](https://github.com/tlo-bot/supersegger-omnipose/blob/main/docs/install_omnipose.md#macos)
 
- Note: this page is a work in progress and intended as a general guide. Feel free to open an issue if there are errors in the installation process
+ Note: this page is intended as a general guide. Feel free to open an issue if there are errors in the installation process
 
- Update notes: Omnipose has been updated. If you previously installed Omnipose, please run `pip uninstall cellpose_omni && pip cache remove cellpose_omni` to prevent version conflicts. If Omnipose was previously installed as Cellpose, feel free to remove the pre-existing installation `conda env remove -n cellpose` and delete the cellpose folder
+ Update notes: Omnipose has been updated. If you previously installed Omnipose as Cellpose & Omnipose, please run `pip uninstall cellpose_omni && pip cache remove cellpose_omni` to prevent version conflicts. If Omnipose was previously installed as Cellpose, feel free to remove the pre-existing installation `conda env remove -n cellpose` and delete the cellpose folder
 
 ## Windows
 
@@ -30,22 +30,25 @@ conda create -n omnipose 'python==3.10.12' pytorch
 ```
 conda activate omnipose
 ```
+Change directory to the location where you want Omnipose to be installed with `cd` before cloning the repository.
 
 ```
 git clone https://github.com/kevinjohncutler/omnipose.git
+```
+```
 cd omnipose
 pip install -e .
 ```
 
 > Note: if you previously installed Omnipose, please run `pip uninstall cellpose_omni && pip cache remove cellpose_omni` to prevent version conflicts.
 
-> Note: for the latest stable release of Omnipose from PyPi, use instead: `pip install omnipose` 
+> Note: for the latest stable release of Omnipose from PyPi, use instead: `pip install omnipose` .
 
 > Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
 4. For updating, repeat the above install command after activating omnipose environment:
+Change directory to the omnipose directory with cd. The directory should contain the 'setup.py' file.
 ```
-cd omnipose
 pip install -e .
 ```
 
@@ -110,9 +113,13 @@ conda create -n omnipose 'python==3.10.12' pytorch
 ```
 conda activate omnipose
 ```
+Change directory to the location where you want Omnipose to be installed with `cd` before cloning the repository.
 
 ```
 git clone https://github.com/kevinjohncutler/omnipose.git
+
+```
+```
 cd omnipose
 pip install -e .
 ```
@@ -124,8 +131,8 @@ pip install -e .
 >   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
 
 5. For updating, repeat the above install command after activating omnipose environment:
+Change directory to the omnipose directory with cd. The directory should contain the 'setup.py' file.
 ```
-cd omnipose
 pip install -e .
 ```
 
@@ -185,8 +192,11 @@ conda create -n omnipose 'python==3.10.12' pytorch
 conda activate omnipose
 ```
 
+Change directory to the location where you want Omnipose to be installed with `cd` before cloning the repository.
 ```
 git clone https://github.com/kevinjohncutler/omnipose.git
+```
+```
 cd omnipose
 pip install -e .
 ```
@@ -197,8 +207,8 @@ pip install -e .
 >   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`. 
 
 5. For updating, repeat the above install command after activating omnipose environment:
+Change directory to the omnipose directory with cd. The directory should contain the 'setup.py' file.
 ```
-cd omnipose
 pip install -e .
 ```
 
