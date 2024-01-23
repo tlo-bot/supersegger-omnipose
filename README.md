@@ -25,7 +25,7 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 ---
 ### Software Documentation
 
-#### SuperSegger
+#### SuperSegger 2
 The Github for the original Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/tutorials.php), the [wiki](https://github.com/wiggins-lab/SuperSegger/wiki), and documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
 
 [Quick-start guide for new users](../main/docs/quick_start_guide.md) \ [Original SuperSegger guide to segmentation](https://github.com/wiggins-lab/SuperSegger/wiki/Segmenting-with-SuperSegger) \ [Viewing the results](https://github.com/wiggins-lab/SuperSegger/wiki/Visualization-and-post-processing-tools) \ [The clist](https://github.com/wiggins-lab/SuperSegger/wiki/The-clist-data-file) 
