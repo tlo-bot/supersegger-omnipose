@@ -36,7 +36,9 @@ ccind = cmin:cmax;
 pointSize = [numel(rrind),numel(ccind)];
 
 % Multiplies by cell mask
-tmp = tmp(26-point(2)+rrind,26-point(1)+ccind).*data.mask_cell(rrind,ccind);
+% tmp = tmp(26-point(2)+rrind,26-point(1)+ccind).*data.mask_cell(rrind,ccind);
+% commented out because omnipose version no longer uses mask_cell
+% at least editLinks uses this code, but still seems to work
 
 % Finds maximum value of faded-point & cell mask
 [~,ind] = max(tmp(:));

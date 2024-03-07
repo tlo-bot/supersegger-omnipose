@@ -52,7 +52,6 @@ handles.next.Enable = 'off';
 handles.switch_xy_directory.Enable = 'off';
 handles.max_cell_no.Enable = 'off';
 handles.edit_segments.Enable = 'off';
-handles.edit_links.Enable = 'off';
 
 function enable_all_panels (hObject,handles)
 set(findall(handles.gate_options_text, '-property', 'enable'), 'enable', 'on')
@@ -65,8 +64,7 @@ handles.previous.Enable = 'on';
 handles.next.Enable = 'on';
 handles.switch_xy_directory.Enable = 'on';
 handles.max_cell_no.Enable = 'on';
-% handles.edit_segments.Enable = 'on'; %disable - omnipose doesn't use segments
-handles.edit_links.Enable = 'on'; %leave off until editLinks code fixed.
+handles.edit_segments.Enable = 'off'; %disable - omnipose doesn't use segments
 
 
 function update_clist_panel(hObject, handles)
