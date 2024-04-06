@@ -353,6 +353,8 @@ if ~isempty(data_c)
         cArea = [data_c.regs.props.Area];
         fArea = [data_f.regs.props.Area];
         
+
+
         % attempt to fix assignment error for cells left without assignment
         [assignments,revAssign] = fixProblems(assignments,revAssign, overlapCost, indexF,indexC, cArea, fArea);
         [revAssign,assignments] = fixProblems(revAssign,assignments, overlapCost, indexC, indexF,fArea, cArea);
