@@ -50,12 +50,15 @@ function [datac, datar, errormat] = replaceLinks_bactrack(bactrackcsvpath)
                 datac{frame+1,2} = cf_temp;
         
                 % populate c_revmap_f
+
+                % 1 1 2 3 --> 1 3 2 4 would have a map of 1 2 1 3
         
                 numregsF = length(labelf);
                 crevf_temp = cell(1,numregsF);
         
                 for regF = 1:numregsF
-                    crevf_temp{regF} = labelc(regF);
+                    indFmatch = labelf==regF; %get index of label in f
+                    crevf_temp{regF} = labelc(indFmatch); % map index back to c
                 end
         
                 datac{frame+1,4} = crevf_temp;
@@ -91,7 +94,9 @@ function [datac, datar, errormat] = replaceLinks_bactrack(bactrackcsvpath)
                 crevf_temp = cell(1,numregsF);
         
                 for regF = 1:numregsF
-                    crevf_temp{regF} = labelc(regF);
+                    indFmatch = labelf==regF;
+                    crevf_temp{regF} = labelc(indFmatch);
+                    % crevf_temp{regF} = labelc(regF);
                 end
         
                 datac{frame+1,4} = crevf_temp;
@@ -152,7 +157,7 @@ function [datac, datar, errormat] = replaceLinks_bactrack(bactrackcsvpath)
     [errormat{1,:}] = deal('frame','error_f','error_r');
 
     for frame = 1:numframes
-        numregsC = size(datac{2,frame+1},2); %numregs given by size c_f
+        numregsC = size(datac{frame+1,2},2); %numregs given by size c_f
         errormat{frame+1,1} = frame; %frame
 
         %fill error with zeros unless further changed

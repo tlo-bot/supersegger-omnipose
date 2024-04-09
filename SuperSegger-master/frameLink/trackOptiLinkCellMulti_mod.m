@@ -106,6 +106,10 @@ else
     h = [];
 end
 
+dirname_xy = fileparts(fileparts(dirname));
+bactracklinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinks.csv'];
+[datacAll, datarAll, errorAll] = replaceLinks_bactrack(bactracklinksPath);
+
 while time <= numIm
     
     if CONST.parallel.show_status
@@ -140,10 +144,6 @@ while time <= numIm
     data_c.regs.manual_link = c_manual_link;
     % Last cellID of previous frame to reset numbering if a frame is repeated.
     lastCellCount = cell_count;  
-
-    dirname_xy = fileparts(fileparts(dirname));
-    bactracklinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinks.csv'];
-    [datacAll, datarAll, errorAll] = replaceLinks_bactrack(bactracklinksPath);
     
     if ~isempty(data_r) %r for first frame is empty, otherwise update data_r to r of c frame
         % [data_r.regs.map.f,data_r.regs.error.f,data_r.regs.cost.f,...
@@ -154,14 +154,14 @@ while time <= numIm
     end
 
     data_c.regs.map.r = datacAll{time+1,3};
-    data_c.regs.revmap.r = datacAll{time+1,5};
+    data_c.regs.revmap.r = datacAll{time+1,5}; %fixed
     data_c.regs.error.r = errorAll{time+1,3};
     % [data_c.regs.map.r,data_c.regs.error.r,data_c.regs.cost.r,...
     %     data_c.regs.idsC.r,data_c.regs.idsR.r,data_c.regs.dA.r,...
     %     data_c.regs.revmap.r]  = assignmentFun (data_c, data_r,CONST,0,0);
 
     data_c.regs.map.f = datacAll{time+1,2};
-    data_c.regs.revmap.r = datacAll{time+1,4};
+    data_c.regs.revmap.f = datacAll{time+1,4};
     data_c.regs.error.f = errorAll{time+1,2};
     % [data_c.regs.map.f,data_c.regs.error.f,data_c.regs.cost.f,...
     %     data_c.regs.idsC.f,data_c.regs.idsF.f,data_c.regs.dA.f,...
