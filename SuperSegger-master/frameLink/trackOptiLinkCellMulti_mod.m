@@ -145,13 +145,13 @@ while time <= numIm
     % Last cellID of previous frame to reset numbering if a frame is repeated.
     lastCellCount = cell_count;  
     
-    if ~isempty(data_r) %r for first frame is empty, otherwise update data_r to r of c frame
-        % [data_r.regs.map.f,data_r.regs.error.f,data_r.regs.cost.f,...
-        %     data_r.regs.idsC.f,data_r.regs.idsF.f,data_r.regs.dA.f,...
-        %     data_r.regs.revmap.f] = assignmentFun (data_r, data_c,CONST,1,0);
-        [data_r.regs.map.f] = datarAll{time+1,2};
-        [data_r.regs.revmap.f] = datarAll{time+1,4};
-    end
+    % if ~isempty(data_r) %r for first frame is empty, otherwise update data_r to r of c frame
+    %     % [data_r.regs.map.f,data_r.regs.error.f,data_r.regs.cost.f,...
+    %     %     data_r.regs.idsC.f,data_r.regs.idsF.f,data_r.regs.dA.f,...
+    %     %     data_r.regs.revmap.f] = assignmentFun (data_r, data_c,CONST,1,0);
+    %     [data_r.regs.map.f] = datarAll{time+1,2};
+    %     [data_r.regs.revmap.f] = datarAll{time+1,4};
+    % end
 
     data_c.regs.map.r = datacAll{time+1,3};
     data_c.regs.revmap.r = datacAll{time+1,5}; %fixed

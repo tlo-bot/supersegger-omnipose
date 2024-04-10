@@ -8,9 +8,9 @@ function [datac, datar, errormat] = replaceLinks_bactrack(bactrackcsvpath)
     % frametarget = bactracklink.frame_target+1;  %redundant w framesource
     labeltarget = bactracklink.label_target;
     
-    numframes = max(framesource);
+    numframes = max(framesource)+1; %source 1 less than target
     
-    datac = cell(numframes+1,5); %initialize
+    datac = cell(numframes,5); %initialize
     [datac{1,:}] = deal('frame','data_c_map_f','data_c_map_r','data_c_revmap_f','data_c_revmap_r');
     
     for frame = 1:numframes
@@ -145,11 +145,12 @@ function [datac, datar, errormat] = replaceLinks_bactrack(bactrackcsvpath)
     datar = cell(numframes+1,5); %initialize
     [datar{1,:}] = deal('frame','data_r_map_f','data_r_map_r','data_r_revmap_f','data_r_revmap_r');
 
-    [datar{2:end,1}] = datac{2:end,1}; 
-    [datar{2:end,2}] = datac{2:end,2}; 
-    [datar{2:end,3}] = datac{2:end,3};
-    [datar{2:end,4}] = datac{2:end,4};
-    [datar{2:end,5}] = datac{2:end,5};
+    % ends up not being used so I didn't check this
+    [datar{3:end,1}] = datac{2:end-1,1}; 
+    [datar{3:end,2}] = datac{2:end-1,2}; 
+    [datar{3:end,3}] = datac{2:end-1,3};
+    [datar{3:end,4}] = datac{2:end-1,4};
+    [datar{3:end,5}] = datac{2:end-1,5};
 
     %error
 
