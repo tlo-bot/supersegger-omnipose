@@ -108,7 +108,7 @@ end
 
 dirname_xy = fileparts(fileparts(dirname));
 bactracklinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinks.csv'];
-[datacAll, datarAll, errorAll] = replaceLinks_bactrack(bactracklinksPath);
+[datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);
 
 while time <= numIm
     
