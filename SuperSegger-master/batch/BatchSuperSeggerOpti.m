@@ -1,4 +1,4 @@
-function BatchSuperSeggerOpti(dirname_,skip,clean_flag,res,startEnd,showWarnings,autoomni)
+function BatchSuperSeggerOpti(dirname_,skip,clean_flag,res,startEnd,showWarnings,autobt)
 % BatchSuperSeggerOpti : runs everything from start to finish,
 % including alignment, building the directory structure,
 %single image segmentation, error resolution, cell linking,
@@ -33,7 +33,7 @@ function BatchSuperSeggerOpti(dirname_,skip,clean_flag,res,startEnd,showWarnings
 % startEnd : array of two values to indicate where to start and where to
 % stop the program. 1, alignment, 2, segmentation, 3, stripping, 4 linking,
 % 5, cell marker, 6 : fluor, 7 : foci, 8, cellA structrues, 9, clist, 10 cell files.
-% autoomni : run Omnipose automatically with MATLAB
+% autobt: run Omnipose & bactrack automatically with MATLAB
 %
 % Copyright (C) 2016 Wiggins Lab
 % Written by Paul Wiggins & Stella Stylianidou.
@@ -218,7 +218,7 @@ else
         
         dirname_xy = dirname_list{j};
         intProcessXY( dirname_xy, skip, nc, num_c, clean_flag, ...
-            CONST, startEnd, crop_box_array{j}, autoomni)
+            CONST, startEnd, crop_box_array{j}, autobt)
         
         if workers || ~CONST.parallel.show_status
             disp( ['BatchSuperSeggerOpti: No status bar. xy ',num2str(j), ...
@@ -248,7 +248,7 @@ end
 end
 
 function intProcessXY( dirname_xy, skip, nc, num_c, clean_flag, ...
-    CONST, startEnd, crop_box, autoomni)
+    CONST, startEnd, crop_box, autobt)
 % intProcessXY : the details of running the code in parallel.
 % Essentially for parallel processing to work, you have to hand each
 % processor all the information it needs to process the images.
@@ -312,32 +312,33 @@ if clean_flag
     cleanSuperSegger (dirname_xy, startEnd, skip)
 end
 
-%check if omnipose installed to matlab and want to run automatically
-opinstalled = 0;
-if (isunix || ismac) && autoomni
-	opinstalled = ~system('source activate omnipose');
-elseif (ispc && autoomni)
-    [initPath,condaStatus] = condaactivateomnipose;
+%replace this with bactrack env
+%check if bactrack installed to matlab and want to run automatically
+btinstalled = 0;
+if (isunix || ismac) && autobt
+	btinstalled = ~system('source activate bactrack');
+elseif (ispc && autobt)
+    [initPath,condaStatus] = condaactivatebactrack;
     if condaStatus %conda is found & activated
-        opinstalled = 1;
+        btinstalled = 1;
     else
         warning('Conda not added to MATLAB Path.')
-        opinstalled = 0;
+        btinstalled = 0;
     end
 end
 
 
 if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
     opstr = genOmniposeCommand(dirname_xy); %get omnipose command
-    if opinstalled 
+    if btinstalled 
         disp('Generating Omnipose masks.');
         if (isunix || ismac)
-            [~,omnipose_out] = system(['source activate omnipose && ' opstr],'-echo'); %call python to run cellpose
+            [~,omnipose_out] = system(['source activate bactrack && ' opstr],'-echo'); %call python to run omnipose
         elseif ispc
             [~,omnipose_out] = system(opstr,'-echo');
         end
         % disp(omnipose_out)
-    else %cellpose not installed or run manually
+    else %omnipose not installed or run manually
         clipboard('copy',opstr);
         disp(['<strong>Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
         disp(['<strong>Omnipose command copied to clipboard:</strong>']);
@@ -360,10 +361,10 @@ else %folder exists
     
     if (dirnotempty==0) || (numMask~=numPhase)  % no masks inside, folder is empty OR less masks than phase imgs
         opstr = genOmniposeCommand(dirname_xy); %get omnipose command
-        if opinstalled
+        if btinstalled
             disp('Generating Omnipose masks.');
             if (isunix || ismac)
-                [~,omnipose_out] = system(['source activate omnipose && ' opstr],'-echo');
+                [~,omnipose_out] = system(['source activate bactrack && ' opstr],'-echo');
             elseif ispc
                 [~,omnipose_out] = system(opstr,'-echo');
             end
@@ -381,7 +382,7 @@ else %folder exists
 end
 
 %after segmentation, reset the MATLAB path for Windows
-if (ispc && autoomni)
+if (ispc && autobt)
     setenv('PATH', initPath);
 end
 

@@ -1,4 +1,4 @@
-    function trackOptiLinkCellMulti (dirname,clean_flag,CONST,header,...
+    function trackOptiLinkCellMulti_bactrack (dirname,clean_flag,CONST,header,...
     debug_flag,startFrom)
 % trackOptiLinkCellMulti : links the cells frame-to-frame and resolves errors.
 %
@@ -106,6 +106,87 @@ else
     h = [];
 end
 
+%generate bactrack links here
+%check if bactrack installed to matlab and want to run automatically
+btinstalled = 0;
+if (isunix || ismac) && autobt
+	btinstalled = ~system('source activate bactrack');
+elseif (ispc && autobt)
+    [initPath,condaStatus] = condaactivatebactrack;
+    if condaStatus %conda is found & activated
+        btinstalled = 1;
+    else
+        warning('Conda not added to MATLAB Path.')
+        btinstalled = 0;
+    end
+end
+
+% check that masks folder exists and not empty
+if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
+    disp('<strong>Cannot link; Omnipose masks not found. Please generate masks:</strong>');
+    opstr = genOmniposeCommand(dirname_xy); %get omnipose command
+    if btinstalled 
+        disp('Generating Omnipose masks.');
+        if (isunix || ismac)
+            [~,omnipose_out] = system(['source activate bactrack && ' opstr],'-echo'); %call python to run omnipose
+        elseif ispc
+            [~,omnipose_out] = system(opstr,'-echo');
+        end
+        % disp(omnipose_out)
+    else %omnipose not installed or run manually
+        clipboard('copy',opstr);
+        disp('<strong>Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>');
+        disp('<strong>Omnipose command copied to clipboard:</strong>');
+        disp(opstr);
+        [~] = input('<strong>Press Enter when ready to continue.</strong>');
+    end
+end
+
+if exist([dirname_xy 'cp_masks'],'dir') || exist([dirname_xy 'masks'],'dir') %folder exists
+    if exist([dirname_xy 'cp_masks'],'dir')
+        cpmasksdir = dir([dirname_xy 'cp_masks']); %get contents of folder
+    elseif exist([dirname_xy 'masks'],'dir')
+        cpmasksdir = dir([dirname_xy 'masks']);
+    end
+    
+    %keep modifying here
+    dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %return 1 if file exists that's not a . hidden file
+    
+    numMask = length({cpmasksdir.name})-2; %-2 for the .,.. files
+    dirname_phase = [dirname_xy 'phase' filesep];
+    phasedir = dir(dirname_phase);
+    numPhase = length({phasedir.name})-2;
+    
+    if (dirnotempty==0) || (numMask~=numPhase)  % no masks inside, folder is empty OR less masks than phase imgs
+        opstr = genOmniposeCommand(dirname_xy); %get omnipose command
+        if btinstalled
+            disp('Generating Omnipose masks.');
+            if (isunix || ismac)
+                [~,omnipose_out] = system(['source activate bactrack && ' opstr],'-echo');
+            elseif ispc
+                [~,omnipose_out] = system(opstr,'-echo');
+            end
+            % disp(omnipose_out)
+        else
+            clipboard('copy',opstr);
+            disp(['<strong>Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
+            disp(['<strong>Omnipose command copied to clipboard:</strong>']);
+            disp(opstr);
+            [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
+        end
+    elseif dirnotempty==1 %folder and masks exist
+    disp('Omnipose masks already generated.');
+    end
+end
+
+%after segmentation, reset the MATLAB path for Windows
+if (ispc && autobt)
+    setenv('PATH', initPath);
+end
+
+
+
+%read in the bactrack links
 dirname_xy = fileparts(fileparts(dirname));
 bactracklinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinks.csv'];
 [datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);
