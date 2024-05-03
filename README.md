@@ -52,7 +52,7 @@ The Github for the original SuperSegger is [here](https://github.com/wiggins-lab
 > 
 > ##### Training Models: Other models can be used as well instead of the default "bact_phase_omni".
 > 
-> ##### Note that the options before "--omni" should not be changed when working with Supersegger-Omnipose.
+> ##### Note that the options before "--omni" should not be changed when working with SuperSegger 2.
 
 
 ---
@@ -99,13 +99,14 @@ In order for Matlab to be able to find SuperSegger 2, the SuperSegger 2 folder n
 
 
 Only supported when using `processExp`. Specify autobt=1 input for processExp (ie `processExp('dirname',1)`). Disabled by default.
-See documentation for setup linked [below](#troubleshooting--known-issues).
+See documentation for setup linked below.
 
 
 
 ---
 ### Troubleshooting & Known Issues
 
+- [Segmentation options](../main/docs/segmentation_options.md)
 - [Omnipose installation instructions (Windows, Linux & MacOS)](../main/docs/install_omnipose.md)
 - [Possible Supersegger 2 errors](../main/docs/so_errors.md)
 - [Running Omnipose directly from MATLAB for Windows (verified)](../main/docs/omni_in_matlab_windows.md)
