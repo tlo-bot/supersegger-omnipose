@@ -121,9 +121,15 @@ elseif (ispc && autobt)
     end
 end
 
+segdir = dirname;
+idp   = strfind(segdir,filesep);
+dirname_xy = segdir(1:idp(end)-1);
+masksPath = [dirname_xy filesep 'masks'];
+
+
 % check that masks folder exists and not empty
 % if not, then generate masks
-if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
+if ~exist(masksPath,'dir')  %if folder doesn't exist
     disp('<strong>Cannot link; Omnipose masks not found. Please generate masks:</strong>');
     opstr = genOmniposeCommand(dirname_xy); %get omnipose command
     if btinstalled 
@@ -143,20 +149,18 @@ if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  
     end
 end
 
-if exist([dirname_xy 'cp_masks'],'dir') || exist([dirname_xy 'masks'],'dir') %folder exists
-    if exist([dirname_xy 'cp_masks'],'dir')
-        cpmasksdir = dir([dirname_xy 'cp_masks']); %get contents of folder
-    elseif exist([dirname_xy 'masks'],'dir')
-        cpmasksdir = dir([dirname_xy 'masks']);
-    end
-    
+
+if exist(masksPath,'dir') %folder exists
+    masksdir = dir(masksPath);
+end
+
+dirnotempty = max(~startsWith({masksdir.name},'.')); %return 1 if file exists that's not a . hidden file
+  
+
     %from masks dir, load path into python script
-    dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %return 1 if file exists that's not a . hidden file
     
-    numMask = length({cpmasksdir.name})-2; %-2 for the .,.. files
-    dirname_phase = [dirname_xy 'phase' filesep];
-    phasedir = dir(dirname_phase);
-    numPhase = length({phasedir.name})-2;
+    
+
     
     if (dirnotempty==0) || (numMask~=numPhase)  % no masks inside, folder is empty OR less masks than phase imgs
         opstr = genOmniposeCommand(dirname_xy); %get omnipose command
