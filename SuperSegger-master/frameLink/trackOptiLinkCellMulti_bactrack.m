@@ -122,6 +122,7 @@ elseif (ispc && autobt)
 end
 
 % check that masks folder exists and not empty
+% if not, then generate masks
 if ~exist([dirname_xy 'cp_masks'],'dir') && ~exist([dirname_xy 'masks'],'dir')  %if folder doesn't exist
     disp('<strong>Cannot link; Omnipose masks not found. Please generate masks:</strong>');
     opstr = genOmniposeCommand(dirname_xy); %get omnipose command
@@ -149,7 +150,7 @@ if exist([dirname_xy 'cp_masks'],'dir') || exist([dirname_xy 'masks'],'dir') %fo
         cpmasksdir = dir([dirname_xy 'masks']);
     end
     
-    %keep modifying here
+    %from masks dir, load path into python script
     dirnotempty = max(~startsWith({cpmasksdir.name},'.')); %return 1 if file exists that's not a . hidden file
     
     numMask = length({cpmasksdir.name})-2; %-2 for the .,.. files
