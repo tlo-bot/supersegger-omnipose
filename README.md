@@ -43,9 +43,15 @@ The Github for the original SuperSegger is [here](https://github.com/wiggins-lab
 ### Installation Instructions
 
 1. Install [MATLAB](https://www.mathworks.com/help/install/install-products.html) and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
-2. Cd to desired folder and clone Supersegger 2 with git
+2. Cd to desired folder and clone Supersegger 2 with git:
 ```
 git clone https://github.com/tlo-bot/supersegger-omnipose.git
+```
+3. Switch to the bactrackdev branch:
+```
+git fetch origin
+
+git checkout -b bactrackdev origin/bactrackdev
 ```
 3. Add SuperSegger 2 to MATLAB path, with its subfolders (see "Setting the Path").
 4. Install bactrack:
