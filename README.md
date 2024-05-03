@@ -3,15 +3,17 @@
 ![Phase image, old SuperSegger segmentation, new SuperSegger 2 segmentation.](/assets/githubfig2.png)
 
 
-Supersegger-Omnipose is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running Supersegger-Omnipose.
+SuperSegger 2 is the SuperSegger MATLAB-based suite modified to work with improved Omnipose segmentation and improved bactrack cell tracking. Bactrack should be installed before running SuperSegger 2.
 
-More information about Omnipose can be found at the [Omnipose Github](https://github.com/kevinjohncutler/omnipose/) and [documentation page](https://omnipose.readthedocs.io/).
+Information about Omnipose can be found at the [Omnipose Github](https://github.com/kevinjohncutler/omnipose/) and [documentation page](https://omnipose.readthedocs.io/).
+
+Information about bactrack can be found at the [bactrack Github](https://github.com/yyang35/bactrack/tree/main/bactrack/).
 
 
 ---
 ### Software Requirements
 
-Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
+SuperSegger 2 uses the same MATLAB toolboxes as the original SuperSegger:
 
 - Curve Fitting Toolbox
 - Deep Learning Toolbox (fka Neural Network Toolbox)
@@ -26,12 +28,15 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 ### Software Documentation
 
 #### SuperSegger 2
-The Github for the original Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/tutorials.php), the [wiki](https://github.com/wiggins-lab/SuperSegger/wiki), and documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
+The Github for the original SuperSegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/tutorials.php), the [wiki](https://github.com/wiggins-lab/SuperSegger/wiki), and documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). SuperSegger 2 uses the same MATLAB functions as the original SuperSegger.
 
 [Quick-start guide for new users](../main/docs/quick_start_guide.md) \ [Original SuperSegger guide to segmentation](https://github.com/wiggins-lab/SuperSegger/wiki/Segmenting-with-SuperSegger) \ [Viewing the results](https://github.com/wiggins-lab/SuperSegger/wiki/Visualization-and-post-processing-tools) \ [The clist](https://github.com/wiggins-lab/SuperSegger/wiki/The-clist-data-file) 
 
 #### Omnipose
 [Omnipose](https://omnipose.readthedocs.io/) options have been preselected to work directly with Supersegger-Omnipose, but if needed, further documentation can be found by running `python -m omnipose --help` in the omnipose environment. Recommended options can also be found on the [documentation page](https://omnipose.readthedocs.io/command.html). 
+
+#### bactrack
+[bactrack](https://github.com/yyang35/bactrack/tree/main/bactrack/) is a cell tracking tool which uses hierarchical segmentation and mixed-integer programming optimization to determine cell lineages in timelapses. While bactrack supports HiGHS, CBC, or Gurobi solvers, SuperSegger 2 only supports HiGHS and Gurobi. 
 
 > ##### Segmentation Options: When running the Omnipose command in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --mask_threshold 1 --flow_threshold 0 --diameter 30". 
 > 
