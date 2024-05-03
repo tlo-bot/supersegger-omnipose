@@ -116,7 +116,7 @@ elseif (ispc && autobt)
     if condaStatus %conda is found & activated
         btinstalled = 1;
     else
-        warning('Conda not added to MATLAB Path.')
+        warning('Bactrack conda environment not added to MATLAB Path.')
         btinstalled = 0;
     end
 end
@@ -154,34 +154,39 @@ if exist(masksPath,'dir') %folder exists
     masksdir = dir(masksPath);
 end
 
+%from masks dir, load path into python script
+
+%for command line: b2ss_gurobi(mask_dir)
 dirnotempty = max(~startsWith({masksdir.name},'.')); %return 1 if file exists that's not a . hidden file
-  
 
-    %from masks dir, load path into python script
-    
-    
 
-    
-    if (dirnotempty==0) || (numMask~=numPhase)  % no masks inside, folder is empty OR less masks than phase imgs
-        opstr = genOmniposeCommand(dirname_xy); %get omnipose command
-        if btinstalled
-            disp('Generating Omnipose masks.');
-            if (isunix || ismac)
-                [~,omnipose_out] = system(['source activate bactrack && ' opstr],'-echo');
-            elseif ispc
-                [~,omnipose_out] = system(opstr,'-echo');
-            end
-            % disp(omnipose_out)
-        else
-            clipboard('copy',opstr);
-            disp(['<strong>Please run Omnipose on ..\xy\phase\ folder in Terminal to generate masks.</strong>']);
-            disp(['<strong>Omnipose command copied to clipboard:</strong>']);
-            disp(opstr);
-            [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
-        end
-    elseif dirnotempty==1 %folder and masks exist
-    disp('Omnipose masks already generated.');
+btcommand = ['b2ss_scipy(' masksPath ')']; %check this; masksPath may need to be string with "
+
+%if gurobi installed, change command to gurobi
+if (isunix || ismac)
+    [gurobicheck,~] = system(['source activate bactrack && gurobi_cl']);
+elseif ispc
+    [gurobicheck,~] = system('gurobi_cl');
+end
+
+if gurobicheck==0 %system returns 0 if success
+    btcommand = ['b2ss_gurobi(' masksPath ')'];
+end
+
+if dirnotempty
+    disp('Generating bactrack links.');
+    if (isunix || ismac)
+        [~,bt_out] = system(['source activate bactrack && ' btcommand],'-echo');
+    elseif ispc
+        [~,bt_out] = system(btcommand,'-echo');
     end
+    % disp(bt_out)
+else
+    clipboard('copy',btcommand);
+    disp(['<strong>Please run bactrack on ..\xy\masks\ folder in Terminal to generate links.</strong>']);
+    disp(['<strong>Bactrack command copied to clipboard:</strong>']);
+    disp(btcommand);
+    [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
 end
 
 %after segmentation, reset the MATLAB path for Windows
