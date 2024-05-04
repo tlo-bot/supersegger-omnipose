@@ -22,7 +22,6 @@
 
 ```
 git clone https://github.com/yyang35/bactrack.git
-
 ```
 
 4. Change directory to the bactrack directory, install packages, activate environment, and install bactrack.
@@ -104,7 +103,6 @@ conda config --set auto_activate_base false
 
 ```
 git clone https://github.com/yyang35/bactrack.git
-
 ```
 
 5. Change directory to the bactrack directory, install packages, activate environment, and install bactrack.
@@ -118,21 +116,21 @@ pip install .
 
 > Note: activate the bactrack environment each time you want to use bactrack or Omnipose with `conda activate bactrack`.
 
-5. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
+6. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
 
 ```
 pip install .
 ```
 
-6. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
+7. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
 
-Possible other steps for Gurobi installation [(setting system environment variables)](https://support.gurobi.com/hc/en-us/articles/13443862111761-How-do-I-set-system-environment-variables-for-Gurobi):
+> Possible other steps for Gurobi installation [(setting system environment variables)](https://support.gurobi.com/hc/en-us/articles/13443862111761-How-do-I-set-system-environment-variables-for-Gurobi):
 
-7. Set environment variables for bactrack environment to include Gurobi and license. Create env_vars.sh file in directory where bactrack is activated (replace username):
+8. Set environment variables for bactrack environment to include Gurobi and license. Create env_vars.sh file in directory where bactrack is activated (replace username):
 
 /home/username/Documents/miniconda3/envs/bactrack/etc/conda/activate.d/
 
-8. Paste the following into .bashrc file, where `GRB_LICENSE_FILE` is the path to the Gurobi license file and `GUROBI_HOME` is the path to the Gurobi installation (replace username): 
+9. Paste the following into .bashrc file, where `GRB_LICENSE_FILE` is the path to the Gurobi license file and `GUROBI_HOME` is the path to the Gurobi installation (replace username): 
 ```
 export GRB_LICENSE_FILE=/home/username/Documents/gurobi.lic 
 export GUROBI_HOME="/home/username/Documents/miniconda3/pkgs/gurobi-11.0.1-py310_0/"
@@ -191,7 +189,6 @@ conda config --set auto_activate_base false
 
 ```
 git clone https://github.com/yyang35/bactrack.git
-
 ```
 
 5. Change directory to the bactrack directory, install packages, activate environment, and install bactrack.
@@ -205,13 +202,13 @@ pip install .
 
 > Note: activate the bactrack environment each time you want to use bactrack or Omnipose with `conda activate bactrack`.
 
-5. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
+6. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
 
 ```
 pip install .
 ```
 
-6. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
+7. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
 
 
 
