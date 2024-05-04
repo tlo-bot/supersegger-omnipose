@@ -2,7 +2,7 @@
  
  Updated: May 3, 2024.
 
- [Windows](../../tree/bactrackdev/docs/install_bactrack.md#windows) \ [Linux](../../tree/bactrackdev/docs/install_bactrack.md#linux-debianubuntu) \ [MacOS](../../tree/bactrackdev/docs/install_bactrack.md#macos)
+ [Windows](../../bactrackdev/docs/install_bactrack.md#windows) \ [Linux](../../bactrackdev/docs/install_bactrack.md#linux-debianubuntu) \ [MacOS](../../bactrackdev/docs/install_bactrack.md#macos)
 
  Note: this page is intended as a general guide. Feel free to open an issue if there are errors in the installation process
 
@@ -34,7 +34,7 @@ pip install .
 ```
 
 > Note: for Windows 10, found compatibility issue with some versions of Python (v3.10.5, 3.11+). 3.8.5 recommended but other versions may work as well.
-> For Windows 11, found compatibility issues with Python 3.11+; confirmed Omnipose compatibility with Python 3.10.12 and bactrack compatibility for 3.10. If there are issues installing, specify python=3.10 in the environment.yaml file.
+> For Windows 11, found compatibility issues with Python 3.11+; confirmed Omnipose compatibility with Python 3.10.12 and bactrack compatibility for 3.10. If there are issues installing, specify python==3.10 in the environment.yaml file.
 
 
 > Note: activate the bactrack environment each time you want to use bactrack or Omnipose with `conda activate bactrack`.
@@ -45,7 +45,7 @@ pip install .
 pip install .
 ```
 
-6. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
+6. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the [instructions from the bactrack repo](https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup), then activate the license.
 
 
 ## Linux (Debian/Ubuntu)
@@ -122,7 +122,7 @@ pip install .
 pip install .
 ```
 
-7. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
+7. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the [instructions from the bactrack repo](https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup), then activate the license.
 
 > Possible other steps for Gurobi installation [(setting system environment variables)](https://support.gurobi.com/hc/en-us/articles/13443862111761-How-do-I-set-system-environment-variables-for-Gurobi):
 
@@ -208,7 +208,7 @@ pip install .
 pip install .
 ```
 
-7. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
+7. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the [instructions from the bactrack repo](https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup), then activate the license.
 
 
 
