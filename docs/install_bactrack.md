@@ -1,12 +1,12 @@
-# Step-by-step Omnipose installation instructions (command line based, assumes cellpose is not already installed)
+# Step-by-step Omnipose & bactrack installation instructions (command line based)
  
- Updated: Jan 23, 2024.
+ Updated: May 3, 2024.
 
- [Windows](https://github.com/tlo-bot/supersegger-omnipose/blob/main/docs/install_omnipose.md#windows) \ [Linux](https://github.com/tlo-bot/supersegger-omnipose/blob/main/docs/install_omnipose.md#linux-debianubuntu) \ [MacOS](https://github.com/tlo-bot/supersegger-omnipose/blob/main/docs/install_omnipose.md#macos)
+ [Windows](../../tree/bactrackdev/docs/install_bactrack.md#windows) \ [Linux](../../tree/bactrackdev/docs/install_bactrack.md#linux-debianubuntu) \ [MacOS](../../tree/bactrackdev/docs/install_bactrack.md#macos)
 
  Note: this page is intended as a general guide. Feel free to open an issue if there are errors in the installation process
 
- Update notes: Omnipose has been updated. If you previously installed Omnipose as Cellpose & Omnipose, please run `pip uninstall cellpose_omni && pip cache remove cellpose_omni` to prevent version conflicts. If Omnipose was previously installed as Cellpose, feel free to remove the pre-existing installation `conda env remove -n cellpose` and delete the cellpose folder
+ Update notes: Omnipose is installed as a bactrack dependency. If you previously installed Omnipose and wish to remove the independent installation, please run `pip uninstall omnipose && pip cache remove omnipose` to prevent version conflicts. Feel free to remove the pre-existing installation `conda env remove -n omnipose` and delete the Omnipose folder.
 
 ## Windows
 
@@ -16,42 +16,37 @@
 
 2. Install miniconda (https://docs.conda.io/en/latest/miniconda.html)
 
-> Warning: Adding to PATH is optional. If added to PATH, can run miniconda directly from Command Line, but may cause interferences with other programs in Command Line. If not added to PATH, need to use the separately installed Anaconda Prompt to run Omnipose. To manually add conda to PATH, try adding `C:\Users\Name\miniconda3\condabin;` to Path in Environment Variables. May be instead `C:\Users\Name\miniconda3\Scripts;` 
+> Warning: Adding to PATH is optional. If added to PATH, can run miniconda directly from Command Line, but may cause interferences with other programs in Command Line. If not added to PATH, need to use the separately installed Anaconda Prompt to run Omnipose and bactrack. To manually add conda to PATH, try adding `C:\Users\Name\miniconda3\condabin;` to Path in Environment Variables. May be instead `C:\Users\Name\miniconda3\Scripts;` 
 
-3. In Command Window/Anaconda Prompt, create "omnipose" environment, install Python to the environment, activate environment, and install Omnipose.
+3. In Command Window/Anaconda Prompt, change the current working directory to the location where you want bactrack to be installed with `cd` before cloning the repository. (ex, `cd Documents`)
+
+```
+git clone https://github.com/yyang35/bactrack.git
+
+```
+
+4. Change directory to the bactrack directory, install packages, activate environment, and install bactrack.
+
+```
+cd bactrack
+conda env create -f environment.yaml
+conda activate bactrack
+pip install .
+```
 
 > Note: for Windows 10, found compatibility issue with some versions of Python (v3.10.5, 3.11+). 3.8.5 recommended but other versions may work as well.
-> For Windows 11, confirmed compatibility with Python 3.10.12.
+> For Windows 11, found compatibility issues with Python 3.11+; confirmed Omnipose compatibility with Python 3.10.12 and bactrack compatibility for 3.10. If there are issues installing, specify python=3.10 in the environment.yaml file.
+
+
+> Note: activate the bactrack environment each time you want to use bactrack or Omnipose with `conda activate bactrack`.
+
+5. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
 
 ```
-conda create -n omnipose 'python==3.10.12' pytorch
+pip install .
 ```
 
-```
-conda activate omnipose
-```
-Change directory to the location where you want Omnipose to be installed with `cd` before cloning the repository.
-
-```
-git clone https://github.com/kevinjohncutler/omnipose.git
-```
-```
-cd omnipose
-pip install -e .
-```
-
-> Note: if you previously installed Omnipose, please run `pip uninstall cellpose_omni && pip cache remove cellpose_omni` to prevent version conflicts.
-
-> Note: for the latest stable release of Omnipose from PyPi, use instead: `pip install omnipose` .
-
-> Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
-
-4. For updating, change directory to the omnipose directory with `cd`. The directory should contain the 'setup.py' file. Then repeat the above install command after activating omnipose environment:
-
-```
-pip install -e .
-```
-
+6. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
 
 
 ## Linux (Debian/Ubuntu)
