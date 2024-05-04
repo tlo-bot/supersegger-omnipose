@@ -100,36 +100,45 @@ conda config --set auto_activate_base false
    and restart shell.
 
 
-4. In Command Window, create environment named 'omnipose', install Python to the environment, activate environment, and install Omnipose.
-```
-conda create -n omnipose 'python==3.10.12' pytorch
-```
+4. In Command Window/Anaconda Prompt, change the current working directory to the location where you want bactrack to be installed with `cd` before cloning the repository. (ex, `cd Documents`)
 
 ```
-conda activate omnipose
-```
-Change directory to the location where you want Omnipose to be installed with `cd` before cloning the repository.
+git clone https://github.com/yyang35/bactrack.git
 
 ```
-git clone https://github.com/kevinjohncutler/omnipose.git
+
+5. Change directory to the bactrack directory, install packages, activate environment, and install bactrack.
 
 ```
-```
-cd omnipose
-pip install -e .
-```
-
->   Note: if you previously installed Omnipose, please run `pip uninstall cellpose_omni && pip cache remove cellpose_omni` to prevent version conflicts.
-
->   Note: for the latest stable release of Omnipose, use instead: `pip install omnipose`
-
->   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`.
-
-5. For updating, change directory to the omnipose directory with `cd`. The directory should contain the 'setup.py' file. Then repeat the above install command after activating omnipose environment:
-```
-pip install -e .
+cd bactrack
+conda env create -f environment.yaml
+conda activate bactrack
+pip install .
 ```
 
+> Note: activate the bactrack environment each time you want to use bactrack or Omnipose with `conda activate bactrack`.
+
+5. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
+
+```
+pip install .
+```
+
+6. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
+
+Possible other steps for Gurobi installation [(setting system environment variables)](https://support.gurobi.com/hc/en-us/articles/13443862111761-How-do-I-set-system-environment-variables-for-Gurobi):
+
+7. Set environment variables for bactrack environment to include Gurobi and license. Create env_vars.sh file in directory where bactrack is activated (replace username):
+
+/home/username/Documents/miniconda3/envs/bactrack/etc/conda/activate.d/
+
+8. Paste the following into .bashrc file, where `GRB_LICENSE_FILE` is the path to the Gurobi license file and `GUROBI_HOME` is the path to the Gurobi installation (replace username): 
+```
+export GRB_LICENSE_FILE=/home/username/Documents/gurobi.lic 
+export GUROBI_HOME="/home/username/Documents/miniconda3/pkgs/gurobi-11.0.1-py310_0/"
+export PATH="${PATH}:${GUROBI_HOME}/bin"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+```
 
 
 ## MacOS 
@@ -177,33 +186,33 @@ conda config --set auto_activate_base false
 ```
    and restart shell.
 
-4. In Command Window, create environment named "omnipose", install Python to the environment, activate environment, and install Omnipose.
-```
-conda create -n omnipose 'python==3.10.12' pytorch
-```
+
+4. In Command Window/Anaconda Prompt, change the current working directory to the location where you want bactrack to be installed with `cd` before cloning the repository. (ex, `cd Documents`)
 
 ```
-conda activate omnipose
+git clone https://github.com/yyang35/bactrack.git
+
 ```
 
-Change directory to the location where you want Omnipose to be installed with `cd` before cloning the repository.
-```
-git clone https://github.com/kevinjohncutler/omnipose.git
-```
-```
-cd omnipose
-pip install -e .
-```
->   Note: if you previously installed Omnipose, please run `pip uninstall cellpose_omni && pip cache remove cellpose_omni` to prevent version conflicts.
+5. Change directory to the bactrack directory, install packages, activate environment, and install bactrack.
 
->   Note: for the latest stable release of Omnipose, use instead: `pip install omnipose`
-
->   Note: activate the omnipose environment each time you want to use omnipose with `conda activate omnipose`. 
-
-5. For updating, change directory to the omnipose directory with `cd`. The directory should contain the 'setup.py' file. Then repeat the above install command after activating omnipose environment:
 ```
-pip install -e .
+cd bactrack
+conda env create -f environment.yaml
+conda activate bactrack
+pip install .
 ```
+
+> Note: activate the bactrack environment each time you want to use bactrack or Omnipose with `conda activate bactrack`.
+
+5. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
+
+```
+pip install .
+```
+
+6. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the (instructions from the bactrack repo)[https://github.com/yyang35/bactrack?tab=readme-ov-file#gurobi-setup], then activate the license.
+
 
 
 
