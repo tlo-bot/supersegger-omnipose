@@ -1,4 +1,4 @@
-function processExp( dirname , autoomni, log_flag )
+function processExp( dirname , autobt, log_flag )
 % processExp : main function for running the segmentation software.
 % Used to choose the appropriate settings, and converting the images
 % filenames before running BatchSuperSeggerOpti.
@@ -20,8 +20,8 @@ function processExp( dirname , autoomni, log_flag )
 %
 % INPUT :
 %       dirname : folder that contains .tif images in NIS elements format. 
-%       autoomni : if Omnipose already installed/accessible to MATLAB,
-%                : run Omnipose automatically in MATLAB 
+%       autobt   : if Bactrack already installed/accessible to MATLAB,
+%                : run Bactrack/Omnipose automatically in MATLAB 
 %                : in case Omnipose options should be manually specified
 %                : by running in Terminal rather than the default options
 %                : preset in the batchSuperSeggerOpti.m file
@@ -128,13 +128,13 @@ cleanflag = false;
 
 %% Start running segmentation
 
-%no autoomni input; default to off
-if ~exist( 'autoomni', 'var' ) || isempty( autoomni ) 
-    autoomni = 0;
+%no autobt input; default to off
+if ~exist( 'autobt', 'var' ) || isempty( autobt ) 
+    autobt = 0;
 end
 
 %BatchSuperSeggerOpti( dirname, skip, cleanflag, CONST);
-BatchSuperSeggerOpti( dirname, skip, cleanflag, CONST, [], [], autoomni);
+BatchSuperSeggerOpti( dirname, skip, cleanflag, CONST, [], [], autobt);
 
 %% turn off log
 
