@@ -1,4 +1,4 @@
-function clist = trackOpti(dirname,skip,CONST, header, startEnd) 
+function clist = trackOpti(dirname,skip,CONST, header, startEnd, autobt) 
 % trackOpti : calls the rest of the functions for segmentation
 % After each sub-function is called, is creates a file in the seg directory
 % that begins with .trackOpti (they are hidden, you?ll have to use ?ls -a?
@@ -15,6 +15,7 @@ function clist = trackOpti(dirname,skip,CONST, header, startEnd)
 %       CONST : Constants file
 %       header : information string
 %       startEnd : start and end stage
+%       autobt: automatically run bactrack
 % OUTPUT :
 %       clist : list of cells with time-independent information about each
 %
@@ -90,7 +91,7 @@ stamp_name = [dirname_seg,'.trackOptiLinkCell-Step2.mat'];
 if ~exist( stamp_name, 'file' ) && (startEnd(1) <= 4 && startEnd(2) >= 4)
     disp([header,'trackOpti - Step 2: Running trackOptiLinkCell.']);
     delete_old_err_files = 1;
-    trackOptiLinkCellMulti_bactrack(dirname_seg, delete_old_err_files, CONST, header);
+    trackOptiLinkCellMulti_bactrack(dirname_seg, delete_old_err_files, CONST, header, autobt);
     time_stamp = clock;
     save( stamp_name, 'time_stamp');
 else

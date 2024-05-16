@@ -1,5 +1,5 @@
     function trackOptiLinkCellMulti_bactrack (dirname,clean_flag,CONST,header,...
-    debug_flag,startFrom)
+    debug_flag,startFrom, autobt)
 % trackOptiLinkCellMulti : links the cells frame-to-frame and resolves errors.
 %
 % INPUT :
@@ -8,6 +8,7 @@
 %       CONST      : SuperSeggerOpti set parameters
 %       header     : displayed string
 %       debug_flag  : a flag set for displaying the results
+%       autobt     : automatically run bactrack
 %
 %
 % Copyright (C) 2016 Wiggins Lab

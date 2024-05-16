@@ -426,7 +426,7 @@ end
 
 % trackOpti has all the rest of things : Linking, Cell files, Fluorescence calculation etc
 if startEnd(2) >2
-    trackOpti(dirname_xy,skip,CONST, header, startEnd);
+    trackOpti(dirname_xy,skip,CONST, header, startEnd, autobt);
 end
 end
 
