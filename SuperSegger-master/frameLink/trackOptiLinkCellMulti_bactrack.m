@@ -205,7 +205,7 @@ if ~exist(bactracklinksPath,'file')
     disp('Bactrack links file not found. Please run bactrack on masks directory.');
     [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
 else
-    [datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);gma
+    [datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);
 end
 
 while time <= numIm
