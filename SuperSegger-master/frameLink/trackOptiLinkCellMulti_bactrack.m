@@ -161,7 +161,7 @@ end
 dirnotempty = max(~startsWith({masksdir.name},'.')); %return 1 if file exists that's not a . hidden file
 
 
-btcommand = ['b2ss_scipy(' masksPath ')']; %check this; masksPath may need to be string with "
+btcommand = ['python b2ss_scipy(' ' ''' masksPath ''' ' ')']; %check this; masksPath may need to be string with "
 
 %if gurobi installed, change command to gurobi
 if (isunix || ismac)
@@ -171,7 +171,7 @@ elseif ispc
 end
 
 if gurobicheck==0 %system returns 0 if success
-    btcommand = ['b2ss_gurobi(' masksPath ')'];
+    btcommand = ['python b2ss_gurobi(' ' ''' masksPath ''' ' ')'];
 end
 
 if dirnotempty
@@ -200,7 +200,13 @@ end
 %read in the bactrack links
 dirname_xy = fileparts(fileparts(dirname));
 bactracklinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinks.csv'];
-[datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);
+
+if ~exist(bactracklinksPath,'file')
+    disp('Bactrack links file not found. Please run bactrack on masks directory.');
+    [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
+else
+    [datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);gma
+end
 
 while time <= numIm
     
