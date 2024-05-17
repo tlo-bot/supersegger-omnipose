@@ -124,7 +124,7 @@ end
 
 segdir = dirname;
 idp   = strfind(segdir,filesep);
-dirname_xy = segdir(1:idp(end)-1);
+dirname_xy = segdir(1:idp(end-1)-1);
 masksPath = [dirname_xy filesep 'masks'];
 
 
@@ -161,7 +161,7 @@ end
 dirnotempty = max(~startsWith({masksdir.name},'.')); %return 1 if file exists that's not a . hidden file
 
 
-btcommand = ['python b2ss_scipy(' ' ''' masksPath ''' ' ')']; %check this; masksPath may need to be string with "
+btcommand = ['python b2ss_scipy(' ' ''' masksPath ''' ' ')']; 
 
 %if gurobi installed, change command to gurobi
 if (isunix || ismac)
@@ -174,7 +174,7 @@ if gurobicheck==0 %system returns 0 if success
     btcommand = ['python b2ss_gurobi(' ' ''' masksPath ''' ' ')'];
 end
 
-if dirnotempty
+if dirnotempty && autobt
     disp('Generating bactrack links.');
     if (isunix || ismac)
         [~,bt_out] = system(['source activate bactrack && ' btcommand],'-echo');
