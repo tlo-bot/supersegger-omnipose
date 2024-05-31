@@ -157,49 +157,56 @@ end
 
 %from masks dir, load path into python script
 
-%for command line: b2ss_gurobi(mask_dir)
-dirnotempty = max(~startsWith({masksdir.name},'.')); %return 1 if file exists that's not a . hidden file
+dirname_xy = fileparts(fileparts(dirname));
+bactracklinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinks.csv'];
 
+%get bactrack script path
+trackOptidir = mfilename('fullpath');
+supersegdir = fileparts(fileparts(trackOptidir));
+bactrackscriptsPath = [supersegdir filesep 'bactrack_files' filesep];
 
-btcommand = ['python b2ss_scipy(' ' ''' masksPath ''' ' ')']; 
-
-%if gurobi installed, change command to gurobi
-if (isunix || ismac)
-    [gurobicheck,~] = system(['source activate bactrack && gurobi_cl']);
-elseif ispc
-    [gurobicheck,~] = system('gurobi_cl');
-end
-
-if gurobicheck==0 %system returns 0 if success
-    btcommand = ['python b2ss_gurobi(' ' ''' masksPath ''' ' ')'];
-end
-
-if dirnotempty && autobt
-    disp('Generating bactrack links.');
+if ~exist(bactracklinksPath,'file')
+    %for command line: b2ss_gurobi(mask_dir)
+    dirnotempty = max(~startsWith({masksdir.name},'.')); %return 1 if file exists that's not a . hidden file
+    
+    
+    btcommand = ['python ' bactrackscriptsPath 'b2ss_scipy.py' ' ''' masksPath ''' ']; 
+    
+    %if gurobi installed, change command to gurobi
     if (isunix || ismac)
-        [~,bt_out] = system(['source activate bactrack && ' btcommand],'-echo');
+        [gurobicheck,~] = system(['source activate bactrack && gurobi_cl']);
     elseif ispc
-        [~,bt_out] = system(btcommand,'-echo');
+        [gurobicheck,~] = system('gurobi_cl');
     end
-    % disp(bt_out)
-else
-    clipboard('copy',btcommand);
-    disp(['<strong>Please run bactrack on ..\xy\masks\ folder in Terminal to generate links.</strong>']);
-    disp(['<strong>Bactrack command copied to clipboard:</strong>']);
-    disp(btcommand);
-    [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
+    
+    if gurobicheck==0 %system returns 0 if success
+        btcommand = ['python ' bactrackscriptsPath 'b2ss_gurobi.py' ' ''' masksPath ''' '];
+    end
+    
+    if dirnotempty && autobt
+        disp('Generating bactrack links.');
+        if (isunix || ismac)
+            [~,bt_out] = system(['source activate bactrack && ' btcommand],'-echo');
+        elseif ispc
+            [~,bt_out] = system(btcommand,'-echo');
+        end
+        % disp(bt_out)
+    else
+        clipboard('copy',btcommand);
+        disp(['<strong>Please run bactrack on ..\xy\masks\ folder in Terminal to generate links.</strong>']);
+        disp(['<strong>Bactrack command copied to clipboard:</strong>']);
+        disp(btcommand);
+        [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
+    end
+    
+    %after segmentation, reset the MATLAB path for Windows
+    if (ispc && autobt)
+        setenv('PATH', initPath);
+    end
 end
-
-%after segmentation, reset the MATLAB path for Windows
-if (ispc && autobt)
-    setenv('PATH', initPath);
-end
-
 
 
 %read in the bactrack links
-dirname_xy = fileparts(fileparts(dirname));
-bactracklinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinks.csv'];
 
 if ~exist(bactracklinksPath,'file')
     disp('Bactrack links file not found. Please run bactrack on masks directory.');

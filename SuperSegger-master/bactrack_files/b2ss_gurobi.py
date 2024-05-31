@@ -3,6 +3,7 @@ from bactrack.tracking import OverlapWeight, IOUWeight, DistanceWeight
 from bactrack.tracking import MIPSolver, ScipySolver
 from bactrack import io
 
+import sys
 import pandas as pd
 import os
 
@@ -36,7 +37,7 @@ def b2ss_gurobi(mask_dir):
     selected_df = merged_df[['frame_source','label_source', 'label_target','area_source','area_target']]
     selected_df.to_csv(os.path.join(bactrackdir, "superseggerlinks.csv")) 
 
-    print("Bactrack to Supersegger links (CBC/Gurobi) saved at" + os.path.join(bactrackdir, "superseggerlinks.csv") +"!")
+    print("Bactrack to Supersegger links (CBC/Gurobi) saved at " + os.path.join(bactrackdir, "superseggerlinks.csv") +"!")
 
 if __name__ == "__main__":
     mask_dir = sys.argv[1]  # Get the file path from the command line argument
