@@ -212,7 +212,23 @@ if ~exist(bactracklinksPath,'file')
     disp('Bactrack links file not found. Please run bactrack on masks directory.');
     [~] = input(['<strong>Press Enter when ready to continue.</strong>']);
 else
-    [datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);
+    % fill in the missing links if no mapping in next frame
+    % saves superseggerlinksfill.csv
+
+    % find true numregs per frame
+    numRegsperFrame = zeros(numIm,1);
+    for time = 1: numIm
+        %load seg file and extract num_regs
+        datat = load([dirname,contents(time).name]);
+        numRegsperFrame(time) = datat.regs.num_regs;
+    end
+
+    fillBactrackLinks(bactracklinksPath,numRegsperFrame,CONST);
+    fillBtLinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinksFill.csv'];
+
+    [datacAll, ~, errorAll] = replaceLinks_bactrack_fill(fillBtLinksPath);
+    % [datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);
+    
 end
 
 while time <= numIm
