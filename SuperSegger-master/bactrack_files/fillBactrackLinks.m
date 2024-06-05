@@ -1,32 +1,66 @@
 function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
 
     %init matrix
-    totRegs = sum(numRegsperFrame);
-    totRegsLinks = sum(numRegsperFrame(1:end-1));%last frame has no forward links 
-    fillLinks = zeros(totRegsLinks,8);
-
-    %first col Var#
-    fillLinks(:,1) = [1:totRegsLinks]';
-
-    bactracklink = readtable(bactrackcsvpath);
-
-    %second col frame_source
-    indFrame = cumsum(numRegsperFrame)+1;
-    indFrame = [1; indFrame];
     numFrames = size(numRegsperFrame,1);
     linkFrames = numFrames-1; %last frame has no forward links
 
-    
+    bactracklink = readtable(bactrackcsvpath);
+
+    numLinksPerFrame = zeros(linkFrames,1);
+    framesource = bactracklink.frame_source+1;
+    labelsource = bactracklink.label_source;
+
+    %find 1-1 and 1-2 links from bactrack
+    for jj = 1:linkFrames
+        numLinksPerFrame(jj) = sum(framesource==jj);
+    end
+
+    missingLinksPerFrame = zeros(linkFrames,1);
+    %find 1-0 missing links
     for framenum = 1:linkFrames
-        startInd = indFrame(framenum);
-        endInd = indFrame(framenum+1)-1;
+
+        framec = framesource==framenum; %indices for frame from csv
+        labelc = labelsource(framec); %source labels for that frame
+
+        full = 1:numRegsperFrame(framenum);
+        sample = labelc;
+
+        idx = ismember(full,sample);
+        missingregs = full(~idx);
+        
+        missingLinksPerFrame(framenum) = size(missingregs,2);
+    end
+
+    indtotLinks = missingLinksPerFrame+ numLinksPerFrame;
+    totLinks = sum(indtotLinks);
+    fillLinks = zeros(totLinks,8);
+
+    % totRegs = sum(numRegsperFrame);
+    % totRegsLinks = sum(numRegsperFrame(1:end-1));%last frame has no forward links 
+    % fillLinks = zeros(totRegsLinks,8);
+
+    %first col Var#
+    fillLinks(:,1) = [1:totLinks]';
+
+    startinds = cumsum(indtotLinks)+1;
+    startinds = [1; startinds];
+    endinds = cumsum(indtotLinks);
+
+    %second col frame_source
+    % indFrame = cumsum(numRegsperFrame)+1;
+    % indFrame = [1; indFrame];
+
+    for framenum = 1:linkFrames
+        startInd = startinds(framenum);
+        endInd = endinds(framenum);
         fillLinks(startInd:endInd,2) = framenum;
     end
 
     %cols 3-6
 
-    framesource = bactracklink.frame_source+1; % matlab indexing at 1
-    labelsource = bactracklink.label_source;
+    % framesource = bactracklink.frame_source+1; % matlab indexing at 1
+    % labelsource = bactracklink.label_source;
+
     % frametarget = bactracklink.frame_target+1;  %redundant w framesource
     labeltarget = bactracklink.label_target;
     areasource = bactracklink.area_source;
@@ -45,16 +79,16 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
         tmpinfo = [labelc labelf areac areaf];
         sorttmp = sortrows(tmpinfo);
 
-        startInd = indFrame(framenum);
-        endInd = startInd + size(labelc,1)-1;
+        startInd = startinds(framenum);
+        endInd = startInd + size(labelc,1)-1; %only bactrack links
 
         fillLinks(startInd:endInd,3:6) = sorttmp;
 
     end
 
-    simplestart = cumsum(numRegsperFrame)+1;
-    simplestart = [1; simplestart];
-    simpleend = cumsum(numRegsperFrame);
+    % startinds = cumsum(numRegsperFrame)+1;
+    % startinds = [1; startinds];
+    % endinds = cumsum(numRegsperFrame);
 
     % calculate dA error
 
@@ -74,18 +108,18 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
         framec = framesource==framenum; %indices for frame from csv
         labelc = labelsource(framec); %source labels for that frame
 
-
-        startInd = indFrame(framenum);
-        endInd = startInd + size(labelc,1)-1;
+        % startInd = indFrame(framenum);
+        % endInd = startInd + size(labelc,1)-1;
 
         full = 1:numRegsperFrame(framenum);
-        sample = fillLinks(startInd:endInd,3);
+        sample = labelc;
+        % sample = fillLinks(startInd:endInd,3);
 
         idx = ismember(full,sample);
         missingregs = full(~idx);
 
-        fillLinks(simplestart(framenum)+size(labelc,1):simpleend(framenum),3) = missingregs;
-        fillLinks(simplestart(framenum)+size(labelc,1):simpleend(framenum),4) = NaN;
+        fillLinks(startinds(framenum)+size(labelc,1):endinds(framenum),3) = missingregs;
+        fillLinks(startinds(framenum)+size(labelc,1):endinds(framenum),4) = NaN;
 
         %error already handled by DA calc
         % fillLinks(simplestart(framenum)+size(labelc,1):simpleend(framenum),7) = 1;
@@ -93,9 +127,13 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
 
     end
 
-    % compute error
+    filledmatPath = [fileparts(bactrackcsvpath) filesep 'superseggerlinksFill.mat'];
+    save(filledmatPath,"fillLinks") %save as mat
 
-
+    labels = ["Var1";"frame_source";"label_source";"label_target";"area_source";"area_target";"error";"DA"];
+    temps = array2table(fillLinks,"VariableNames",labels);
+    filledcsvPath = [fileparts(bactrackcsvpath) filesep 'superseggerlinksFill.csv'];
+    writetable(temps,filledcsvPath)
     % fillTable
  
 end
