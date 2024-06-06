@@ -76,7 +76,7 @@ if ~isempty(data)
         try
             data.regs.info(ii,:) = CONST.regionScoreFun.props(mask,data.regs.props(ii) );
         catch 
-            disp(ii)
+            disp(['warning: region ' num2str(ii)])
         end
         data.regs.L1(ii)= data.regs.info(ii,1);
         data.regs.L2(ii)= data.regs.info(ii,2);
