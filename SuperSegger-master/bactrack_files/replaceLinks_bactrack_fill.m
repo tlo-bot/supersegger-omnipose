@@ -1,4 +1,4 @@
-function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath)
+function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, regsLastFrame)
 
     % bactracklink = readtable('/home/tlo/Documents/Data/bactrack_test2/xy0/bactrackfiles/superseggerlinksdev.csv');
     bactracklink = readtable(bactrackcsvpath);
@@ -18,6 +18,10 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath)
         framec = framesource==frame; %indices for frame from csv
         labelc = labelsource(framec); %source labels for that frame
         labelf = labeltarget(framec); %target labels for that frame
+
+        framef = framesource==frame+1;
+        labelcf = labelsource(framef);
+        labelff = labeltarget(framef);
         
         if frame~=numframes %not the last frame
             hasdupe = checkduplicate(labelc);
@@ -56,17 +60,19 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath)
 
                 % 1 1 2 3 --> 1 3 2 4 would have a map of 1 2 1 3
         
-                numregsF = length(labelf);
+                numregsF = max(labelf);
                 crevf_temp = cell(1,numregsF);
         
                 for regF = 1:numregsF
-                    indFmatch = labelf==regF; %get index of label in f
-                    % crevf_temp{regF} = labelc(indFmatch); % map index back to c
-
-                    if isnan(labelc(indFmatch))
-                        mapval = [];
+                    indFmatch = labelf==regF;
+                    if sum(indFmatch)>0
+                        % if isnan(labelcf(indFmatch))
+                        %     mapval = [];
+                        % else
+                            mapval = labelc(indFmatch);
+                        % end
                     else
-                        mapval = labelc(indFmatch);
+                        mapval = [];
                     end
                     crevf_temp{regF} = mapval;
                 end
@@ -105,15 +111,19 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath)
         
                 % populate c_revmap_f
         
-                numregsF = length(labelf);
+                numregsF = max(labelcf);
                 crevf_temp = cell(1,numregsF);
         
                 for regF = 1:numregsF
                     indFmatch = labelf==regF;
-                    if isnan(labelc(indFmatch))
-                        mapval = [];
+                    if sum(indFmatch)>0
+                        % if isnan(labelcf(indFmatch))
+                        %     mapval = [];
+                        % else
+                            mapval = labelc(indFmatch);
+                        % end
                     else
-                        mapval = labelc(indFmatch);
+                        mapval = [];
                     end
                     crevf_temp{regF} = mapval;
                 end
@@ -122,14 +132,37 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath)
         
             end
     
+            if frame == numframes-1
+                % populate c_revmap_f 
+                numregsF = regsLastFrame; %need bc bactrack has no forward frame info
+    
+                crevf_temp = cell(1,numregsF);
+            
+                for regF = 1:numregsF
+                    indFmatch = labelf==regF;
+                    if sum(indFmatch)>0
+                        % if isnan(labelcf(indFmatch))
+                        %     mapval = [];
+                        % else
+                            mapval = labelc(indFmatch);
+                        % end
+                    else
+                        mapval = [];
+                    end
+                    crevf_temp{regF} = mapval;
+                end
+            
+                datac{frame+1,4} = crevf_temp;
+            end
+
         else
             %last frame
     
-            %populate c_f with nans
+            %populate c_f with nulls
             numregslastframe = size(datac{end-1,2},2); %size framelast map_r
             datac{frame+1,2} = cell(1,numregslastframe);
 
-            % populate c_revmap_f with nans
+            % populate c_revmap_f with null
     
         end
     

@@ -226,7 +226,8 @@ else
     fillBactrackLinks(bactracklinksPath,numRegsperFrame,CONST);
     fillBtLinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinksFill.csv'];
 
-    [datacAll, ~, errorAll] = replaceLinks_bactrack_fill(fillBtLinksPath);
+    regsLastFrame = numRegsperFrame(end);
+    [datacAll, ~, errorAll] = replaceLinks_bactrack_fill(fillBtLinksPath, regsLastFrame);
     % [datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);
     
 end
