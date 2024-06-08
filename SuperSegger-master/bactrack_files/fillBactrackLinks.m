@@ -97,10 +97,15 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
 
     AreaChange = (fillLinks(:,6)-fillLinks(:,5))./fillLinks(:,6);
     fillLinks(:,8) = AreaChange;
-    goodAreaChange = (AreaChange > DA_MIN & AreaChange < DA_MAX);
 
-    fillLinks(:,7) = ~goodAreaChange; %error if DA not good
+    %error3 for DA>max; else error2 (DA<min and no forward link)
+    error3 = AreaChange > DA_MAX;
+    error2 = AreaChange < DA_MIN;
+    noflinks = isnan(AreaChange);
 
+    fillLinks(error3,7) = 3; 
+    fillLinks(error2,7) = 2;
+    fillLinks(noflinks,7) = 2;
 
     % find missing links and fill in; error 
     for framenum = 1:linkFrames
@@ -133,7 +138,11 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
     labels = ["Var1";"frame_source";"label_source";"label_target";"area_source";"area_target";"error";"DA"];
     temps = array2table(fillLinks,"VariableNames",labels);
     filledcsvPath = [fileparts(bactrackcsvpath) filesep 'superseggerlinksFill.csv'];
-    writetable(temps,filledcsvPath)
+    if exist(filledcsvPath,'file')>0
+        disp('Bactrack to Supersegger filled links file already generated.')
+    else
+        writetable(temps,filledcsvPath)
+    end
     % fillTable
  
 end

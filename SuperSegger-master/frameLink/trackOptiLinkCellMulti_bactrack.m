@@ -232,6 +232,8 @@ else
     
 end
 
+time = 1;
+
 while time <= numIm
     
     if CONST.parallel.show_status

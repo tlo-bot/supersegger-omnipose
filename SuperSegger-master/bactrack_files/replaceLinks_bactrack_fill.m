@@ -36,7 +36,7 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
         
                 %populate c_f 
                 
-                numregsC = length(a);
+                numregsC = length(a); %could replace with max(labelc)
                 cf_temp = cell(1,numregsC);
         
                 for regC = 1:numregsC
@@ -60,7 +60,7 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
 
                 % 1 1 2 3 --> 1 3 2 4 would have a map of 1 2 1 3
         
-                numregsF = max(labelf);
+                numregsF = max(labelcf);
                 crevf_temp = cell(1,numregsF);
         
                 for regF = 1:numregsF
@@ -132,9 +132,10 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
         
             end
     
+            %frame before last
             if frame == numframes-1
                 % populate c_revmap_f 
-                numregsF = regsLastFrame; %need bc bactrack has no forward frame info
+                numregsF = regsLastFrame; %need bc bactrack has no forward frame info; can't use labelf
     
                 crevf_temp = cell(1,numregsF);
             
@@ -159,7 +160,7 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
             %last frame
     
             %populate c_f with nulls
-            numregslastframe = size(datac{end-1,2},2); %size framelast map_r
+            numregslastframe = regsLastFrame; %size framelast map_r
             datac{frame+1,2} = cell(1,numregslastframe);
 
             % populate c_revmap_f with null
