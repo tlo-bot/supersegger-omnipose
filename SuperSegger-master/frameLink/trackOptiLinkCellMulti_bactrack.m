@@ -232,7 +232,7 @@ else
     
 end
 
-time = 1;
+time = 1; %reinit time
 
 while time <= numIm
     
@@ -296,6 +296,9 @@ while time <= numIm
     if curIter >= maxIterPerFrame
         finalIteration = 1;
     end
+
+    % ignore errors now that bactrack handles links
+    finalIteration = 1; % supersegger error resolution off
     
     % Error resolution and ID assignment.
     [data_c,data_r,cell_count,resetRegions] = errorRez (time, data_c, ...
