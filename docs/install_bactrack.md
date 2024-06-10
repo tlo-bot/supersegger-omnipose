@@ -24,10 +24,11 @@
 git clone https://github.com/yyang35/bactrack.git
 ```
 
-4. Change directory to the bactrack directory, install packages, activate environment, and install bactrack.
+4. Change directory to the bactrack directory, switch to Supersegger branch, install packages, activate environment, and install bactrack.
 
 ```
 cd bactrack
+git checkout superseggerDev
 conda env create -f environment.yaml
 conda activate bactrack
 pip install .
@@ -105,10 +106,11 @@ conda config --set auto_activate_base false
 git clone https://github.com/yyang35/bactrack.git
 ```
 
-5. Change directory to the bactrack directory, install packages, activate environment, and install bactrack.
+5. Change directory to the bactrack directory, switch to Supersegger branch, install packages, activate environment, and install bactrack.
 
 ```
 cd bactrack
+git checkout superseggerDev
 conda env create -f environment.yaml
 conda activate bactrack
 pip install .
@@ -191,10 +193,11 @@ conda config --set auto_activate_base false
 git clone https://github.com/yyang35/bactrack.git
 ```
 
-5. Change directory to the bactrack directory, install packages, activate environment, and install bactrack.
+5. Change directory to the bactrack directory, switch to Supersegger branch, install packages, activate environment, and install bactrack.
 
 ```
 cd bactrack
+git checkout superseggerDev
 conda env create -f environment.yaml
 conda activate bactrack
 pip install .

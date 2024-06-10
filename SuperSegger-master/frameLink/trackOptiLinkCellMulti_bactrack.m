@@ -170,7 +170,7 @@ if ~exist(bactracklinksPath,'file')
     dirnotempty = max(~startsWith({masksdir.name},'.')); %return 1 if file exists that's not a . hidden file
     
     
-    btcommand = ['python ' bactrackscriptsPath 'b2ss_scipy.py' ' ''' masksPath ''' ']; 
+    btcommand = ['python ', bactrackscriptsPath, 'b2ss_scipy.py ', char(34), masksPath, char(34) ]; 
     
     %if gurobi installed, change command to gurobi
     if (isunix || ismac)
@@ -180,7 +180,7 @@ if ~exist(bactracklinksPath,'file')
     end
     
     if gurobicheck==0 %system returns 0 if success
-        btcommand = ['python ' bactrackscriptsPath 'b2ss_gurobi.py' ' ''' masksPath ''' '];
+        btcommand = ['python ', bactrackscriptsPath, 'b2ss_gurobi.py ', char(34), masksPath, char(34) ];
     end
     
     if dirnotempty && autobt
