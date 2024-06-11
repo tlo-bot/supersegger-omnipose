@@ -576,7 +576,12 @@ color = [];
 while (counter > 0 && kk < data.regs.num_regs)
     % disp(counter)
     kk = kk + 1;
-    rr = data.regs.props(kk).Centroid;
+    % rr = data.regs.props(kk).Centroid;
+    rr = zeros(1,2);
+
+    %use medoid instead of centroid
+    cellmask = data.regs.regs_label==kk;
+    [rr(1), rr(2)] = find_medoid(cellmask);
     
     if isfield( data.regs, 'ignoreError' )
         ignoreError = data.regs.ignoreError(kk);

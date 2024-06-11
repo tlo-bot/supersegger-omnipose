@@ -169,7 +169,7 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
     filledmatPath = [fileparts(bactrackcsvpath) filesep 'superseggerlinksFill.mat'];
     save(filledmatPath,"fillLinks") %save as mat
 
-    labels = ["Var1";"frame_source";"label_source";"label_target";"area_source";"area_target";"error_f";"DA_f"];
+    labels = ["Var1";"frame_source";"label_source";"label_target";"area_source";"area_target";"error_f";"DA_f";"error_r";"DA_r"];
     temps = array2table(fillLinks,"VariableNames",labels);
     filledcsvPath = [fileparts(bactrackcsvpath) filesep 'superseggerlinksFill.csv'];
     if exist(filledcsvPath,'file')>0
