@@ -1,7 +1,21 @@
-function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, regsLastFrame)
+function [datac, datar, errormat] = replaceLinks_bactrack_fill(fillBtLinksPath, numRegsperFrame)
+% replaceLinks_bactrack_fill : reads in filled bactrack csv, converts to 
+% SuperSegger linking format, ie current frame mappings to reverse and
+% forward frames
+%
+% INPUT :
+%         fillBtLinksPath : path to fill csv saved by fillBactrackLinks.m
+%         numRegsperFrame : # regions per frame
+%
+%
+% OUTPUT :
+%         datac     : mappings for current frame to f and r; revmaps
+%         datar     : mappings for reverse frame; not used (already done by
+%         trackOptiLinkCellMulti_bactrack)
+%         errormat  : error matrix for cells without 1-0 links or poor
+%         change in area (DA)
 
-    % bactracklink = readtable('/home/tlo/Documents/Data/bactrack_test2/xy0/bactrackfiles/superseggerlinksdev.csv');
-    bactracklink = readtable(bactrackcsvpath);
+    bactracklink = readtable(fillBtLinksPath);
     
     framesource = bactracklink.frame_source; % matlab indexing at 1
     labelsource = bactracklink.label_source;
@@ -19,9 +33,9 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
         labelc = labelsource(framec); %source labels for that frame
         labelf = labeltarget(framec); %target labels for that frame
 
-        framef = framesource==frame+1;
-        labelcf = labelsource(framef);
-        labelff = labeltarget(framef);
+        % framef = framesource==frame+1;
+        % labelcf = labelsource(framef);
+        % labelff = labeltarget(framef);
         
         if frame~=numframes %not the last frame
             hasdupe = checkduplicate(labelc);
@@ -32,11 +46,13 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
                 % divideind = vc(:,2)==2; %repeated index in label source
                 % numdiv = sum(divideind); %num dividing in frame
         
-                a = unique(labelc);
-        
+                % a = unique(labelc);
+                % numregsC = length(a); %wrong: bactrack links don't include all regs
+
                 %populate c_f 
-                
-                numregsC = length(a); %could replace with max(labelc)
+                %regions in c map to f
+
+                numregsC = numRegsperFrame(frame);
                 cf_temp = cell(1,numregsC);
         
                 for regC = 1:numregsC
@@ -57,10 +73,10 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
                 datac{frame+1,2} = cf_temp;
         
                 % populate c_revmap_f
-
+                % regions in f map to c
                 % 1 1 2 3 --> 1 3 2 4 would have a map of 1 2 1 3
         
-                numregsF = max(labelcf);
+                numregsF = numRegsperFrame(frame+1);
                 crevf_temp = cell(1,numregsF);
         
                 for regF = 1:numregsF
@@ -95,7 +111,9 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
         
                 %populate c_f 
         
-                numregsC = length(labelc);
+                numregsC = numRegsperFrame(frame);
+                cf_temp = cell(1,numregsC);
+                % numregsC = length(labelc);
         
                 for regC = 1:numregsC
                         indC = labelc==regC;
@@ -111,7 +129,7 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
         
                 % populate c_revmap_f
         
-                numregsF = max(labelcf);
+                numregsF = numRegsperFrame(frame+1);
                 crevf_temp = cell(1,numregsF);
         
                 for regF = 1:numregsF
@@ -132,35 +150,35 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
         
             end
     
-            %frame before last
-            if frame == numframes-1
-                % populate c_revmap_f 
-                numregsF = regsLastFrame; %need bc bactrack has no forward frame info; can't use labelf
-    
-                crevf_temp = cell(1,numregsF);
-            
-                for regF = 1:numregsF
-                    indFmatch = labelf==regF;
-                    if sum(indFmatch)>0
-                        % if isnan(labelcf(indFmatch))
-                        %     mapval = [];
-                        % else
-                            mapval = labelc(indFmatch);
-                        % end
-                    else
-                        mapval = [];
-                    end
-                    crevf_temp{regF} = mapval;
-                end
-            
-                datac{frame+1,4} = crevf_temp;
-            end
+            % %frame before last
+            % if frame == numframes-1
+            %     % populate c_revmap_f 
+            %     numregsF = numRegsperFrame(end); %need bc bactrack has no forward frame info; can't use labelf
+            % 
+            %     crevf_temp = cell(1,numregsF);
+            % 
+            %     for regF = 1:numregsF
+            %         indFmatch = labelf==regF;
+            %         if sum(indFmatch)>0
+            %             % if isnan(labelcf(indFmatch))
+            %             %     mapval = [];
+            %             % else
+            %                 mapval = labelc(indFmatch);
+            %             % end
+            %         else
+            %             mapval = [];
+            %         end
+            %         crevf_temp{regF} = mapval;
+            %     end
+            % 
+            %     datac{frame+1,4} = crevf_temp;
+            % end
 
         else
             %last frame
     
             %populate c_f with nulls
-            numregslastframe = regsLastFrame; %size framelast map_r
+            numregslastframe = numRegsperFrame(end); %size framelast map_r
             datac{frame+1,2} = cell(1,numregslastframe);
 
             % populate c_revmap_f with null
@@ -168,7 +186,8 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
         end
     
     
-        %populate c_r
+        % populate c_r
+        % regions in c map to r
         if frame==1
     
             %empty cells for first frame
@@ -182,7 +201,8 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
         end
     
     
-        %populate c_revmap_r
+        % populate c_revmap_r
+        % regions in r map to c
     
         if frame==1
             
@@ -215,8 +235,14 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(bactrackcsvpath, 
         errormat{frame+1,1} = frame; %frame
 
         %fill error with zeros unless further changed
-        errormat{frame+1,2} = zeros(numregsC); %error_f
-        errormat{frame+1,3} = zeros(numregsC); %error_r
+        errormat{frame+1,2} = zeros(1,numregsC); %error_f
+        errormat{frame+1,3} = zeros(1,numregsC); %error_r
+
+        % errf_tmp = cell(1,numregsC);
+        % errr_tmp = cell(1,numregsC);
+        % for regC = 1:numregsC
+        % 
+        % end
     end
 
 end

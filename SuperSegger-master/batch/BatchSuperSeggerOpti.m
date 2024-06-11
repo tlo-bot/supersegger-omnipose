@@ -386,7 +386,11 @@ if (ispc && autobt)
     setenv('PATH', initPath);
 end
 
-
+%remove extra omnipose output
+%artifact of running omnipose via CLI
+if exist([dirname_xy, 'cp_output'],'dir')
+    rmdir([dirname_xy, 'cp_output'],'s')
+end
 
 disp('Continuing segmentation.'); 
 

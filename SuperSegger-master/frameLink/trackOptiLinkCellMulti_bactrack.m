@@ -223,11 +223,13 @@ else
         numRegsperFrame(time) = datat.regs.num_regs;
     end
 
+    %fill 1-0 links and saves as csv
+    %calculates division errors: 1-0 links and erroneous DA change
     fillBactrackLinks(bactracklinksPath,numRegsperFrame,CONST);
     fillBtLinksPath = [dirname_xy filesep 'bactrackfiles' filesep 'superseggerlinksFill.csv'];
 
-    regsLastFrame = numRegsperFrame(end);
-    [datacAll, ~, errorAll] = replaceLinks_bactrack_fill(fillBtLinksPath, regsLastFrame);
+    % regsLastFrame = numRegsperFrame(end);
+    [datacAll, ~, errorAll] = replaceLinks_bactrack_fill(fillBtLinksPath, numRegsperFrame);
     % [datacAll, ~, errorAll] = replaceLinks_bactrack(bactracklinksPath);
     
 end
@@ -269,6 +271,7 @@ while time <= numIm
     % Last cellID of previous frame to reset numbering if a frame is repeated.
     lastCellCount = cell_count;  
     
+    %data_r taken care of above with intDataLoader
     % if ~isempty(data_r) %r for first frame is empty, otherwise update data_r to r of c frame
     %     % [data_r.regs.map.f,data_r.regs.error.f,data_r.regs.cost.f,...
     %     %     data_r.regs.idsC.f,data_r.regs.idsF.f,data_r.regs.dA.f,...
@@ -277,6 +280,7 @@ while time <= numIm
     %     [data_r.regs.revmap.f] = datarAll{time+1,4};
     % end
 
+    %time+1 since first row is labels
     data_c.regs.map.r = datacAll{time+1,3};
     data_c.regs.revmap.r = datacAll{time+1,5}; %fixed
     data_c.regs.error.r = errorAll{time+1,3};
