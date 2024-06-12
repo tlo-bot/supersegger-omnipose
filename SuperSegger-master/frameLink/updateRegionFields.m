@@ -34,8 +34,11 @@ if ~isempty(data)
     num_regs =  max(data.regs.regs_label(:));
     
     data.regs.num_regs = num_regs;
-    data.regs.props = regionprops( data.regs.regs_label, ...
-        'BoundingBox','Orientation','Centroid','Area');
+
+    %data should already have region props
+    % data.regs.props = regionprops( data.regs.regs_label, ...
+    %     'BoundingBox','Orientation','Centroid','Area');
+    
     NUM_INFO = CONST.regionScoreFun.NUM_INFO;
     data.regs.info = zeros( data.regs.num_regs, NUM_INFO );
     
