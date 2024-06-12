@@ -75,7 +75,7 @@ channelNames = {'BF','GFP'};
 convertImageNames(dirname, basename, timeFilterBefore, ...
     timeFilterAfter, xyFilterBefore,xyFilterAfter, channelNames )
 
-%% Set the segmentations constants for your bacteria and micrscope resolution
+%% Set the segmentations constants for your bacteria and microscope resolution
 % Using correct resolution ensures correct pixel size and segmentation constants
 % if you do not know which constants to use you can run 
 % tryDifferentConstants(dirname) with a phase image to choose.
