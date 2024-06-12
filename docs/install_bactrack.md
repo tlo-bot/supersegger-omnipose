@@ -1,6 +1,6 @@
 # Step-by-step Omnipose & bactrack installation instructions (command line based)
  
- Updated: May 3, 2024.
+ Updated: June 12, 2024.
 
  [Windows](../../bactrackdev/docs/install_bactrack.md#windows) \ [Linux](../../bactrackdev/docs/install_bactrack.md#linux-debianubuntu) \ [MacOS](../../bactrackdev/docs/install_bactrack.md#macos)
 
@@ -40,13 +40,13 @@ pip install .
 
 > Note: activate the bactrack environment each time you want to use bactrack or Omnipose with `conda activate bactrack`.
 
-5. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
+5. For updating bactrack, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
 
 ```
 pip install .
 ```
 
-6. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the [instructions from the bactrack repo](https://github.com/yyang35/bactrack/blob/main/doc/AdanceSetup.md#install-gurobi-using-conda), then activate the license.
+6. (Optional) Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the [instructions from the bactrack repo](https://github.com/yyang35/bactrack/blob/main/doc/AdanceSetup.md#install-gurobi-using-conda), then activate the license.
 
 
 ## Linux (Debian/Ubuntu)
@@ -59,10 +59,6 @@ sudo apt-get install git
 2. Install [Miniconda](https://docs.conda.io/en/main/miniconda.html):
 ```
 sudo apt-get update
-```
-
-```
-sudo apt-get install curl
 ```
 
 ```
@@ -80,9 +76,10 @@ sudo apt install libxcb-xinerama0
 
    Latest Miniconda*:
 ```
-(sudo) wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
-rm -rf bash Miniconda3-latest-Linux-x86_64.sh
+mkdir -p ~/miniconda3
+(sudo) wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3-latest-Linux-x86_64.sh
 ```
 
 >*Could also install [Anaconda](https://www.anaconda.com/products/distributionhttps://www.anaconda.com/products/distribution) (not recommended): https://repo.anaconda.com/archive/
@@ -100,7 +97,7 @@ conda config --set auto_activate_base false
    and restart shell.
 
 
-4. In Command Window/Anaconda Prompt, change the current working directory to the location where you want bactrack to be installed with `cd` before cloning the repository. (ex, `cd Documents`)
+4. In Terminal, change the current working directory to the location where you want bactrack to be installed with `cd` before cloning the repository. (ex, `cd Documents`)
 
 ```
 git clone https://github.com/yyang35/bactrack.git
@@ -118,15 +115,15 @@ pip install .
 
 > Note: activate the bactrack environment each time you want to use bactrack or Omnipose with `conda activate bactrack`.
 
-6. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
+6. For updating bactrack, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
 
 ```
 pip install .
 ```
 
-7. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the [instructions from the bactrack repo](https://github.com/yyang35/bactrack/blob/main/doc/AdanceSetup.md#install-gurobi-using-conda), then activate the license.
+7. (Optional) Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the [instructions from the bactrack repo](https://github.com/yyang35/bactrack/blob/main/doc/AdanceSetup.md#install-gurobi-using-conda), then activate the license.
 
-> Possible other steps for Gurobi installation [(setting system environment variables)](https://support.gurobi.com/hc/en-us/articles/13443862111761-How-do-I-set-system-environment-variables-for-Gurobi):
+Possible other steps for Gurobi installation [(setting system environment variables)](https://support.gurobi.com/hc/en-us/articles/13443862111761-How-do-I-set-system-environment-variables-for-Gurobi):
 
 8. Set environment variables for bactrack environment to include Gurobi and license. Create env_vars.sh file in directory where bactrack is activated (replace username):
 
@@ -155,19 +152,12 @@ brew install git
 brew install curl
 ```
 
-```
-brew install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
-```
-
-```
-brew install wget
-```
-
    Latest miniconda*:
 ```
-(sudo) wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
-bash Miniconda3-latest-MacOSX-x86_64.sh
-rm -rf bash Miniconda3-latest-MacOSX-x86_64.sh
+mkdir -p ~/miniconda3
+(sudo) curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o ~/miniconda3/miniconda.sh
+bash  ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
 ```
 >*Could also install [Anaconda](https://www.anaconda.com/products/distributionhttps://www.anaconda.com/products/distribution) (not recommended): https://repo.anaconda.com/archive/
 
@@ -187,7 +177,7 @@ conda config --set auto_activate_base false
    and restart shell.
 
 
-4. In Command Window/Anaconda Prompt, change the current working directory to the location where you want bactrack to be installed with `cd` before cloning the repository. (ex, `cd Documents`)
+4. In Terminal, change the current working directory to the location where you want bactrack to be installed with `cd` before cloning the repository. (ex, `cd Documents`)
 
 ```
 git clone https://github.com/yyang35/bactrack.git
@@ -205,13 +195,13 @@ pip install .
 
 > Note: activate the bactrack environment each time you want to use bactrack or Omnipose with `conda activate bactrack`.
 
-6. For updating, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
+6. For updating bactrack, change directory to the bactrack directory with `cd`. (Tip: The directory should contain the 'setup.py' file.) Then repeat the above install command after activating bactrack environment:
 
 ```
 pip install .
 ```
 
-7. Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the [instructions from the bactrack repo](https://github.com/yyang35/bactrack/blob/main/doc/AdanceSetup.md#install-gurobi-using-conda), then activate the license.
+7. (Optional) Gurobi setup: activate the bactrack environment and install Gurobi via conda according to the [instructions from the bactrack repo](https://github.com/yyang35/bactrack/blob/main/doc/AdanceSetup.md#install-gurobi-using-conda), then activate the license.
 
 
 
