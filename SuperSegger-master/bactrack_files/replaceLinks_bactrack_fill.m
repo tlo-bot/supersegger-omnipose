@@ -52,6 +52,7 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(fillBtLinksPath, 
                 %populate c_f 
                 %regions in c map to f
 
+                %init as cell
                 numregsC = numRegsperFrame(frame);
                 cf_temp = cell(1,numregsC);
         
@@ -76,6 +77,7 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(fillBtLinksPath, 
                 % regions in f map to c
                 % 1 1 2 3 --> 1 3 2 4 would have a map of 1 2 1 3
         
+                %init as cell
                 numregsF = numRegsperFrame(frame+1);
                 crevf_temp = cell(1,numregsF);
         
@@ -227,22 +229,48 @@ function [datac, datar, errormat] = replaceLinks_bactrack_fill(fillBtLinksPath, 
 
     %error
 
+    errorF = bactracklink.error_f;
+    errorR = bactracklink.error_r;
+
     errormat = cell(numframes+1,3); %initialize
     [errormat{1,:}] = deal('frame','error_f','error_r');
 
     for frame = 1:numframes
-        numregsC = size(datac{frame+1,2},2); %numregs given by size c_f
+        numregsC = numRegsperFrame(frame);
         errormat{frame+1,1} = frame; %frame
 
         %fill error with zeros unless further changed
         errormat{frame+1,2} = zeros(1,numregsC); %error_f
         errormat{frame+1,3} = zeros(1,numregsC); %error_r
 
-        % errf_tmp = cell(1,numregsC);
-        % errr_tmp = cell(1,numregsC);
-        % for regC = 1:numregsC
-        % 
-        % end
+        %init as double
+        errorf_temp = zeros(1,numregsC);
+        errorr_temp = zeros(1,numregsC);
+
+        framec = framesource==frame; %indices for frame from csv
+        labelc = labelsource(framec); %source labels for that frame
+        errorf = errorF(framec);
+        errorr = errorR(framec);
+
+        for regC = unique(labelc)'
+            indC = find(regC==labelc,1);
+
+            errorf_temp(regC) = errorf(indC);
+            errorr_temp(regC) = errorr(indC);
+        end
+
+        if frame==1
+            errormat{frame+1,2} = errorf_temp; %error_f
+            %error_r is zero for first frame
+        elseif frame==numframes
+            errormat{frame+1,3} = errorr_temp; %error_r
+            %error_f is zero for last frame
+        else
+            errormat{frame+1,2} = errorf_temp; %error_f
+            errormat{frame+1,3} = errorr_temp; %error_r
+        end
+        
+
     end
 
 end

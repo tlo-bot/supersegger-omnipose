@@ -9,7 +9,7 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
 %       CONST           : parameters; used to determine DA error
 
 
-    %init matrix
+    %% init matrix
     numFrames = size(numRegsperFrame,1);
     linkFrames = numFrames-1; %last frame has no forward links
 
@@ -19,13 +19,13 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
     framesource = bactracklink.frame_source+1;
     labelsource = bactracklink.label_source;
 
-    %find 1-1 and 1-2 links from bactrack
+    %% find 1-1 and 1-2 links from bactrack
     for jj = 1:linkFrames
         numLinksPerFrame(jj) = sum(framesource==jj);
     end
 
+    %% find 1-0 missing links
     missingLinksPerFrame = zeros(linkFrames,1);
-    %find 1-0 missing links
     for framenum = 1:linkFrames
 
         framec = framesource==framenum; %indices for frame from csv
@@ -42,13 +42,13 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
 
     indtotLinks = missingLinksPerFrame+ numLinksPerFrame;
     totLinks = sum(indtotLinks);
-    fillLinks = zeros(totLinks,10);
+    fillLinks = zeros(totLinks,10); %init matrix with correct # links
 
     % totRegs = sum(numRegsperFrame);
     % totRegsLinks = sum(numRegsperFrame(1:end-1));%last frame has no forward links 
     % fillLinks = zeros(totRegsLinks,8);
 
-    %first col Var#
+    %% first col Var#
     fillLinks(:,1) = [1:totLinks]';
 
     startinds = cumsum(indtotLinks)+1;
@@ -65,7 +65,7 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
         fillLinks(startInd:endInd,2) = framenum;
     end
 
-    %cols 3-6
+    %% cols 3-6
 
     % framesource = bactracklink.frame_source+1; % matlab indexing at 1
     % labelsource = bactracklink.label_source;
@@ -99,50 +99,7 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
     % startinds = [1; startinds];
     % endinds = cumsum(numRegsperFrame);
 
-    % calculate dA error forward
-
-    DA_MIN = CONST.trackOpti.DA_MIN;
-    DA_MAX =  CONST.trackOpti.DA_MAX;
-
-    AreaChange = (fillLinks(:,6)-fillLinks(:,5))./fillLinks(:,6);
-    fillLinks(:,8) = AreaChange;
-
-    %error3 for DA>max; else error2 for DA<min 
-    % error3 = AreaChange > DA_MAX;
-    % error2 = AreaChange < DA_MIN;
-    % fillLinks(error3,7) = 3; 
-    % fillLinks(error2,7) = 2;
-
-    %error2 for no forward link
-    noflinks = isnan(AreaChange);
-    fillLinks(noflinks,7) = 2;
-
-    % calculate dA error reverse
-    AreaChanger = (fillLinks(:,5)-fillLinks(:,6))./fillLinks(:,5);
-    fillLinks(:,10) = AreaChanger;
-
-    % error3 = AreaChanger > DA_MAX;
-    % error2 = AreaChanger < DA_MIN;
-    % norlinks = isnan(AreaChange);
-    % 
-    % for framenum = 1:linkFrames       
-    %     framec = framesource==framenum; %indices for frame from csv
-    %     labelc = labelsource(framec); %source labels for that frame
-    %     labelf = labeltarget(framec); %target labels for that frame
-    % 
-    %     numrLinks = length(labelf);
-    %     for rLink = 1:numrLinks
-    %         regR = labelf(rLink);
-    %         indrf = find(labelcf==regR);
-    %     end
-    % 
-    % end
-    % 
-    % fillLinks(error3,9) = 3; 
-    % fillLinks(error2,9) = 2;
-    % fillLinks(norlinks,9) = 2;
-
-    % find missing links and fill in; error 
+    %% find missing links and fill in label_source region# (col3)
     for framenum = 1:linkFrames
 
         framec = framesource==framenum; %indices for frame from csv
@@ -166,6 +123,68 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
 
 
     end
+
+    %% calculate dA error forward - col 7-8
+
+    %error3 for DA>max; else error2 for DA<min 
+
+    % DA_MIN = CONST.trackOpti.DA_MIN;
+    % DA_MAX =  CONST.trackOpti.DA_MAX;
+
+    AreaChangef = (fillLinks(:,6)-fillLinks(:,5))./fillLinks(:,6);
+    fillLinks(:,8) = AreaChangef;
+    
+    % error3 = AreaChange > DA_MAX;
+    % error2 = AreaChange < DA_MIN;
+    % fillLinks(error3,7) = 3; 
+    % fillLinks(error2,7) = 2;
+
+    %error2 for no forward link
+    noflinks = isnan(fillLinks(:,4));
+    fillLinks(noflinks,7) = 2;
+
+    %% calculate dA error reverse - col 9-10
+    AreaChanger = (fillLinks(:,5)-fillLinks(:,6))./fillLinks(:,5);
+    fillLinks(:,10) = AreaChanger;
+
+    % error3 = AreaChanger > DA_MAX;
+    % error2 = AreaChanger < DA_MIN;
+    % fillLinks(error3,9) = 3; 
+    % fillLinks(error2,9) = 2;
+
+    
+
+    %start at frame 2 bc frame 1 has no reverse links
+    for framenum = 2:linkFrames       
+        framec = fillLinks(:,2)==framenum; %indices for frame from csv
+        framer = fillLinks(:,2)==framenum-1;
+
+        sourceRegs = fillLinks(:,3);
+        targetRegs = fillLinks(:,4);
+        labelc = sourceRegs(framec); %source labels for that frame
+        labelr = targetRegs(framer); %target labels for prev frame
+
+        regsC = unique(labelc);
+        for regC = regsC'
+            indc = find(labelc==regC);
+            rlink = find(labelr==regC,1);
+
+            if ~isempty(rlink)
+                %reverse link exists; no error
+            else
+                startInd = startinds(framenum);
+                errind = startInd + indc -1; %only bactrack links 
+                %no reverse link; error
+                fillLinks(errind,9) = 2;
+            end
+        end
+
+    end
+
+
+    % fillLinks(norlinks,9) = 2;
+
+
 
     filledmatPath = [fileparts(bactrackcsvpath) filesep 'superseggerlinksFill.mat'];
     save(filledmatPath,"fillLinks") %save as mat
