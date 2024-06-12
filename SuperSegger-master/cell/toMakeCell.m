@@ -70,9 +70,11 @@ Mrot = [e1,e2];
 r_center = Mrot*([mean(xxx(xind)),mean(yyy(yind))]'-(ss(2:-1:1))'/2)+...
  (ss_mask(2:-1:1)/2+celld.r_offset-[0.5,0.5])';
 
-% center of mass for cell
-Xcm = props.Centroid(1);
-Ycm = props.Centroid(2);
+% center of mass for cell - using medoid
+Xcm = props.Medoid(1);
+Ycm = props.Medoid(2);
+% Xcm = props.Centroid(1);
+% Ycm = props.Centroid(2);
 rcm = [Xcm,Ycm];
 
 if ~isempty( e1_old )

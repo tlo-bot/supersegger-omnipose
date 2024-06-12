@@ -107,13 +107,14 @@ function fillBactrackLinks(bactrackcsvpath,numRegsperFrame,CONST)
     AreaChange = (fillLinks(:,6)-fillLinks(:,5))./fillLinks(:,6);
     fillLinks(:,8) = AreaChange;
 
-    %error3 for DA>max; else error2 (DA<min and no forward link)
-    error3 = AreaChange > DA_MAX;
-    error2 = AreaChange < DA_MIN;
-    noflinks = isnan(AreaChange);
+    %error3 for DA>max; else error2 for DA<min 
+    % error3 = AreaChange > DA_MAX;
+    % error2 = AreaChange < DA_MIN;
+    % fillLinks(error3,7) = 3; 
+    % fillLinks(error2,7) = 2;
 
-    fillLinks(error3,7) = 3; 
-    fillLinks(error2,7) = 2;
+    %error2 for no forward link
+    noflinks = isnan(AreaChange);
     fillLinks(noflinks,7) = 2;
 
     % calculate dA error reverse
