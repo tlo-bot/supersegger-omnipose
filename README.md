@@ -111,7 +111,7 @@ See documentation for setup linked below.
 ### Troubleshooting & Known Issues
 
 - [Omnipose Segmentation options](../../tree/bactrackdev/docs/segmentation_options.md)
-- [Bactrack installation instructions (Windows, Linux & MacOS)]../../tree/bactrackdev/docs/install_bactrack.md)
+- [Bactrack installation instructions (Windows, Linux & MacOS)](../../tree/bactrackdev/docs/install_bactrack.md)
 - [Possible Supersegger 2 errors](../main/docs/so_errors.md)
 - [Running Bactrack & Omnipose directly from MATLAB for Windows (verified)](../main/docs/omni_in_matlab_windows.md)
 - [Running Bactrack & Omnipose directly from MATLAB for Linux (verified) & MacOS](../main/docs/omni_in_matlab_unix.md)
