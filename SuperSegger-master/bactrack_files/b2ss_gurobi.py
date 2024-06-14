@@ -37,6 +37,7 @@ def b2ss_gurobi(mask_dir):
     selected_df = merged_df[['frame_source','label_source', 'label_target','area_source','area_target']]
     selected_df.to_csv(os.path.join(bactrackdir, "superseggerlinks.csv")) 
 
+    print("SUCCESS!")
     print("Bactrack to Supersegger links (CBC/Gurobi) saved at " + os.path.join(bactrackdir, "superseggerlinks.csv") +"!")
 
 if __name__ == "__main__":

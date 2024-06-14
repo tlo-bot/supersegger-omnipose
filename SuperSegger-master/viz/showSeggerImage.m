@@ -188,17 +188,25 @@ end
         if ~isempty( data )
             for kk = 1:data.regs.num_regs
                 rr3 = [x_,y_ ];
-                % rr_c = data.regs.props(kk).Centroid;
-                rr_c = data.regs.props(kk).Medoid;
+                %back compatibility with medoid/centroid
+                if isfield(data.regs.props, 'Medoid')
+                    rr_c = data.regs.props(kk).Medoid;
+                else
+                    rr_c = data.regs.props(kk).Centroid;
+                end
                 
                 try
                     if isfield(data.regs,'ID') && data.regs.ID(kk)
                         ID  = data.regs.ID(kk);
                         if ~isempty(data_r) && isfield(data_r.regs,'ID')
                             ind_r = find(ID == data_r.regs.ID);
+                            %back compatibility with medoid/centroid
                             if ~isempty( ind_r )
-                                % rr_r = data_r.regs.props(ind_r).Centroid ;
-                                rr_r = data_r.regs.props(ind_r).Medoid;
+                                if isfield(data_r.regs.props, 'Medoid')
+                                    rr_r = data_r.regs.props(ind_r).Medoid;
+                                else
+                                    rr_r = data_r.regs.props(ind_r).Centroid;
+                                end
                                 plot( [rr_c(1),rr_r(1)]+rr3(1), [rr_c(2),rr_r(2)]+rr3(2), 'r');
                             end
                         end
@@ -206,8 +214,12 @@ end
                         if ~isempty(data_f) && isfield(data_f.regs,'ID')
                             ind_f = find(ID == data_f.regs.ID);
                             if ~isempty( ind_f )
-                                % rr_f = data_f.regs.props(ind_f).Centroid ;
-                                rr_f = data_f.regs.props(ind_f).Medoid ;
+                                %back compatibility with medoid/centroid
+                                if isfield(data_f.regs.props, 'Medoid')
+                                    rr_f = data_f.regs.props(ind_f).Medoid;
+                                else
+                                    rr_f = data_f.regs.props(ind_f).Centroid;
+                                end
                                 plot( [rr_c(1),rr_f(1)]+rr3(1), [rr_c(2),rr_f(2)]+rr3(2), 'b');
                             end
                         end
@@ -536,8 +548,12 @@ counter = 200; % max amount of cell numbers to be plotted
 kk = 0; % counter for regions
 while (counter > 0 && kk < data.regs.num_regs)
     kk = kk + 1;
-    % rr = data.regs.props(kk).Centroid;
-    rr = data.regs.props(kk).Medoid;
+    %back compatibility with medoid/centroid
+    if isfield(data.regs.props, 'Medoid')
+        rr = data.regs.props(kk).Medoid;
+    else
+        rr = data.regs.props(kk).Centroid;
+    end
     
     if isfield( data.regs, 'ignoreError' )
         ignoreError = data.regs.ignoreError(kk);
@@ -582,8 +598,12 @@ while (counter > 0 && kk < data.regs.num_regs)
     kk = kk + 1;
     % use medoid instead of centroid
     % medoid calculated in intMakeRegs.m
-    % rr = data.regs.props(kk).Centroid;
-    rr = data.regs.props(kk).Medoid;
+    %back compatibility with medoid/centroid
+    if isfield(data.regs.props, 'Medoid')
+        rr = data.regs.props(kk).Medoid;
+    else
+        rr = data.regs.props(kk).Centroid;
+    end
     
     if isfield( data.regs, 'ignoreError' )
         ignoreError = data.regs.ignoreError(kk);
@@ -756,10 +776,13 @@ if dataHasIds
             valid = 0;
             
             if ~isempty(previousRegion)
-                % X = [data_r.regs.props(previousRegion).Centroid(1) + x_, data.regs.props(kk).Centroid(1) + x_];
-                % Y = [data_r.regs.props(previousRegion).Centroid(2) + y_, data.regs.props(kk).Centroid(2) + y_];
-                X = [data_r.regs.props(previousRegion).Medoid(1) + x_, data.regs.props(kk).Medoid(1) + x_];
-                Y = [data_r.regs.props(previousRegion).Medoid(2) + y_, data.regs.props(kk).Medoid(2) + y_];
+                if isfield(data_r.regs.props,'Medoid')
+                    X = [data_r.regs.props(previousRegion).Medoid(1) + x_, data.regs.props(kk).Medoid(1) + x_];
+                    Y = [data_r.regs.props(previousRegion).Medoid(2) + y_, data.regs.props(kk).Medoid(2) + y_];
+                else
+                    X = [data_r.regs.props(previousRegion).Centroid(1) + x_, data.regs.props(kk).Centroid(1) + x_];
+                    Y = [data_r.regs.props(previousRegion).Centroid(2) + y_, data.regs.props(kk).Centroid(2) + y_];
+                end
                 
                 plot(X, Y, 'Color', color);
                 
@@ -778,10 +801,13 @@ if dataHasIds
                     
                     if ~isempty(motherRegion)
                         if FLAGS.showMothers == 1
-                            % X = [data_r.regs.props(motherRegion).Centroid(1) + x_, data.regs.props(kk).Centroid(1) + x_];
-                            % Y = [data_r.regs.props(motherRegion).Centroid(2) + y_, data.regs.props(kk).Centroid(2) + y_];
-                            X = [data_r.regs.props(motherRegion).Medoid(1) + x_, data.regs.props(kk).Medoid(1) + x_];
-                            Y = [data_r.regs.props(motherRegion).Medoid(2) + y_, data.regs.props(kk).Medoid(2) + y_];
+                            if isfield(data_r.regs.props,'Medoid')
+                                X = [data_r.regs.props(motherRegion).Medoid(1) + x_, data.regs.props(kk).Medoid(1) + x_];
+                                Y = [data_r.regs.props(motherRegion).Medoid(2) + y_, data.regs.props(kk).Medoid(2) + y_];
+                            else
+                                X = [data_r.regs.props(motherRegion).Centroid(1) + x_, data.regs.props(kk).Centroid(1) + x_];
+                                Y = [data_r.regs.props(motherRegion).Centroid(2) + y_, data.regs.props(kk).Centroid(2) + y_];
+                            end
                             
                             plot(X, Y, 'Color', color);
                         end
@@ -794,10 +820,14 @@ if dataHasIds
             end
             
             if ~isempty(nextRegion)
-                % X = [data_f.regs.props(nextRegion).Centroid(1) + x_, data.regs.props(kk).Centroid(1) + x_];
-                % Y = [data_f.regs.props(nextRegion).Centroid(2) + y_, data.regs.props(kk).Centroid(2) + y_];
-                X = [data_f.regs.props(nextRegion).Medoid(1) + x_, data.regs.props(kk).Medoid(1) + x_];
-                Y = [data_f.regs.props(nextRegion).Medoid(2) + y_, data.regs.props(kk).Medoid(2) + y_];
+                if isfield(data_f.regs.props, 'Medoid')
+                    X = [data_f.regs.props(nextRegion).Medoid(1) + x_, data.regs.props(kk).Medoid(1) + x_];
+                    Y = [data_f.regs.props(nextRegion).Medoid(2) + y_, data.regs.props(kk).Medoid(2) + y_];
+                else
+                    X = [data_f.regs.props(nextRegion).Centroid(1) + x_, data.regs.props(kk).Centroid(1) + x_];
+                    Y = [data_f.regs.props(nextRegion).Centroid(2) + y_, data.regs.props(kk).Centroid(2) + y_];
+                end
+
                 plot(X, Y, 'Color', color);
                 plot(X(1), Y(1), 's', 'Color', color);
             else
@@ -815,11 +845,14 @@ if dataHasIds
                     if ~isempty(daughterRegions)
                         if FLAGS.showDaughters == 1
                             for i = 1:numel(daughterRegions)
-                                % X = [data_f.regs.props(daughterRegions(i)).Centroid(1) + x_, data.regs.props(kk).Centroid(1) + x_];
-                                % Y = [data_f.regs.props(daughterRegions(i)).Centroid(2) + y_, data.regs.props(kk).Centroid(2) + y_];
-                                X = [data_f.regs.props(daughterRegions(i)).Medoid(1) + x_, data.regs.props(kk).Medoid(1) + x_];
-                                Y = [data_f.regs.props(daughterRegions(i)).Medoid(2) + y_, data.regs.props(kk).Medoid(2) + y_];
-                                
+                                if isfield(data_f.regs.props(daughterRegions(i)), 'Medoid')
+                                    X = [data_f.regs.props(daughterRegions(i)).Medoid(1) + x_, data.regs.props(kk).Medoid(1) + x_];
+                                    Y = [data_f.regs.props(daughterRegions(i)).Medoid(2) + y_, data.regs.props(kk).Medoid(2) + y_];
+                                else
+                                    X = [data_f.regs.props(daughterRegions(i)).Centroid(1) + x_, data.regs.props(kk).Centroid(1) + x_];
+                                    Y = [data_f.regs.props(daughterRegions(i)).Centroid(2) + y_, data.regs.props(kk).Centroid(2) + y_];
+                                end
+ 
                                 plot(X, Y, 'Color', color);
                                 plot(X(1), Y(1), 's', 'Color', color);
                             end
@@ -832,10 +865,13 @@ if dataHasIds
                 end
             end
             
-            % X =  data.regs.props(kk).Centroid(1) + x_;
-            % Y =  data.regs.props(kk).Centroid(2) + y_;
-            X =  data.regs.props(kk).Medoid(1) + x_;
-            Y =  data.regs.props(kk).Medoid(2) + y_;
+            if isfield(data.regs.props, 'Medoid')
+                X =  data.regs.props(kk).Medoid(1) + x_;
+                Y =  data.regs.props(kk).Medoid(2) + y_;
+            else
+                X =  data.regs.props(kk).Centroid(1) + x_;
+                Y =  data.regs.props(kk).Centroid(2) + y_;
+            end
             if valid == 0
                 plot(X, Y, 'x', 'Color', color);
             else
@@ -859,8 +895,11 @@ if ~isfield(data,'CellA')
 else
     for kk = 1:data.regs.num_regs
         
-        % rr1 = data.regs.props(kk).Centroid;
-        rr1 = data.regs.props(kk).Medoid;
+        if isfield(data.regs.props,'Medoid')
+            rr1 = data.regs.props(kk).Medoid;
+        else
+            rr1 = data.regs.props(kk).Centroid;
+        end
         ID  = data.regs.ID(kk);
         sisterID = data.regs.sisterID(kk);
         
