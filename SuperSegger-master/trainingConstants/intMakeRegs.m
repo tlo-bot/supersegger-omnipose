@@ -1,11 +1,12 @@
-function data = intMakeRegs( maskpath, data, CONST, mask_bad_regs, good_regs )
+function data = intMakeRegs( maskpath, data, CONST, mask_bad_regs, good_regs)
 % intMakeRegs : creates info for bad regions or makes new regions
 %
 % INPUT :
-%       data : cell file (seg/err file)
+%       data : phase image
 %       CONST : segmentation constants
 %       mask_bad_regs : mask of bad regions (their score is set to 0)
 %       good_regs : if 1 all scores are set to 1
+%       crop_box : image alignment info
 % OUTPUT : 
 %       data : cell file with region fields
 %
@@ -49,6 +50,7 @@ data.regs.score  = ones( data.regs.num_regs, 1 );
 data.regs.scoreRaw = ones( data.regs.num_regs, 1 );
 data.regs.info = zeros( data.regs.num_regs, NUM_INFO );
 
+rr = zeros(1,2);
 
 for ii = 1:data.regs.num_regs
     
@@ -64,6 +66,13 @@ for ii = 1:data.regs.num_regs
             data.regs.score(ii) = 0;
         end
     end
+
+    
+    %calculate medoid of skeleton
+    cellmask = data.regs.regs_label==ii;
+    [rr(1), rr(2)] = find_medoid(cellmask);
+    % mask = data.regs.regs_label(yy,xx)==ii;
+    data.regs.props(ii).Medoid = rr;
     
 end
 

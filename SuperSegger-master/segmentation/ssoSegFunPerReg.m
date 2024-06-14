@@ -9,8 +9,7 @@ function [data, err_flag] = ssoSegFunPerReg( phase, CONST, header, dataname, cro
 %       CONST : segmentation constants
 %       header : string displayed with infromation
 %       dataname : 
-%       crop_box : information about alignement of the image
-% 
+%
 %  OUTPUT :
 %       data : contains information about the segments and mask, for more
 %       information look at superSeggerOpti.
