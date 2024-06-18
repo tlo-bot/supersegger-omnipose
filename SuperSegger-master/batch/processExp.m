@@ -107,8 +107,11 @@ CONST = loadConstants(res,parallel_flag) ;
 CONST.trackLoci.numSpots = [2]; % Max number of foci to fit in each fluorescence channel (default = [0 0])
 CONST.trackOpti.NEIGHBOR_FLAG = false; % calculate number of neighbors (default = false)
 CONST.imAlign.AlignChannel = 1; % change this if you want the images to be aligned to fluorescence channel
+CONST.align.ALIGN_FLAG = 1; % change if don't want image alignment (default = true)
 
 CONST.view.fluorColor = {'y'}; % color to view fluorescence channel in superSeggerViewer (eg {'g','y'})
+
+CONST.frameRate = 5; %framerate in minutes/frame (default = 5)
 
 %% Skip Frames for Segmentation
 % For fast time-lapse or slow growth you can skip phase image frames 
