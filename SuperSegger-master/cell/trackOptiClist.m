@@ -162,6 +162,13 @@ else
             ypos = drill(data_c.CellA,'.coord.rcm(2)');
             numNeighbors = drill(data_c.CellA,'.numNeighbors');
             gray = drill(data_c.CellA,'.gray');
+
+            Lrod = drill(data_c.CellA, '.Lrod');
+            Rrod = drill(data_c.CellA, '.Rrod');
+
+            % background fluor values
+            bgfl1 = drill(data_c.CellA, '.fl1.bg');
+            bgfl2 = drill(data_c.CellA, '.fl2.bg');
             
             locus1_L1 = drill(data_c.CellA, '.locus1(1).longaxis');
             locus1_L2 = drill(data_c.CellA, '.locus1(1).shortaxis');
@@ -410,6 +417,8 @@ setter = [{'Cell ID'},{'ID'},0,1;
     {'Long axis (L) death'},{'data_c.regs.L1'},1,0;
     {'Short axis birth'},{'data_c.regs.L2'},0,1;
     {'Short axis death'},{'data_c.regs.L2'},1,0;
+    {'Rod length'}, {'Lrod'},0,1;
+    {'Rod radius'}, {'Rrod'},0,1;
     {'Area birth'},{'Area'},0,1;
     {'Area death'},{'Area'},1,0;
     {'Region score birth'},{'data_c.regs.scoreRaw'},0,0;
@@ -418,8 +427,10 @@ setter = [{'Cell ID'},{'ID'},0,1;
     {'Y position birth'},{'ypos'},0,0;
     {'Fluor1 sum'},{'fl1sum'},0,1;
     {'Fluor1 mean'},{'fl1sum./Area'},0,1;
+    {'Fluor1 background'},{'bgfl1'},0,1;
     {'Fluor2 sum'},{'fl2sum'},0,1;
     {'Fluor2 mean'},{'fl2sum./Area'},0,1;
+    {'Fluor2 background'},{'bgfl2'},0,1;
     {'Num of neighbors'},{'numNeighbors'},0,0;
     {'Region gray val'},{'gray'},0,0;
     {'Focus1(1) long axis birth'},{'locus1_L1'},0,1;
