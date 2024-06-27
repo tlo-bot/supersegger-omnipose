@@ -111,7 +111,9 @@ CONST.align.ALIGN_FLAG = 1; % change if don't want image alignment (default = tr
 
 CONST.view.fluorColor = {'g'}; % color to view fluorescence channel in superSeggerViewer (eg {'g','y'})
 
+% edit below to keep some image metadata - optional
 CONST.frameRate = 5; %framerate in minutes/frame (default = 5)
+CONST.res = 0.108; %um/px resolution
 
 %% Skip Frames for Segmentation
 % For fast time-lapse or slow growth you can skip phase image frames 
