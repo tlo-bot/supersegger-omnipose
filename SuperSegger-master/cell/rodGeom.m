@@ -1,4 +1,6 @@
 function [R,L] = rodGeom( A, DA )
+% rodGeom : calculate length and radius of cell, assuming rod shape
+
 p = -(3/pi)*A;
 q = (6/pi)*DA;
 
@@ -10,12 +12,12 @@ C3 = C1*(-1-(-3)^(1/2))/2;
 
 
 
-
+% roots of cubic equation
 R1 = C1-p/(3*C1);
 R2 = C2-p/(3*C2);
 R3 = C3-p/(3*C3);
 
-
+% find real and positive roots
 R_ = real([R1,R2,R3]);
 
 R_ = R_(R_>0);
@@ -25,7 +27,7 @@ R_ = R_(R_>0);
 if A == 0 || DA == 0 
     R = nan;
     L = nan;
-else;
+else
     R = R_(1);
     L = (A-pi*R^2)./(2*R) + 2*R;
 end
