@@ -1,6 +1,6 @@
 # Step-by-step Omnipose & bactrack installation instructions (command line based)
  
- Updated: June 12, 2024.
+ Updated: August 20, 2024.
 
  [Windows](../../bactrackdev/docs/install_bactrack.md#windows) \ [Linux](../../bactrackdev/docs/install_bactrack.md#linux-debianubuntu) \ [MacOS](../../bactrackdev/docs/install_bactrack.md#macos)
 
