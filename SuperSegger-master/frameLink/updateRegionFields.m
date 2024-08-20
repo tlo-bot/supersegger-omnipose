@@ -35,9 +35,23 @@ if ~isempty(data)
     
     data.regs.num_regs = num_regs;
 
-    %data should already have region props
-    % data.regs.props = regionprops( data.regs.regs_label, ...
-    %     'BoundingBox','Orientation','Centroid','Area');
+    % recalculate region props if supersegger edited the mask
+    data.regs.props = regionprops( data.regs.regs_label, ...
+        'BoundingBox','Orientation','Centroid','Area');
+
+    for ii = 1 : num_regs
+        %calculate medoid of skeleton
+        cellmask = data.regs.regs_label==ii;
+        maskcheck = sum(cellmask,'all');
+        if maskcheck == 0
+            rr = [NaN,NaN];
+            disp(['Caution :  cell ', num2str(ii), ' has a mask of 0.'])
+        else
+            [rr(1), rr(2)] = find_medoid(cellmask);
+        end
+        % mask = data.regs.regs_label(yy,xx)==ii;
+        data.regs.props(ii).Medoid = rr;
+    end
     
     NUM_INFO = CONST.regionScoreFun.NUM_INFO;
     data.regs.info = zeros( data.regs.num_regs, NUM_INFO );

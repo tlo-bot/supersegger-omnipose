@@ -293,11 +293,14 @@ for i = 1:num_im;
             celld.(['fluor',num2str(j)]) = tmp(yy,xx);
             celld.(['fluor',num2str(j),'mm']) = ff(j,:) ;
             
-            if isfield( CONST.trackLoci, 'fluorFlag' ) && CONST.trackLoci.fluorFlag
-                tmp = trackOptiCellFluor( tmp(yy,xx), celld.mask, celld.r_offset);
-            else
-                tmp = [];
-            end       
+            % if isfield( CONST.trackLoci, 'fluorFlag' ) && CONST.trackLoci.fluorFlag
+            %     tmp = trackOptiCellFluor( tmp(yy,xx), celld.mask, celld.r_offset);
+            % else
+            %     tmp = [];
+            % end    
+
+            %always compute integrated fluorescence
+            tmp = trackOptiCellFluor( tmp(yy,xx), celld.mask, celld.r_offset);
             tmp.bg = data_c.(['fl',num2str(j),'bg']);
             celld.(['fl',num2str(j)]) = tmp;
             
