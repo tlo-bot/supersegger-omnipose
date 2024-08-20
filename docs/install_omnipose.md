@@ -100,7 +100,7 @@ rm -rf ~/miniconda3/miniconda.sh
 ~/miniconda3/bin/conda init zsh
 ```
 
->*Could also install [Anaconda](https://www.anaconda.com/products/distributionhttps://www.anaconda.com/products/distribution) (not recommended): https://repo.anaconda.com/archive/
+>*Could also install [Anaconda](https://www.anaconda.com/products/distribution) (not recommended): https://repo.anaconda.com/archive/
 
 
 3. Restart shell:
