@@ -85,9 +85,19 @@ sudo apt install libxcb-xinerama0
 
    Latest Miniconda*:
 ```
-(sudo) wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
-rm -rf bash Miniconda3-latest-Linux-x86_64.sh
+mkdir -p ~/miniconda3
+(sudo) wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash Miniconda3-latest-Linux-x86_64.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+```
+
+3. Initialize conda in shell:
+```
+~/miniconda3/bin/conda init bash
+```
+   or for zsh:
+```
+~/miniconda3/bin/conda init zsh
 ```
 
 >*Could also install [Anaconda](https://www.anaconda.com/products/distributionhttps://www.anaconda.com/products/distribution) (not recommended): https://repo.anaconda.com/archive/
@@ -159,24 +169,42 @@ brew install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcurs
 brew install wget
 ```
 
-   Latest miniconda*:
+   Latest miniconda* for Intel CPUs:
 ```
-(sudo) wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
-bash Miniconda3-latest-MacOSX-x86_64.sh
-rm -rf bash Miniconda3-latest-MacOSX-x86_64.sh
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o ~/miniconda3/miniconda.sh
+bash Miniconda3-latest-MacOSX-x86_64.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
 ```
->*Could also install [Anaconda](https://www.anaconda.com/products/distributionhttps://www.anaconda.com/products/distribution) (not recommended): https://repo.anaconda.com/archive/
+   Latest miniconda* for M1 CPUs:
+```
+mkdir -p ~/miniconda3
+curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+```
 
-3. Restart shell:
+>*Could also install [Anaconda](https://www.anaconda.com/products/distribution) (not recommended): https://repo.anaconda.com/archive/
+
+<!-- 3. Restart shell:
 ```
 source ~/.bashrc
 ```
    or for macOS 10.15+:
 ```
 source ~/.zshrc
+``` -->
+
+3. Initialize conda in shell:
+```
+~/miniconda3/bin/conda init bash
+```
+   or for macOS 10.15+:
+```
+~/miniconda3/bin/conda init zsh
 ```
 
-   Optional: to prevent base environment from loading automatically, run:
+   Optional: to prevent base environment from loading automatically in shell, run:
 ```
 conda config --set auto_activate_base false
 ```
