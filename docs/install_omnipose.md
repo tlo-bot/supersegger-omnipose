@@ -1,6 +1,6 @@
 # Step-by-step Omnipose installation instructions (command line based, assumes cellpose is not already installed)
  
- Updated: Jan 23, 2024.
+ Updated: August 20, 2024.
 
  [Windows](https://github.com/tlo-bot/supersegger-omnipose/blob/main/docs/install_omnipose.md#windows) \ [Linux](https://github.com/tlo-bot/supersegger-omnipose/blob/main/docs/install_omnipose.md#linux-debianubuntu) \ [MacOS](https://github.com/tlo-bot/supersegger-omnipose/blob/main/docs/install_omnipose.md#macos)
 
@@ -165,14 +165,10 @@ brew install curl
 brew install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
 ```
 
-```
-brew install wget
-```
-
    Latest miniconda* for Intel CPUs:
 ```
 mkdir -p ~/miniconda3
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o ~/miniconda3/miniconda.sh
+curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o ~/miniconda3/miniconda.sh
 bash Miniconda3-latest-MacOSX-x86_64.sh -b -u -p ~/miniconda3
 rm -rf ~/miniconda3/miniconda.sh
 ```
