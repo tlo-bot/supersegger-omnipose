@@ -70,9 +70,15 @@ for ii = 1:data.regs.num_regs
     
     %calculate medoid of skeleton
     cellmask = data.regs.regs_label==ii;
-    [rr(1), rr(2)] = find_medoid(cellmask);
-    % mask = data.regs.regs_label(yy,xx)==ii;
-    data.regs.props(ii).Medoid = rr;
+    maskcheck = sum(cellmask,'all');
+        if maskcheck == 0
+            rr = [NaN,NaN];
+            disp(['Caution :  cell ', num2str(ii), ' has a mask of 0.'])
+        else
+            [rr(1), rr(2)] = find_medoid(cellmask);
+        end
+        % mask = data.regs.regs_label(yy,xx)==ii;
+        data.regs.props(ii).Medoid = rr;
     
 end
 

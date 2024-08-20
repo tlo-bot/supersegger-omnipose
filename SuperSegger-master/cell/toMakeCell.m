@@ -46,6 +46,9 @@ theta = (-props.Orientation)*pi/180;
 A = props.Area;
 mask= logical(celld.mask);
 
+% make effective rod-shape radius and length
+[Rrod, Lrod] = intMakeRod( mask );
+
 imRot = (imrotate(uint8(mask), -props.Orientation));
 imRot = double(imRot);
 ss = size(imRot);
@@ -128,6 +131,9 @@ celld.pole.e1= e1;
 celld.pole.op_ori = 0;
 celld.pole.op_age = NaN;
 celld.pole.np_age = NaN;
+
+celld.Lrod = Lrod;
+celld.Rrod = Rrod;
 
 % Debugging info.
 debug_flag = 0;
