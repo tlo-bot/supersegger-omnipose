@@ -103,7 +103,7 @@ rm -rf ~/miniconda3/miniconda.sh
 >*Could also install [Anaconda](https://www.anaconda.com/products/distribution) (not recommended): https://repo.anaconda.com/archive/
 
 
-3. Restart shell:
+<!-- 3. Restart shell:
 ```
 source ~/.bashrc
 ```
@@ -112,7 +112,7 @@ source ~/.bashrc
 ```
 conda config --set auto_activate_base false
 ```
-   and restart shell.
+   and restart shell. -->
 
 
 4. In Command Window, create environment named 'omnipose', install Python to the environment, activate environment, and install Omnipose.
