@@ -41,7 +41,7 @@ The GitHub for the original Supersegger is [here](https://github.com/wiggins-lab
 [Quick-start guide for new users](../main/docs/quick_start_guide.md) \ [Original SuperSegger guide to segmentation](https://github.com/wiggins-lab/SuperSegger/wiki/Segmenting-with-SuperSegger) \ [Viewing the results](https://github.com/wiggins-lab/SuperSegger/wiki/Visualization-and-post-processing-tools) \ [The clist](https://github.com/wiggins-lab/SuperSegger/wiki/The-clist-data-file) 
 
 #### Omnipose
-[Omnipose](https://omnipose.readthedocs.io/) options have been preselected to work directly with OmniSegger, but if needed, further documentation can be found by running `python -m omnipose --help` in the omnipose environment. Recommended options can also be found on the [documentation page](https://omnipose.readthedocs.io/command.html). 
+[Omnipose](https://omnipose.readthedocs.io/) options have been preselected to work directly with OmniSegger, but if needed, suggestions for segmentation options are discussed [here](../main/docs/segmentation_options.md). Recommended options can also be found on the [documentation page](https://omnipose.readthedocs.io/command.html). 
 
 
 

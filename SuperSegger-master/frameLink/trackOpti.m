@@ -193,6 +193,10 @@ if ~exist( stamp_name, 'file' ) && (startEnd(1) <= 9 && startEnd(2) >= 9)
     
     try
         save( [dirname,'clist.mat'],'-STRUCT','clist');
+        if CONST.savexls
+            clist2xls([dirname, 'clist.mat' ]);
+            disp([header,'trackOpti: Also saved clist as xls.']);
+        end
     catch ME
         printError(ME);
         disp([header,'trackOpti: Cell list error being saved.']);
