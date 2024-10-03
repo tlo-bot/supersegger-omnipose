@@ -15,6 +15,7 @@ More information about Omnipose can be found at the [Omnipose Github](https://gi
 - [Setting the Path](#setting-the-path)
 - [Running OmniSegger (GUI)](#running-omnisegger-gui)
 - [Running OmniSegger from MATLAB (no GUI) - Recommended!](#running-omnisegger-from-matlab-no-gui---recommended)
+- [Saving clist as Excel file](#saving-clist-as-excel-file)
 - [Running Omnipose directly from MATLAB](#running-omnipose-directly-from-matlab)
 - [Troubleshooting \& Known Issues](#troubleshooting--known-issues)
 
@@ -96,11 +97,18 @@ In order for Matlab to be able to find OmniSegger, the OmniSegger folder needs t
 
 
 ---
+### Saving clist as Excel file
+
+Only supported when using `processExp`. Specify savexls=1 input for processExp (ie `processExp('dirname',1)`). Disabled by default.
+
+If the clist has already been generated, running `clist2xls('path/clist.mat')` will save the clist as an xls in the xy directory.
+
+---
 ### Running Omnipose directly from MATLAB 
 
-
-Only supported when using `processExp`. Specify autoomni=1 input for processExp (ie `processExp('dirname',1)`). Disabled by default.
+Only supported when using `processExp`. Specify autoomni=1 input for processExp (ie `processExp('dirname',[],1)`). Disabled by default.
 See documentation for setup linked below.
+
 
 
 ---
