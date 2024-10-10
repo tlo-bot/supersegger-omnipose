@@ -157,6 +157,10 @@ while time <= numIm
     if curIter >= maxIterPerFrame
         finalIteration = 1;
     end
+
+    if isfield(CONST,'ignoreerror')
+        finalIteration = CONST.ignoreerror;
+    end
     
     % Error resolution and ID assignment.
     [data_c,data_r,cell_count,resetRegions] = errorRez (time, data_c, ...

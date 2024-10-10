@@ -10,6 +10,7 @@ function cleanSSresults(basedir)
 
 %% copy the raw ims to top directory
     
+
     rawim_dir = [basedir filesep 'raw_im'];
     
     files = dir([rawim_dir filesep '*.tif']);
