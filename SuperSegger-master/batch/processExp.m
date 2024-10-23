@@ -106,7 +106,12 @@ CONST.view.fluorColor = {'g'}; % color to view fluorescence channel in superSegg
 % edit below to keep some image metadata - optional
 CONST.frameRate = 5; %framerate in minutes/frame (default = 5)
 CONST.res = 0.108; %um/px resolution
-CONST.ignoreerror = 1; %ignore possible segmentation errors/rely on masks
+
+%% Ignore linking error resolution
+% OmniSegger will attempt to fix masks if linking errors are detected.
+% You can ignore possible segmentation errors/use Omnipose masks only.
+
+CONST.ignoreerror = 0; % change to ignore error resolution (default = false)
 
 %% Skip Frames for Segmentation
 % For fast time-lapse or slow growth you can skip phase image frames 

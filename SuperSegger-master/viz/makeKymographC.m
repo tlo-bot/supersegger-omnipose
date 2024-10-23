@@ -204,7 +204,10 @@ kymo_back(kymo_back>1) = 1;
 imRange = nan( [2,nc] );
 for jj = 1:nc
     if ~isempty(kymo_cell{jj})
-        imRange(:,jj) = intRange(kymo_cell{jj}(logical(kymo_back)));
+        maskreg = kymo_cell{jj}(logical(kymo_back));
+        if ~isempty(kymo_cell{jj}(logical(kymo_back)))
+            imRange(:,jj) = intRange(kymo_cell{jj}(logical(kymo_back)));
+        end
     end
 end
 

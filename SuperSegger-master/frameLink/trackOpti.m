@@ -163,6 +163,10 @@ else
     disp([header,'trackOpti: trackOptiMakeCell already run.']);
 end
 
+%% save out omnisegger corrected masks
+
+saveosmasks(dirname_seg);
+
 
 %% Finds loci in each fluorescent channel
 if sum(CONST.trackLoci.numSpots(:)) && (startEnd(1) <= 8 && startEnd(2) >= 8)
@@ -230,7 +234,9 @@ end
 
 warning('on','MATLAB:DELETE:Permission')
 
-disp([header,'SuperSegger complete!']);
+disp([header,'OmniSegger complete!']);
+
+
 
 end
 

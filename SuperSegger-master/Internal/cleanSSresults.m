@@ -1,7 +1,3 @@
-% reset supersegger folder
-
-
-
 function cleanSSresults(basedir)
 % resets supersegger folder by moving raw imgs to top directory
 % and deletes supersegger files and directories
