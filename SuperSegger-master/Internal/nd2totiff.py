@@ -1,5 +1,6 @@
 import platform
 import os 
+import argparse
 from aicsimageio.writers import OmeTiffWriter
 from aicsimageio import AICSImage
 
