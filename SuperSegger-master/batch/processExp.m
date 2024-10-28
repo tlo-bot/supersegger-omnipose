@@ -1,4 +1,4 @@
-function processExp( dirname , autoomni, log_flag )
+function processExp( dirname , savexls, autoomni, log_flag )
 % processExp : main function for running the segmentation software.
 % Used to choose the appropriate settings, and converting the images
 % filenames before running BatchSuperSeggerOpti.
@@ -20,6 +20,8 @@ function processExp( dirname , autoomni, log_flag )
 %
 % INPUT :
 %       dirname : folder that contains .tif images in NIS elements format. 
+%       savexls : save clist as .xls in addition to .mat file
+%               : 1 to save as .xls; 0 to save as .mat only
 %       autoomni : if Omnipose already installed/accessible to MATLAB,
 %                : run Omnipose automatically in MATLAB 
 %                : in case Omnipose options should be manually specified
@@ -31,9 +33,9 @@ function processExp( dirname , autoomni, log_flag )
 %                : 1 to save output; 0 to not save (default)
 % 
 %
-% Copyright (C) 2016 Wiggins Lab 
-% Written by Paul Wiggins, Nathan Kuwada, Stella Stylianidou.
-% University of Washington, 2016
+% Copyright (C) 2024 Wiggins Lab 
+% Written by Paul Wiggins, Nathan Kuwada, Stella Stylianidou, Teresa Lo.
+% University of Washington, 2024
 % This file is part of SuperSegger.
 % 
 % SuperSegger is free software: you can redistribute it and/or modify
@@ -75,21 +77,6 @@ channelNames = {'BF','GFP'};
 convertImageNames(dirname, basename, timeFilterBefore, ...
     timeFilterAfter, xyFilterBefore,xyFilterAfter, channelNames )
 
-%% Set the segmentations constants for your bacteria and micrscope resolution
-% Using correct resolution ensures correct pixel size and segmentation constants
-% if you do not know which constants to use you can run 
-% tryDifferentConstants(dirname) with a phase image to choose.
-% 60X indicates 100nm/pix and 100X indicates 60nm/pix
-
-% for E. coli we mainly use : 
-% '60XEc' : loadConstants 60X Ecoli - 100 nm/pix
-% '100XEc': loadConstants 100X Ecoli  - 60 nm/pix
-
-% To see the possible constants type : 
-%[~, list] = getConstantsList;
-% list'
-
-res = '60XEc';
 
 %% Parallel Processing Mode
 % to run code in parallel mode must have the parallel processing toolbox,
@@ -98,6 +85,11 @@ res = '60XEc';
 parallel_flag = false;
 
 %% Load Constants
+% To see the possible constants type : 
+%[~, list] = getConstantsList;
+% list'
+
+res = '60XEc';
 CONST = loadConstants(res,parallel_flag) ;
 
 %% Calculation Options
@@ -114,6 +106,12 @@ CONST.view.fluorColor = {'g'}; % color to view fluorescence channel in superSegg
 % edit below to keep some image metadata - optional
 CONST.frameRate = 5; %framerate in minutes/frame (default = 5)
 CONST.res = 0.108; %um/px resolution
+
+%% Ignore linking error resolution
+% OmniSegger will attempt to fix masks if linking errors are detected.
+% You can ignore possible segmentation errors/use Omnipose masks only.
+
+CONST.ignoreerror = 0; % change to ignore error resolution (default = false)
 
 %% Skip Frames for Segmentation
 % For fast time-lapse or slow growth you can skip phase image frames 
@@ -135,6 +133,13 @@ cleanflag = false;
 %no autoomni input; default to off
 if ~exist( 'autoomni', 'var' ) || isempty( autoomni ) 
     autoomni = 0;
+end
+
+% save as xls
+if ~exist( 'savexls', 'var') || isempty( savexls )
+    CONST.savexls = 0;
+else
+    CONST.savexls = savexls;
 end
 
 %BatchSuperSeggerOpti( dirname, skip, cleanflag, CONST);

@@ -163,6 +163,10 @@ else
     disp([header,'trackOpti: trackOptiMakeCell already run.']);
 end
 
+%% save out omnisegger corrected masks
+
+saveosmasks(dirname_seg);
+
 
 %% Finds loci in each fluorescent channel
 if sum(CONST.trackLoci.numSpots(:)) && (startEnd(1) <= 8 && startEnd(2) >= 8)
@@ -193,6 +197,10 @@ if ~exist( stamp_name, 'file' ) && (startEnd(1) <= 9 && startEnd(2) >= 9)
     
     try
         save( [dirname,'clist.mat'],'-STRUCT','clist');
+        if CONST.savexls
+            clist2xls([dirname, 'clist.mat' ]);
+            disp([header,'trackOpti: Also saved clist as xls.']);
+        end
     catch ME
         printError(ME);
         disp([header,'trackOpti: Cell list error being saved.']);
@@ -226,7 +234,9 @@ end
 
 warning('on','MATLAB:DELETE:Permission')
 
-disp([header,'SuperSegger complete!']);
+disp([header,'OmniSegger complete!']);
+
+
 
 end
 

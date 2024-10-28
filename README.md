@@ -1,17 +1,28 @@
-# <p> <b>SUPERSEGGER-OMNIPOSE (SuperSegger 2)</b> </p>
 
-![Phase image, old SuperSegger segmentation, new SuperSegger 2 segmentation.](/assets/githubfig2.png)
+# <p> <b>OmniSegger (SuperSegger 2)</b> </p>
+
+![Phase image, old SuperSegger segmentation, new OmniSegger segmentation.](/assets/githubfig2.png)
 
 
-Supersegger-Omnipose is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running Supersegger-Omnipose.
+OmniSegger is the Supersegger MATLAB-based suite modified to work with improved Omnipose segmentation. Omnipose should be installed before running OmniSegger.
 
 More information about Omnipose can be found at the [Omnipose Github](https://github.com/kevinjohncutler/omnipose/) and [documentation page](https://omnipose.readthedocs.io/).
 
 
+- [Software Requirements](#software-requirements)
+- [Software Documentation](#software-documentation)
+- [Installation Instructions](#installation-instructions)
+- [Setting the Path](#setting-the-path)
+- [Running OmniSegger (GUI)](#running-omnisegger-gui)
+- [Running OmniSegger from MATLAB (no GUI) - Recommended!](#running-omnisegger-from-matlab-no-gui---recommended)
+- [Saving clist as Excel file](#saving-clist-as-excel-file)
+- [Running Omnipose directly from MATLAB](#running-omnipose-directly-from-matlab)
+- [Troubleshooting \& Known Issues](#troubleshooting--known-issues)
+
 ---
 ### Software Requirements
 
-Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
+OmniSegger uses the same MATLAB toolboxes as the original Supersegger:
 
 - Curve Fitting Toolbox
 - Deep Learning Toolbox (fka Neural Network Toolbox)
@@ -25,93 +36,87 @@ Supersegger-Omnipose uses the same MATLAB toolboxes as the original Supersegger:
 ---
 ### Software Documentation
 
-#### SuperSegger 2
-The Github for the original Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/tutorials.php), the [wiki](https://github.com/wiggins-lab/SuperSegger/wiki), and documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). Supersegger-Omnipose uses the same MATLAB functions as the original Supersegger.
+#### OmniSegger
+The GitHub for the original Supersegger is [here](https://github.com/wiggins-lab/SuperSegger). For more detailed documentation, the website for Supersegger can be found [here](http://mtshasta.phys.washington.edu/website/tutorials.php), the [wiki](https://github.com/wiggins-lab/SuperSegger/wiki), and detailed documentation on functions found [here](http://mtshasta.phys.washington.edu/website/superSegger/). OmniSegger uses the same MATLAB functions as the original Supersegger.
 
 [Quick-start guide for new users](../main/docs/quick_start_guide.md) \ [Original SuperSegger guide to segmentation](https://github.com/wiggins-lab/SuperSegger/wiki/Segmenting-with-SuperSegger) \ [Viewing the results](https://github.com/wiggins-lab/SuperSegger/wiki/Visualization-and-post-processing-tools) \ [The clist](https://github.com/wiggins-lab/SuperSegger/wiki/The-clist-data-file) 
 
 #### Omnipose
-[Omnipose](https://omnipose.readthedocs.io/) options have been preselected to work directly with Supersegger-Omnipose, but if needed, further documentation can be found by running `python -m omnipose --help` in the omnipose environment. Recommended options can also be found on the [documentation page](https://omnipose.readthedocs.io/command.html). 
+[Omnipose](https://omnipose.readthedocs.io/) options have been preselected to work directly with OmniSegger, but if needed, suggestions for segmentation options are discussed [here](../main/docs/segmentation_options.md). Recommended options can also be found on the [documentation page](https://omnipose.readthedocs.io/command.html). 
 
-> ##### Segmentation Options: When running the Omnipose command in conda, the following default Omnipose options can be modified depending on the desired usage: "--cluster --mask_threshold 1 --flow_threshold 0 --diameter 30". 
-> 
-> --cluster: DBscan clustering, reduces oversegmentation of thin features [can remove option]
-> 
-> --mask_threshold: mask threshold [0 default, decrease to find more and larger masks]
-> 
-> --flow_threshold: flow error threshold [0.4 default, 0 to turn off]
-> 
-> --diameter: approximate diameter of cell in pixels (for rod-shape, this is the length of the short axis) [30 default, 0 to have omnipose estimate for each image]
-> 
-> Mask and flow threshold numbers can be tested quickly with the [Omnipose GUI](https://omnipose.readthedocs.io/gui.html) (`python -m omnipose`). In addition, other Omnipose options can be added to possibly improve segmentation. 
-> 
-> ##### Training Models: Other models can be used as well instead of the default "bact_phase_omni".
-> 
-> ##### Note that the options before "--omni" should not be changed when working with Supersegger-Omnipose.
 
 
 ---
 ### Installation Instructions
 
 1. Install [MATLAB](https://www.mathworks.com/help/install/install-products.html) and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
-2. Cd to desired folder and clone Supersegger-Omnipose with git
+2. Cd to desired folder and clone OmniSegger with git
 ```
 git clone https://github.com/tlo-bot/supersegger-omnipose.git
 ```
-3. Add supersegger-omnipose to MATLAB path, with its subfolders (see "Setting the Path").
+3. Add OmniSegger to MATLAB path, with its subfolders (see "Setting the Path").
 4. Install Omnipose:
    - Find step-by-step instructions [here](../main/docs/install_omnipose.md).
    - Further advanced installation instructions for Omnipose can be found [here](https://pypi.org/project/omnipose/).
-   - GPU usage is discussed [here](https://omnipose.readthedocs.io/installation.html#gpu-support). The Supersegger-Omnipose command defaults to using CPU only.
+   - GPU usage is discussed [here](https://omnipose.readthedocs.io/installation.html#gpu-support). The OmniSegger command defaults to using CPU only.
 
 
 ---
 ### Setting the Path
 
-In order for Matlab to be able to find SuperSegger-Omnipose, the SuperSegger-Omnipose folder needs to be in your path*. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click 'add folder with subfolders' and add the SuperSegger-Omnipose folder. 
+In order for Matlab to be able to find OmniSegger, the OmniSegger folder needs to be in your path*. In the Home tab, in the Environment section, click Set Path. The Set Path dialog box appears. Click 'add folder with subfolders' and add the OmniSegger folder. 
 
->*note that if the original Supersegger is already installed and on the MATLAB path, you should replace the paths of the original Supersegger folders & subfolders with the paths to the new Supersegger-Omnipose folders & subfolders.
+>*note that if the original Supersegger is already installed and on the MATLAB path, you should replace the paths of the original Supersegger folders & subfolders with the paths to the new OmniSegger folders & subfolders.
 
 
 ---
-### Running Supersegger-Omnipose (GUI)
+### Running OmniSegger (GUI)
 
 1. Put images (.tif) into a folder.
-2. Convert image file names to Supersegger convention (in MATLAB with `superSeggerGui`, or `convertImageNames`; or manually with command line).
-3. Run `superSeggerGui`, or configure and run `processExp`. Supersegger-Omnipose will begin aligning the images.
-   - After aligning, Supersegger-Omnipose will pause for segmentation through Omnipose. The Omnipose command should be displayed on the MATLAB Command Window and also automatically copied to your clipboard.
-4. Open terminal/Anaconda Prompt and start Omnipose (ie `conda activate omnipose`)
+2. Convert image file names to OmniSegger convention (in MATLAB with `superSeggerGui`, or `convertImageNames`; or manually with command line).
+3. Run `superSeggerGui` with the desired parameters. OmniSegger will begin aligning the images.
+   - After aligning, OmniSegger will pause for segmentation through Omnipose. The Omnipose command should be displayed on the MATLAB Command Window and also automatically copied to your clipboard.
+4. Open terminal/Anaconda Prompt and activate the Omnipose environment (ie `conda activate omnipose`)
    - Note that you should see the conda environment change from "(base)" to "(omnipose)"
 5. Paste in the Omnipose command that was generated by MATLAB into the terminal. Wait for Omnipose to segment images and generate masks.
-   -Can also change the command options in this step, if needed.
-6. Once Omnipose has completed, continue running Supersegger by pressing the return/Enter key in the MATLAB Command Window.
+   - Can also change the segmentation command options in this step, if needed. For example, append `--use_gpu` to utilize the GPU.
+6. Once Omnipose has completed, continue running OmniSegger by pressing the return/Enter key in the MATLAB Command Window.
 
 
 ---
-### Running Supersegger-Omnipose (Command Line)
+### Running OmniSegger from MATLAB (no GUI) - Recommended!
 
-1. Put images (.tif) into a folder.
-2. Convert image file names to Supersegger convention.
-3. Configure `processExp` file.
-4. In terminal, run `matlab -nodesktop -noFigureWindows -nosplash -r “processExp(‘dir’)”`
-5. Open another terminal, navigate to folder with Omnipose, and start Omnipose (ie `conda activate omnipose`)
-6. Once images are aligned in MATLAB terminal, run Omnipose command. Wait for Omnipose to segment images and generate masks.
-7. Once Omnipose has completed, continue running Supersegger by pressing the return/Enter key in the MATLAB terminal.
+1. Configure the analysis parameters in MATLAB: `edit processExp`. In particular, the 'Calculation Options' section should be edited depending on the desired fluorescence analysis. If not concerned with fluorescence, processExp probably doesn't need to be changed.
+2. Run `processExp('dirname')` to begin running the segmentation, where 'dirname' is the path to your image files. OmniSegger will begin aligning the images. 
+   - After aligning, OmniSegger will pause for segmentation through Omnipose. The Omnipose command should be displayed on the MATLAB Command Window and also automatically copied to your clipboard.
+3. Open terminal/Anaconda Prompt and activate the Omnipose environment (ie `conda activate omnipose`)
+   - Note that you should see the conda environment change from "(base)" to "(omnipose)"
+4. Paste in the Omnipose command that was generated by MATLAB into the terminal. Wait for Omnipose to segment images and generate masks.
+   - Can also change the segmentation command options in this step, if needed. For example, append `--use_gpu` to utilize the GPU.
+5. Once Omnipose has completed, continue running OmniSegger by pressing the return/Enter key in the MATLAB Command Window.
 
 
 ---
-### Running Supersegger-Omnipose and Omnipose directly from MATLAB 
+### Saving clist as Excel file
 
+Only supported when using `processExp`. Specify savexls=1 input for processExp (ie `processExp('dirname',1)`). Disabled by default.
 
-Only supported when using `processExp`. Specify autoomni=1 input for processExp (ie `processExp('dirname',1)`). Disabled by default.
+If the clist has already been generated, running `clist2xls('path/clist.mat')` will save the clist as an xls in the xy directory.
+
+---
+### Running Omnipose directly from MATLAB 
+
+Only supported when using `processExp`. Specify autoomni=1 input for processExp (ie `processExp('dirname',[],1)`). Disabled by default.
 See documentation for setup linked below.
+
 
 
 ---
 ### Troubleshooting & Known Issues
 
+- [Omnipose Segmentation options](../main/docs/segmentation_options.md)
 - [Omnipose installation instructions (Windows, Linux & MacOS)](../main/docs/install_omnipose.md)
-- [Possible Supersegger-Omnipose errors](../main/docs/so_errors.md)
+- [Possible OmniSegger errors](../main/docs/so_errors.md)
 - [Running Omnipose directly from MATLAB for Windows (verified)](../main/docs/omni_in_matlab_windows.md)
 - [Running Omnipose directly from MATLAB for Linux (verified) & MacOS](../main/docs/omni_in_matlab_unix.md)
 
