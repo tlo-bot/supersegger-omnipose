@@ -53,7 +53,8 @@ if numz > 1:
                 for cc in range(numc):
                     singimg = imgfile.get_image_dask_data("YX", T=tt, C=cc, Z=zz).compute()
                     # save as tif, with t and c starting at 1 for OmniSegger
-                    OmeTiffWriter.save(singimg,os.path.join(zdir, f'{basename}_t{tt+1}xy{xy}c{cc+1}.tif'))
+                    print(os.path.join(zdir, f'{basename}_z{zz}_t{tt+1}xy{xy}c{cc+1}.tif'))
+                    OmeTiffWriter.save(singimg, os.path.join(zdir, f'{basename}_z{zz}_t{tt+1}xy{xy}c{cc+1}.tif'))
 else:
     for xy in range(numxy):
         imgfile.set_scene(xy)
@@ -62,3 +63,5 @@ else:
                 singimg = imgfile.get_image_dask_data("YX", T=tt, C=cc).compute()
                 # save as tif, with t and c starting at 1 for OmniSegger
                 OmeTiffWriter.save(singimg,os.path.join(os.path.dirname(input_path), f'{basename}_t{tt+1}xy{xy}c{cc+1}.tif'))
+
+print('Nd2 to tiff conversion complete.')
