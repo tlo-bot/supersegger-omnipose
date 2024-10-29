@@ -16,6 +16,7 @@ More information about Omnipose can be found at the [Omnipose Github](https://gi
 - [Running OmniSegger (GUI)](#running-omnisegger-gui)
 - [Running OmniSegger from MATLAB (no GUI) - Recommended!](#running-omnisegger-from-matlab-no-gui---recommended)
 - [Saving clist as Excel file](#saving-clist-as-excel-file)
+- [ND2 to TIFF](#nd2-to-tiff)
 - [Running Omnipose directly from MATLAB](#running-omnipose-directly-from-matlab)
 - [Troubleshooting \& Known Issues](#troubleshooting--known-issues)
 
@@ -107,6 +108,8 @@ If the clist has already been generated, running `clist2xls('path/clist.mat')` w
 ### ND2 to TIFF
 
 Convert ND2 to individual TIFF images in OmniSegger naming format, and save out the metadata.
+
+Dependencies can be installed to the Omnipose conda environment via: `pip install aicsimageio[nd2] bioformats-jar`
 
 Usage: `python /path/to/OmniSegger/SuperSegger-master/Internal/nd2totiff.py /path/to/your/file.nd2`
 

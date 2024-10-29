@@ -17,7 +17,6 @@ Dependencies:
     - platform
     - os
     - argparse
-    - aicsimageio
     - aicsimageio[nd2]
     - bioformats-jar
 
