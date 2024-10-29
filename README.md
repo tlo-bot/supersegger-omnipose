@@ -104,6 +104,14 @@ Only supported when using `processExp`. Specify savexls=1 input for processExp (
 If the clist has already been generated, running `clist2xls('path/clist.mat')` will save the clist as an xls in the xy directory.
 
 ---
+### ND2 to TIFF
+
+Convert ND2 to individual TIFF images in OmniSegger naming format, and save out the metadata.
+
+Usage: `python /path/to/OmniSegger/SuperSegger-master/Internal/nd2totiff.py /path/to/your/file.nd2`
+
+
+---
 ### Running Omnipose directly from MATLAB 
 
 Only supported when using `processExp`. Specify autoomni=1 input for processExp (ie `processExp('dirname',[],1)`). Disabled by default.
