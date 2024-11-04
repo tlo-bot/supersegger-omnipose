@@ -18,6 +18,7 @@ More information about Omnipose can be found at the [Omnipose Github](https://gi
 - [Saving clist as Excel file](#saving-clist-as-excel-file)
 - [ND2 to TIFF](#nd2-to-tiff)
 - [Running Omnipose directly from MATLAB](#running-omnipose-directly-from-matlab)
+- [Segmentation of alternative imaging modalities](#segmentation-of-alternative-imaging-modalities)
 - [Troubleshooting \& Known Issues](#troubleshooting--known-issues)
 
 ---
@@ -120,6 +121,10 @@ Usage: `python /path/to/OmniSegger/SuperSegger-master/Internal/nd2totiff.py /pat
 Only supported when using `processExp`. Specify autoomni=1 input for processExp (ie `processExp('dirname',[],1)`). Disabled by default.
 See documentation for setup linked below.
 
+---
+### Segmentation of alternative imaging modalities
+
+Coming soon!
 
 
 ---
