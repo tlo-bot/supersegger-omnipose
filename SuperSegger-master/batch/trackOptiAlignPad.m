@@ -212,7 +212,11 @@ for it = nt;
             end
             
             %im = intShiftIm(im, out);
+            try
             im = intShiftImMod(im, out );
+            catch
+            disp('Warning: error caused by having z# in filename')
+            end
            
             if SHOW_FLAG
                 if ic == nc(1) % phase image

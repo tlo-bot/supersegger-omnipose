@@ -96,7 +96,6 @@ if ~isempty(dirname)
             end
 
             C = floor( C );
-            disp(C)
 
             x = [C(1),C(1)+C(3)];
             y = [C(2),C(2)+C(4)];            
@@ -136,7 +135,8 @@ if ~isempty(dirname)
                     end
                     
                 end
-            end            
+            end       
+            disp(C)
         end
     end
 end
